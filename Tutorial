@@ -1,0 +1,52 @@
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1
+https://gist.github.com/rxaviers/7360908
+# Bem vindos ao Workshop de Bioinformática do IV Curso de Genética no Verão (USP)
+Criado por Felipe S. Salles 
+
+Assitents: Sophia Pereira Saraiva e Bruno J. Teixeira de Melo
+***
+### Introdução os tipos de arquivos
+* Power-point
+
+---
+### Por onde começar
+Maiores bancos de dados para Bioinformática
+| Tipo de arquivos | Nome do banco de dados | Conteudo | website |
+|----------------------------|:---------------------------:|----------------------------------------------------------:|-------------------------------------------------:|
+| Genome & Sequence Databases | NCBI (GenBank/RefSeq/dbSNP) | DNA/RNA sequences, reference genomes, variants, and literature | [https://www.ncbi.nlm.nih.gov/](https://www.ncbi.nlm.nih.gov/)|
+|  | EMBL-EBI / ENA | European archive for nucleotide and genome data | [https://www.ebi.ac.uk/ena/](https://www.ebi.ac.uk/ena/browser/home)| 
+|  | DDBJ | Japan’s synchronized nucleotide sequence database | [https://www.ddbj.nig.ac.jp](https://www.ddbj.nig.ac.jp/index-e.html) |
+|  | CNGBdb | Large-scale genomic data with cloud-based analysis support | [https://db.cngb.org/](https://db.cngb.org/) |
+| Protein Databases | UniProt (Swiss-Prot/TrEMBL) | Protein sequences and functional annotation | [https://www.uniprot.org/](https://www.uniprot.org/) | 
+| Protein Databases | PDB | 3D structures of proteins and macromolecular complexes | [https://www.rcsb.org/](https://www.rcsb.org/) | 
+| Protein Databases | InterPro | Protein families, domains, and functional sites | [https://www.ebi.ac.uk/interpro/](https://www.ebi.ac.uk/interpro/) | 
+| Protein Databases | SCOP / CATH | Structural and evolutionary protein classification | [https://www.ebi.ac.uk/pdbe/scop/](https://www.ebi.ac.uk/pdbe/scop/) / [https://www.cathdb.info/](https://www.cathdb.info/) | 
+| Transcriptomics & RNA | GEO | Gene expression and functional genomics datasets | [https://www.ncbi.nlm.nih.gov/geo/](https://www.ncbi.nlm.nih.gov/geo/) | 
+| Transcriptomics & RNA | SRA | Raw sequencing reads (RNA-seq, WGS, etc.) | [https://www.ncbi.nlm.nih.gov/sra](https://www.ncbi.nlm.nih.gov/sra) | 
+| Transcriptomics & RNA | Ensembl / GENCODE | High-quality gene and transcript annotation | [https://www.ensembl.org/](https://www.ensembl.org/index.html) / [https://www.gencodegenes.org/](https://www.gencodegenes.org/)| 
+| Transcriptomics & RNA | miRBase / RNAcentral | Curated non-coding RNA resources | [https://www.mirbase.org/](https://www.mirbase.org/) / [https://rnacentral.org/](https://rnacentral.org/)| 
+| Pathways & Function | KEGG | Pathways linking genes, metabolites, and diseases | [https://www.kegg.jp/](https://www.kegg.jp/) | 
+|  | Gene Ontology (GO) | Standardized gene function annotation | [https://geneontology.org/](https://geneontology.org/) | 
+|  | Reactome / EcoCyc | Curated biological and metabolic pathways | [https://reactome.org/](https://reactome.org/) / [https://ecocyc.org/](https://ecocyc.org/)| 
+| Disease & Variation | OMIM | Human genes and inherited disorders | [https://www.omim.org/](https://www.omim.org/) | 
+|  | ClinVar | Clinically relevant genetic variants | [https://www.ncbi.nlm.nih.gov/clinvar/](https://www.ncbi.nlm.nih.gov/clinvar/) | 
+|  | COSMIC | Somatic mutations in cancer | [https://cancer.sanger.ac.uk/cosmic/](https://cancer.sanger.ac.uk/cosmic/login) | 
+|  | TCGA / HGMD | Cancer genomics and disease-causing mutations | [https://www.cancerimagingarchive.net/access-data/](https://www.cancerimagingarchive.net/access-data/) / [https://www.hgmd.cf.ac.uk/ac/index.php](https://www.hgmd.cf.ac.uk/ac/index.php) | 
+| Model Organisms | MGI | Mouse genetics and disease models | [https://www.informatics.jax.org/](https://www.informatics.jax.org/) | 
+|  | ZFIN | Zebrafish genomics and development | [https://zfin.org/](https://zfin.org/) | 
+|  | FlyBase | Drosophila genetics and functional data | [https://flybase.org/](https://flybase.org/) | 
+|  | WormBase | C. elegans genomics and biology | [https://parasite.wormbase.org/](https://parasite.wormbase.org/index.html) | 
+|  | SGD | Budding yeast reference genome | [https://www.yeastgenome.org/](https://www.yeastgenome.org/) | 
+| Plant Genomics | Phytozome | Comparative genomics for green plants  | [https://phytozome-next.jgi.doe.gov/](https://phytozome-next.jgi.doe.gov/) | 
+|  | Gramene |Crop and grass genome resources | [https://www.gramene.org/](https://www.gramene.org/) | 
+|  | TAIR | Arabidopsis genome and functional data | [https://www.arabidopsis.org/](https://www.arabidopsis.org/) | 
+|  | Ensembl Plants | Plant genome browser and annotations | [https://plants.ensembl.org/](https://plants.ensembl.org/index.html) | 
+
+1. First steps of line command in bash language
+⋅⋅⋅⋅1.1 Download
+⋅⋅⋅⋅1.2
+⋅⋅⋅⋅1.3
+2. 
+3.  
+4. Local alignment
+5. Construct the tree
