@@ -74,13 +74,13 @@ $ more eukaria_protein.fasta
 Caso queira entender o que cada comando faz, você pode:
 1. Testar com "tentativa e erro", utilizando o padrão `[comando]` `-[opção]` `[objeto]`
 2. Utilizar o comando manual `man`, information`info` ou a opção `--help` para os comandos.
-> Para sair do manual basta clicar na tecla 'Q' de quit
 
 ``` 
 $ man [comando]
 $ info [comando]
 $ [comando] --help
 ```
+> Para sair do manual basta clicar na tecla 'Q' de quit
 
 Agora inspecionaremos o arquivo fasta com um pouco mais de detalhes. Contaremos quantas sequencias há no arquivo `fasta`. Cada início de sequência tem seu cabeçalho iniciado por `>___` e na linha de baixo o conteudo da sequência. Iremos tambem calcular quantas linhas INICIAM com o aminoacido `Metionina` e a quantidade de linhas totais no arquivo. E ai qual o resultado? Discuta o por quê disso.
 
