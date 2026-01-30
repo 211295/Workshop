@@ -1,7 +1,7 @@
 # Workshop de Bioinformática do IV Curso de Genética no Verão (USP)
-Criado por Felipe S. Salles | Linkedin | Lattes
+Criado por Felipe S. Salles || [Linkedin](https://br.linkedin.com/in/felipe-simionato-salles-b3640120b) || [Lattes](http://lattes.cnpq.br/3781167913621025)
 
-Assitentes: Sophia Pereira Saraiva e Bruno J. Teixeira de Melo
+Assitentes: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [Bruno J. Teixeira de Melo](http://lattes.cnpq.br/0513855441372488)
 ***
 #### Bem vindo ao mini tutorial do Workshop
 ###### Após a breve explicação sobre tipo de arquivos e abordagens de tipos de estudos, vamos iniciar o aprendizado do "terminal"
@@ -21,7 +21,7 @@ Iniciaremos com a visalização da tela e os primeiros comandos mais simples. Ag
 
 Procure o aplicativo chamado `Ubunto`
 
-**Ubunto2.09.1** :o:
+**Ubuntu2.09.1** :o:
 
 Depois vamos iniciar com o comando que lista os arquivos e diretórios de um determinado local
 ```
@@ -86,11 +86,11 @@ Agora inspecionaremos o arquivo fasta com um pouco mais de detalhes. Contaremos 
 
 ```
 $ grep -c ">" eukaria_protein.fasta
-1257723
+574627
 $ grep -c "^M" eukaria_protein.fasta
-1257723
+
 $ wc -l eukaria_protein.fasta
-1257723
+1149254
 ```
 
 OU
@@ -127,13 +127,13 @@ $ mv [arquivo] -t [diretório]
 ```
 ***
 #### Alinhamento local
-Agora iremos rodar o primeiro programa, o BLAST, para alinhar as proteínas que queremos adquirir com a proteína alvo. Nesta etapa vale a pena e pesquisar e [ler um pouco sobre](https://pmc.ncbi.nlm.nih.gov/articles/PMC441573/). Utilizaremos o comando `blastp` para alinhar proteína com todas as outras proteínas.
+Agora iremos rodar o primeiro programa, o BLAST ([baixado](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) diretamente no computador com o comando `wget`), para alinhar as proteínas que queremos adquirir com a proteína alvo. Nesta etapa vale a pena e pesquisar e [ler um pouco sobre](https://pmc.ncbi.nlm.nih.gov/articles/PMC441573/). Utilizaremos o comando `blastp` para alinhar proteína com todas as outras proteínas.
 
 ```
-$ ../programas/blast2.09+n/bin/blastp
+$ ../programas/blast2.09+n/bin/blastp -query [arquivo].fasta -db ~/tutorial_workshop/eukaria_protein.fasta -outfmt 6 -evalue 1e-30 -out .out
 ```
 
-Pode obsverar que o `[comando]` é `blastp`, as `-[opções]` são  `-o`, `-core` e o `[objeto]` esta definido na `-[opção]` `-i`.  
+Pode obsverar que o `[comando]` é `blastp`, as `-[opções]` são  `-out`, `-query`, `db`, `outfmt` e o `[objeto]` esta definido na `-[opção]` `-query`.  
 
 ***
 #### Alinhamento global
