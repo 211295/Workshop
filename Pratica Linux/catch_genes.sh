@@ -32,5 +32,10 @@ while (<F>) {
 END {
     warn "Searched $s_read FASTA records.\nFound $s_wrote IDs out of $num_ids in the ID list.\n"
 }
+' all_proteins.fasta $file > [output].fasta;
+done
+
+    warn "Searched $s_read FASTA records.\nFound $s_wrote IDs out of $num_ids in the ID list.\n"
+}
 ' Genes_total $file > Gene_of_specie_$file;
 done
