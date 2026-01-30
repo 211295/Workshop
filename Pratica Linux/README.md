@@ -163,7 +163,7 @@ $ awk '{print $2}' BLAST-[protein].out | uniq > list_of_sequences.txt
 $ wc -l list_of_sequences.txt
 30
 ```
-Então, precisamos editar o `catch_genes.sh`: precisa substituir o `[
+Então, precisamos editar o `catch_genes.sh`: precisa substituir o `[input].txt` pela sua lista `list_of_sequences.txt`. E depois 
 ```
 $ nano catch_genes.sh
 ```
