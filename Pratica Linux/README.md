@@ -46,7 +46,7 @@ Encontrou o diretório chamado `tutorial_workshop`? Vamos utilizar então agora 
 Portanto iremos usar o comando `ls` no diretório `tutorial_workshop`
 ```
 $ ls tutorial_workshop
-catch_genes.sh eukaria_protein.fasta transform_single_line_fasta.sh 
+catch_genes.sh all_proteins.fasta transform_single_line_fasta.sh 
 ```
 
 > Se quiser pode usar o mesmo comando no outro diretório para ver qual o conteudo, pode se usar.
@@ -59,16 +59,28 @@ $ cd tutorial_workshop ; ls -lh
 Percebe-se que há dois script (verde) de final ".sh" e um fasta. Utilizaremos um `catch_genes.sh` para recuperarmos as sequências do arquivo fasta das proteinas de Eukariotos.
 ***
 #### Inspecionar os arquivos
-Agora vamos inspecionar os arquivos. O tamanho já nos foi dado ( ), precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. :warning: Procure não usar o `cat` ou `tac` para arquivos muito grandes :warning:
+Agora vamos inspecionar os arquivos. O tamanho já nos foi dado ( ), precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. 
+
+:warning: Procure não usar o `cat` ou `tac` para arquivos muito grandes :warning:
 
 ``` 
-$ head eukaria_protein.fasta
+$ head all_proteins.fasta
+>sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R OS=Frog virus 3 (isolate Goorha) OX=654924 GN=FV3-001R PE=4 SV=1
+MAFSAEDVLKEYDRRRRMEALLLSLYYPNDRKLLDYKEWSPPRVQVECPKAPVEWNNPPSEKGLIVGHFSGIKYKGEKAQASEVDVNKMCCWVSKFKDAMRRYQGIQTCKIPGKVLSDLDAKIKAYNLTVEGVEGFVRYSRVTKQHVAAFLKELRHSKQYENVNLIHYILTDKRVDIQHLEKDLVKDFKALVESAHRMRQGHMINVKYILYQLLKKHGHGPDGPDILTVKTGSKGVLYDDSFRKIYTDLGWKFTPL
+>sp|Q6GZX3|002L_FRG3G Uncharacterized protein 002L OS=Frog virus 3 (isolate Goorha) OX=654924 GN=FV3-002L PE=4 SV=1
+MSIIGATRLQNDKSDTYSAGPCYAGGCSAFTPRGTCGKDWDLGEQTCASGFCTSQPLCARIKKTQVCGLRYSSKGKDPLVSAEWDSRGAPYVRCTYDADLIDTQAQVDQFVSMFGESPSLAERYCMRGVKNTAGELVSRVSSDADPAGGWCRKWYSAHRGPDQDAALGSFCIKNPGAADCKCINRASDPVYQKVKTLHAYPDQCWYVPCAADVGELKMGTQRDTPTNCPTQVCQIVFNMLDDGSVTMDDVKNTINCDFSKYVPPPPPPKPTPPTPPTPPTPPTPPTPPTPPTPRPVHNRKVMFFVAGAVLVAILISTVRW
+>sp|Q197F8|002R_IIV3 Uncharacterized protein 002R OS=Invertebrate iridescent virus 3 OX=345201 GN=IIV3-002R PE=4 SV=1
+MASNTVSAQGGSNRPVRDFSNIQDVAQFLLFDPIWNEQPGSIVPWKMNREQALAERYPELQTSEPSEDYSGPVESLELLPLEIKLDIMQYLSWEQISWCKHPWLWTRWYKDNVVRVSAITFEDFQREYAFPEKIQEIHFTDTRAEEIKAILETTPNVTRLVIRRIDDMNYNTHGDLGLDDLEFLTHLMVEDACGFTDFWAPSLTHLTIKNLDMHPRWFGPVMDGIKSMQSTLKYLYIFETYGVNKPFVQWCTDNIETFYCTNSYRYENVPRPIYVWVLFQEDEWHGYRVEDNKFHRRYMYSTILHKRDTDWVENNPLKTPAQVEMYKFLLRISQLNRDGTGYESDSDPENEHFDDESFSSGEEDSSDEDDPTWAPDSDDSDWETETEEEPSVAARILEKGKLTITNLMKSLGFKPKPKKIQSIDRYFCSLDSNYNSEDEDFEYDSDSEDDDSDSEDDC
+>sp|Q197F7|003L_IIV3 Uncharacterized protein 003L OS=Invertebrate iridescent virus 3 OX=345201 GN=IIV3-003L PE=4 SV=1
+MYQAINPCPQSWYGSPQLEREIVCKMSGAPHYPNYYPVHPNALGGAWFDTSLNARSLTTTPSLTTCTPPSLAACTPPTSLGMVDSPPHINPPRRIGTLCFDFGSAKSPQRCECVASDRPSTTSNTAPDTYRLLITNSKTRKNNYGTCRLEPLTYGI
+>sp|Q6GZX2|003R_FRG3G Uncharacterized protein 3R OS=Frog virus 3 (isolate Goorha) OX=654924 GN=FV3-003R PE=3 SV=1
+MARPLLGKTSSVRRRLESLSACSIFFFLRKFCQKMASLVFLNSPVYQMSNILLTERRQVDRAMGGSDDDGVMVVALSPSDFKTVLGSALLAVERDMVHVVPKYLQTPGILHDMLVLLTPIFGEALSVDMSGATDVMVQQIATAGFVDVDPLHSSVSWKDNVSCPVALLAVSNAVRTMMGQPCQVTLIIDVGTQNILRDLVNLPVEMSGDLQVMAYTKDPLGKVPAVGVSVFDSGSVQKGDAHSVGAPDGLVSFHTHPVSSAVELNYHAGWPSNVDMSSLLTMKNLMHVVVAEEGLWTMARTLSMQRLTKVLTDAEKDVMRAAAFNLFLPLNELRVMGTKDSNNKSLKTYFEVFETFTIGALMKHSGVTPTAFVDRRWLDNTIYHMGFIPWGRDMRFVVEYDLDGTNPFLNTVPTLMSVKRKAKIQEMFDNMVSRMVTS
 ```
 
 OU
 
 ``` 
-$ more eukaria_protein.fasta
+$ more all_proteins.fasta
 ```
 
 Caso queira entender o que cada comando faz, você pode:
@@ -130,10 +142,27 @@ $ mv [arquivo] -t [diretório]
 Agora iremos rodar o primeiro programa, o BLAST ([baixado](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) diretamente no computador com o comando `wget`), para alinhar as proteínas que queremos adquirir com a proteína alvo. Nesta etapa vale a pena e pesquisar e [ler um pouco sobre](https://pmc.ncbi.nlm.nih.gov/articles/PMC441573/). Utilizaremos o comando `blastp` para alinhar proteína com todas as outras proteínas.
 
 ```
-$ ../programas/blast2.09+n/bin/blastp -query [arquivo].fasta -db ~/tutorial_workshop/eukaria_protein.fasta -outfmt 6 -evalue 1e-30 -out .out
+$ ../programas/blast2.09+n/bin/blastp -query [arquivo].fasta -db ~/tutorial_workshop/eukaria_protein.fasta -max_target_seqs 30 -outfmt 6 -evalue 1e-30 -out BLAST-[protein].out
 ```
 
-Pode obsverar que o `[comando]` é `blastp`, as `-[opções]` são  `-out`, `-query`, `db`, `outfmt` e o `[objeto]` esta definido na `-[opção]` `-query`.  
+Pode obsverar que o `[comando]` é `blastp`, as `-[opções]` são  `-out`, `-query`, `db`, `outfmt`, `max_target_seqs` e o `[objeto]` esta definido na `-[opção]` `-query`.
 
+Utilizamos 
+
+Inspecione o arquivo gerado: `BLAST-[protein].out`
+> Como ele não é grande vamos usar o `cat`
+```
+$ ls -lh BLAST-[protein].out
+$ head BLAST-[protein].out
+qseqid sseqid % length mismatch gapopen qstart qend sstart send evalue bitscore
+```
+
+Veja que temos 12 colunas dessa [tabela](https://www.metagenomics.wiki/tools/blast/blastn-output-format-6) (leia sobre ela). 
 ***
 #### Alinhamento global
+Apos a seleção de 
+```
+$ mafft --maxiterate 1000 --globalpair --reorder [arquivo_resgatado].fasta > output/[arquivo_resgatado].aligned.fasta
+```
+
+
