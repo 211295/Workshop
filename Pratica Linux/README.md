@@ -3,7 +3,7 @@ Criado por Felipe S. Salles || [Linkedin](https://br.linkedin.com/in/felipe-simi
 
 Assitentes: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [Bruno J. Teixeira de Melo](http://lattes.cnpq.br/0513855441372488)
 ***
-#### Bem vindo ao mini tutorial do Workshop
+### Bem vindo ao mini tutorial do Workshop
 ###### Após a breve explicação sobre tipo de arquivos e abordagens de tipos de estudos, vamos iniciar o aprendizado do "terminal"
 
 
@@ -58,7 +58,7 @@ $ cd tutorial_workshop ; ls -lh
 
 Percebe-se que há dois script (verde) de final ".sh" e um fasta. Utilizaremos um `catch_genes.sh` para recuperarmos as sequências do arquivo fasta das proteinas de Eukariotos.
 ***
-#### Inspecionar os arquivos
+### Inspecionar os arquivos
 Agora vamos inspecionar os arquivos. O tamanho já nos foi dado, precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. 
 
 :warning: Procure não usar o `cat` ou `tac` para arquivos muito grandes :warning:
@@ -121,7 +121,7 @@ O primeiro comando conta automaticamente o numero de linhas que apresentam o sin
 Agora inspecione com `cat` os arquivos `*.sh` (**Shell**). Pode observar que ambos tem um cabeçalho único: `#!/bin/bash`.
 Esta linha exige que o arquivo seja lido pelo computador de um jeito especial. E isso trasnforma os arquivos textos em "scripts".
 ***
-#### Baixar os arquivos
+### Baixar os arquivos
 Vamos iniciar e baixar nossa proteina de interesse no site do NCBI.
 
 ⚠️ Agora importante se certificar que a proteina a ser baixada está no diretório que será trabalhado e com algum nome que seja útil e informativo para você. Portanto vamos renomear, caso necessário, e mover o arquivo até o diretório `tutorial-workshop`
@@ -148,7 +148,7 @@ $ mv [nome_antigo] [nome_novo]
 $ mv [arquivo] -t [diretório]
 ```
 ***
-#### Alinhamento local (BLAST)
+### Alinhamento local (BLAST)
 Agora iremos rodar o primeiro programa, o BLAST ([baixado](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) diretamente no computador com o comando `wget`), para alinhar as proteínas que queremos adquirir com a proteína alvo. Nesta etapa vale a pena e pesquisar e [ler um pouco sobre](https://pmc.ncbi.nlm.nih.gov/articles/PMC441573/). Utilizaremos o comando `blastp` para alinhar proteína com todas as outras proteínas.
 
 Primeiramente, devemos criar um banco com o comando `makeblastdb`. Para isso vamos criar um novo diretório (`mkdir`), copiar o arquivo fasta de proteinas neste diretório criado, e depois utilizar o comando no arquivo clonado.
@@ -189,7 +189,7 @@ $ ls -h sequencies_of_[protein].fasta; grep -c '>' sequencies_of_[protein].fasta
 
 
 ***
-#### Alinhamento global (MAFFT)
+### Alinhamento global (MAFFT)
 Após a seleção dessas sequências, vamos fazer o alinhamento de todas elas aminoácido por aminoácido. E o que isso significa? Significa que aminoácidos iguais irão ser associados à uma posição na sequência. Por exemplo se na posição 4 há um **V** (valina) para a maioria das sequências, as sequências sem **V** serão adcionados um traço "-" , e isso será lido posteriormente como uma variação da proteína.
 
 Para isso usaremos o programa [MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/). Este programa ja foi [baixado](https://mafft.cbrc.jp/alignment/software/linuxportable.html). Pode verificar no diretório de programas.
@@ -209,7 +209,7 @@ $ cd output # este passo é opcional, você pode checar todas essas informaçõe
 $ ls -h sequencies_of_[protein].aligned.fasta; grep -c '>' sequencies_of_[protein].aligned.fasta; grep -c '^M' sequencies_of_[protein].aligned.fasta; wc -l sequencies_of_[protein].aligned.fasta; head sequencies_of_[protein].aligned.fasta
 ```
 ***
-#### Checagem do alinhamento (ESTE PASSO É EXTRA, FAÇA SOMENTE SE HOUVER TEMPO)
+### Checagem do alinhamento (ESTE PASSO É EXTRA, FAÇA SOMENTE SE HOUVER TEMPO)
 Após o alinhamento, podemos checar de vários jeitos se deu certo ou nâo. Um dos jeitos que eu gosto de checar é contando se o número de cabeçalhos bate com com o número do tamanho das sequências. Ou seja, construiremos um novo arquivo com o cabeçalho da sequencie o comprimento da sequencia substituindo o conteudo.
 Por exemplo:
 ```
@@ -235,7 +235,7 @@ $ grep -c '>' length_of_*.fasta ; grep -c '[comprimento]' lentgh_of_*.fasta
 Se os números forem iguais, significa que deu certo.
 
 ***
-#### Construção de uma árvore por similaridade (IQTree)
+### Construção de uma árvore por similaridade (IQTree)
 Próximo passo iremos ver o quão relacionada estão essas sequências através da similaridade que eles apresentam . O programa novamente esta [baixado](https://iqtree.github.io/) e só deveremos rodar a linha de comando. Este programa necessita um arquivo fasta alinhado globalmente, gerado pelo `mafft`. Poderiam ter usado outros programas para alinhamento, mas alguns não gerão o arquivo fasta.
 
 | Programas que alinham | Tipo de arquivo gerado | website |
@@ -253,7 +253,7 @@ $ ../programas/ncbi-blast-2.17.0+/bin/iqtree3 -i *.aligned.fasta -o
 Agora verifique os outputs , utilize os comandos que você ja aprendeu `ls`, `cat`, `head`, `more`, `wc`...
 
 ***
-#### Observar a árvore (iTol)
+### Observar a árvore (iTol)
 Após verificar a árvore, pode dar um "print" nela com `cat` e copiar e colar em algum software pare visualização.
 Entre no site [iTol](https://itol.embl.de/)
 Entre no "Upload a tree" e cole no espaço adqueado.
