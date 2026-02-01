@@ -11,13 +11,13 @@ Para começar iremos introduzir o terminal e a linguagem Bash/Linux. O terminal 
 
 Para quem possiu o sistema Linux basta apertar `Ctrl` + `Alt` + `T` . E para outros sistemas operacionais há aplicativos ou outras interfaces:
 
-**Windows:** WSL, Ubunto e Xmobe
+**Windows:** WSL, Ubuntu e Xmobe
 
 **Android:** Andronix ou Termux
 
 **IOS:** iSH ou a-Shell
 
-Iniciaremos com a visalização da tela e os primeiros comandos mais simples. Agora chamaremos todos os arquivos seguintes dependendo do conteundo dele. E cada um terá uma `terminação` especifica. E tambem toda pasta agora será chamada de `diretório`. 
+Iniciaremos com a visualização da tela e os primeiros comandos mais simples. Agora chamaremos todos os arquivos seguintes dependendo do conteundo dele. E cada um terá uma `terminação` especifica. E também toda pasta agora será chamada de `diretório`. 
 
 Procure o aplicativo chamado `Ubunto`
 
@@ -49,9 +49,9 @@ $ ls tutorial_workshop
 catch_genes.sh all_proteins.fasta transform_single_line_fasta.sh 
 ```
 
-> Se quiser pode usar o mesmo comando no outro diretório para ver qual o conteudo, pode se usar.
+> Se quiser, pode usar o mesmo comando no outro diretório para ver qual o conteudo.
 
-Agora entramemos no `diretório` chamado `tutorial_workshop`. Se fosse um computador com interface gráfica você clicaria duas vezes na pasta para entrar nela mas no nosso caso será em linha de comando, ao mesmo tempo que já mostraremos o conteudo dela. So é possivel por conta do `;`, que entende que isso seria uma linha nova:
+Agora entramemos no `diretório` chamado `tutorial_workshop`. Se fosse um computador com interface gráfica você clicaria duas vezes na pasta para entrar nela, mas no nosso caso será em linha de comando, ao mesmo tempo que já mostraremos o conteudo dela. So é possivel por conta do `;`, pois o computador entende que isso seria uma linha nova:
 ``` 
 $ cd tutorial_workshop ; ls -lh
 ```
@@ -59,7 +59,7 @@ $ cd tutorial_workshop ; ls -lh
 Percebe-se que há dois script (verde) de final ".sh" e um fasta. Utilizaremos um `catch_genes.sh` para recuperarmos as sequências do arquivo fasta das proteinas de Eukariotos.
 ***
 #### Inspecionar os arquivos
-Agora vamos inspecionar os arquivos. O tamanho já nos foi dado ( ), precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. 
+Agora vamos inspecionar os arquivos. O tamanho já nos foi dado, precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. 
 
 :warning: Procure não usar o `cat` ou `tac` para arquivos muito grandes :warning:
 
@@ -228,7 +228,7 @@ No caso de um fasta alinhado, todos esses comprimentos são iguais. Portanto ire
 
 Vamos utilizar outro script que pode-se encontrar aqui no github chamado "fasta_length.sh"
 ```
-$ nano fasta_lenght.sh
+$ nano fasta_lenght.sh ; chmod +x fasta_lenght.sh
 $ ./fasta_lenght.sh
 $ grep -c '>' length_of_*.fasta ; grep -c '[comprimento]' lentgh_of_*.fasta 
 ```
