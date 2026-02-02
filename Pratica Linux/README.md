@@ -258,7 +258,7 @@ $ ../programas/ncbi-blast-2.17.0+/bin/iqtree3 -s sequencies_of_[protein].aligned
 Agora verifique os outputs , utilize os comandos que você ja aprendeu `ls`, `cat`, `head`, `more`, `wc`...
 
 ***
-### Observar a árvore (iTol)
+### Visualização da árvore (iTol)
 Após verificar a árvore, pode dar um "print" nela com `cat` e copiar e colar em algum software pare visualização.
 Entre no site [iTol](https://itol.embl.de/)
 Entre no "Upload a tree" e cole no espaço adqueado.
