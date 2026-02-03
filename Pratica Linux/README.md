@@ -170,7 +170,7 @@ Podemos utilizar uma opção que limita para ter 30 sequencias no máximo `max_t
 Inspecione o arquivo gerado: `BLAST-[protein].out`
 > Como ele não é grande vamos usar o `cat`
 ```
-$ ls -lh BLAST-[protein].out ; wc -l BLAST-[protein].out ; head BLAST-[protein].out
+$ ls -lh BLAST-[protein].out ; wc -l BLAST-[protein].out ; head BLAST-[protein].out ## tipo de arquivo tsv
 1    2        3 4           5             6     7      8   9      10  11     12
 prot sequence % comprimento incongruencia Nº'-' inicio fim inicio fim evalue pontuação
 ```
