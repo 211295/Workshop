@@ -21,7 +21,7 @@ Iniciaremos com a visualização da tela e os primeiros comandos mais simples. A
 
 Procure o aplicativo chamado `Ubunto`
 
-**Ubuntu2.09.1** :o:
+**Ubuntu 24.04** :o:
 
 Depois vamos iniciar com o comando que lista os arquivos e diretórios de um determinado local
 ```
@@ -85,6 +85,7 @@ OU
 ``` 
 $ more all_proteins.fasta
 ```
+>  Para sair da página do comando 'more' aperte a tecla 'Q', de quit
 
 Caso queira entender o que cada comando faz, você pode:
 1. Testar com "tentativa e erro", utilizando o padrão `[comando]` `-[opção]` `[objeto]`
@@ -95,7 +96,7 @@ $ man [comando]
 $ info [comando]
 $ [comando] --help
 ```
-> Para sair do manual basta clicar na tecla 'Q' de quit
+> Para sair do manual basta clicar na tecla 'Q', de quit
 
 Agora inspecionaremos o arquivo fasta com um pouco mais de detalhes. Contaremos quantas sequencias há no arquivo `fasta`. Cada início de sequência tem seu cabeçalho iniciado por `>___` e na linha de baixo o conteudo da sequência. Iremos tambem calcular quantas linhas INICIAM com o aminoacido `Metionina` e a quantidade de linhas totais no arquivo. E ai qual o resultado? Discuta o por quê disso.
 
@@ -159,8 +160,8 @@ Primeiramente, devemos criar um banco com o comando `makeblastdb` do programa BL
 
 ```
 $ mkdir database/ ; cp all_proteins.fasta database/
-$ ../programas/ncbi-blast-/bin/makeblastdb -in database/all_proteins.fasta -out database/database_all_proteins -dbtype prot
-$ ../programas/ncbi-blast/bin/blastp -query [proteina_espécie].fasta -db database/database_all_proteins -outfmt 6 -evalue 1e-15 -out BLAST-[protein].out
+$ ../programas/ncbi-blast-2.17.0+/bin/makeblastdb -in database/all_proteins.fasta -out database/database_all_proteins -dbtype prot
+$ ../programas/ncbi-blast-2.17.0+/bin/blastp -query [proteina_espécie].fasta -db database/database_all_proteins -outfmt 6 -evalue 1e-15 -out BLAST-[protein].out
 ```
 
 Pode obsverar que o "comando" é `blastp`, as "-opções" são  `-out`, `-query`, `db`, `outfmt` e o "objeto" esta definido na "-opção" `-query`.
