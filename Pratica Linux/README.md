@@ -159,8 +159,8 @@ Primeiramente, devemos criar um banco com o comando `makeblastdb` do programa BL
 
 ```
 $ mkdir database/ ; cp all_proteins.fasta database/
-$ makeblastdb -in database/all_proteins.fasta -out database/ -dbtype prot
-$ ../programas/blast2.09+n/bin/blastp -query [proteina_espécie].fasta -db database/all_proteins.fasta -outfmt 6 -evalue 1e-15 -out BLAST-[protein].out
+$ ../programas/ncbi-blast-/bin/makeblastdb -in database/all_proteins.fasta -out database/database_all_proteins -dbtype prot
+$ ../programas/ncbi-blast/bin/blastp -query [proteina_espécie].fasta -db database/database_all_proteins -outfmt 6 -evalue 1e-15 -out BLAST-[protein].out
 ```
 
 Pode obsverar que o "comando" é `blastp`, as "-opções" são  `-out`, `-query`, `db`, `outfmt` e o "objeto" esta definido na "-opção" `-query`.
