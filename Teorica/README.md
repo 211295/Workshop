@@ -19,7 +19,7 @@
 | Pathways & Function | KEGG | Pathways linking genes, metabolites, and diseases | [https://www.kegg.jp/](https://www.kegg.jp/) | 
 |  | Gene Ontology (GO) | Standardized gene function annotation | [https://geneontology.org/](https://geneontology.org/) | 
 |  | Reactome / EcoCyc | Curated biological and metabolic pathways | [https://reactome.org/](https://reactome.org/) / [https://ecocyc.org/](https://ecocyc.org/)| 
-|  | PANTHER | comprehensive information about the evolution of protein-coding gene families, particularly protein phylogeny, function and genetic variation impacting that function | [https://pantherdb.org/about.jsp](https://pantherdb.org/about.jsp) |
+|  | PANTHER | protein-coding gene classification information | [https://pantherdb.org/about.jsp](https://pantherdb.org/about.jsp) |
 | Disease & Variation | OMIM | Human genes and inherited disorders | [https://www.omim.org/](https://www.omim.org/) | 
 |  | ClinVar | Clinically relevant genetic variants | [https://www.ncbi.nlm.nih.gov/clinvar/](https://www.ncbi.nlm.nih.gov/clinvar/) | 
 |  | COSMIC | Somatic mutations in cancer | [https://cancer.sanger.ac.uk/cosmic/](https://cancer.sanger.ac.uk/cosmic/login) | 
@@ -40,3 +40,4 @@
 | Galaxy | Intensive Biomedical research | [https://galaxy-main.usegalaxy.org/](https://galaxy-main.usegalaxy.org/) |
 | Qiime2 | Microbiome multi-omics data science plataform | [https://library.qiime2.org/](https://qiime2.org/) |
 | MPI Bioinformatics Toolkit | platform that integrates a great variety of tools for protein sequence analysis | [https://toolkit.tuebingen.mpg.de/tools/](https://toolkit.tuebingen.mpg.de/tools/) | 
+| PANTHER | Comprehensive information about the evolution of protein-coding gene families, particularly protein phylogeny, function and genetic variation impacting that function | [https://pantherdb.org/](https://pantherdb.org/) |
