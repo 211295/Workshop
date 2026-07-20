@@ -1,5 +1,6 @@
 ### Introdução os tipos de arquivos
-* Power-point
+
+
 ### Maiores bancos de dados para Bioinformática
 | Tipo de dado | Nome do banco de dados | Conteudo | website |
 |------------------------|:------------------------------:|---------------------------------------------------------------------------:|-------------------------------------:|
@@ -31,3 +32,9 @@
 |  | Gramene |Crop and grass genome resources | [https://www.gramene.org/](https://www.gramene.org/) | 
 |  | TAIR | Arabidopsis genome and functional data | [https://www.arabidopsis.org/](https://www.arabidopsis.org/) | 
 |  | Ensembl Plants | Plant genome browser and annotations | [https://plants.ensembl.org/](https://plants.ensembl.org/index.html) |
+
+### Melhores programas website para realizar processos
+**| Nome do site | Conteudo | website |**
+| Galaxy | Intensive Biomedical research | [https://galaxy-main.usegalaxy.org/](https://galaxy-main.usegalaxy.org/) |
+| Qiime2 | Microbiome multi-omics data science plataform | [https://library.qiime2.org/](https://qiime2.org/) |
+| MPI Bioinformatics Toolkit | platform that integrates a great variety of tools for protein sequence analysis | [https://toolkit.tuebingen.mpg.de/tools/](https://toolkit.tuebingen.mpg.de/tools/) | 
