@@ -1,13 +1,5 @@
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1
 https://gist.github.com/rxaviers/7360908
-# Bem vindos ao Workshop de Bioinformática do IV Curso de Genética no Verão (USP)
-Criado por Felipe S. Salles 
-
-Assitents: Sophia Pereira Saraiva e Bruno J. Teixeira de Melo
-***
-### Introdução os tipos de arquivos
-* Power-point
-
 ---
 ### Por onde começar
 Maiores bancos de dados para Bioinformática
@@ -41,12 +33,3 @@ Maiores bancos de dados para Bioinformática
 |  | Gramene |Crop and grass genome resources | [https://www.gramene.org/](https://www.gramene.org/) | 
 |  | TAIR | Arabidopsis genome and functional data | [https://www.arabidopsis.org/](https://www.arabidopsis.org/) | 
 |  | Ensembl Plants | Plant genome browser and annotations | [https://plants.ensembl.org/](https://plants.ensembl.org/index.html) |
-
-1. First steps of line command in bash language
-⋅⋅⋅⋅1.1 Download
-⋅⋅⋅⋅1.2
-⋅⋅⋅⋅1.3
-2. 
-3.  
-4. Local alignment
-5. Construct the tree
