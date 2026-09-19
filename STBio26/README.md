@@ -16,7 +16,15 @@ Na biologia pós-NGS, análises computacionais são indispensáveis ao profissio
 ***
 
 ### Primeiros passos
-&emsp; Veremos primeiro como navegar com 
+&emsp; Veremos primeiro mencionar nos bancos de dados mais conhecidos e utilizados na bioinformática: .
+
+### Inicialização na bioinformática:
+#### Principais comandos para manuzeio e manipulação de dados biológicos com a linguagem BASH. 
+> [Curso referência](https://cursosextensao.usp.br/enrol/index.php?id=2285) e Disciplina [IBI5765](https://uspdigital.usp.br/janus/componente/disciplinasOferecidasInicial.jsf?action=3&sgldis=IBI5765) (realizada no Instituto de Ciências Biomédias), ministrado pelo Professor Dr. [João Marcelo Pareira Alves](https://scholar.google.com/citations?hl=pt-BR&user=kUPJajcAAAAJ)).
+
+
+
+
 # websites para mexer com bioinformática
 ## Lição de casa
 Tutorial disponibilizado no [Canva.com]() para recriar as análises feitas durante a aula em uma plataforma online
