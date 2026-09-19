@@ -1,4 +1,3 @@
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1
 https://gist.github.com/rxaviers/7360908
 ---
 ### Por onde começar
