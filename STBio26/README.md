@@ -16,12 +16,35 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 ***
 
 ### Primeiros passos
-&emsp; Veremos primeiro mencionar nos bancos de dados mais conhecidos e utilizados na bioinformática: .
+&emsp; Veremos primeiro mencionar nos bancos de dados mais conhecidos e utilizados na bioinformática: [STEBio26/Banco de dados.md](https://github.com/211295/Workshop/blob/main/STBio26/Banco%20de%20dados.md).
 
 ### Inicialização na bioinformática:
-#### Principais comandos para manuzeio e manipulação de dados biológicos com a linguagem BASH. 
-> [Curso referência](https://cursosextensao.usp.br/enrol/index.php?id=2285) e Disciplina [IBI5765](https://uspdigital.usp.br/janus/componente/disciplinasOferecidasInicial.jsf?action=3&sgldis=IBI5765) (realizada no Instituto de Ciências Biomédias), ministrado pelo Professor Dr. [João Marcelo Pareira Alves](https://scholar.google.com/citations?hl=pt-BR&user=kUPJajcAAAAJ)).
+#### A estrutura lógica da linha de comando será basicamente esta:
+## `COMANDO` + `-OPÇÃO` + `OBJETO`
 
+#### Principais comandos para manuzeio e manipulação de dados biológicos com a linguagem BASH. 
+> [Curso referência](https://cursosextensao.usp.br/enrol/index.php?id=2285) e Disciplina [IBI5765](https://uspdigital.usp.br/janus/componente/disciplinasOferecidasInicial.jsf?action=3&sgldis=IBI5765) (realizada no Instituto de Ciências Biomédias), ministrado pelo Professor Dr. [João Marcelo Pareira Alves](https://scholar.google.com/citations?hl=pt-BR&user=kUPJajcAAAAJ).
+
+| COMANDO | DESCRIÇÃO | OPÇÕES | Utilidades |
+|:----------:|:----------------|:-----------------------------------------------:|:-----------------------------------------------------|
+| _[ls](https://man7.org/linux/man-pages/man1/ls.1.html)_ | **L**ist **S**how = Mostra os arquivos presentes no _Diretório_/_Pasta_ | `-e` `-a` `-l` `-h` `-s` | Jeito rápido de ver os arquivos presentes, bem como seu tamanho (opções `-l` e `-h` juntas) |
+| _[cd](https://man7.org/linux/man-pages/man1/cd.1p.html)_ | **C**hange **D**irectory = muda o _Diretório_/_Pasta_ atual de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
+| _[mv](https://man7.org/linux/man-pages/man1/mv.1.html)_ | **M**o**V**e = Move arquivo ou _Diretório_/_Pasta_, OU modifica o nome | `-t` `-v` `-f` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
+| _[mkdir](https://man7.org/linux/man-pages/man1/mkdir.1.html)_ | **M**a**K** a **DIR**ectory = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
+| _[pwd](https://man7.org/linux/man-pages/man1/pwd.1.html)_ | **P**rint **W**ork **D**irectory = Mostra qual o _Diretório_/_Pasta_ atual de trabalho |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[cp](https://man7.org/linux/man-pages/man1/mkdir.1.html)_ | **C**o**P**y = copia arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
+| _[cat](https://man7.org/linux/man-pages/man1/cat.1.html)_ | **C**onc**AT**enate = printa o conteuto de todos os arquivos concatenando seus conteudos | `-A` `-n` | Geralmente utilizado para verificar o conteúdo de arquivos pequenos. O inverso dele é o comando `TAC` |
+| _[less](https://man7.org/linux/man-pages/man1/less.1.html)_ | Mostra o conteúdo na tela do terminal em uma "tela a parte" | `-S` | Como outros comandos, utiliza-se para visualizar o arquivo mas neste caso este não printa, mostra somente o conteudo que cabe na tela. Geralmente utilizado para verificar tabelas de maneira organizada (opção `-S`) |
+| _[more](https://man7.org/linux/man-pages/man1/more.1.html)_ | Mostra o conteudo do arquivo em uma tela a parte |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[head](https://man7.org/linux/man-pages/man1/head.1.html)_ | Mostra as primeiras linhas | `-n` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
+| _[tail](https://man7.org/linux/man-pages/man1/tail.1.html)_ | Mostra as últimas linhas | `-n` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
+| _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | **M**a**K** a **DIR**ectory = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
+| _nano_ | **P**rint **W**ork **D**irectory = Mostra qual o _Diretório_/_Pasta_ atual de trabalho |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[grep](https://man7.org/linux/man-pages/man1/grep.1.html)_ | **GREP** = arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
+| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ | **M**o**V**e = Move arquivo ou _Diretório_/_Pasta_, OU modifica o nome | `-t` `-v` `-f` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
+| _[awk](https://man7.org/linux/man-pages/man1/mkdir.1.html)_ | **A** **W** **K** = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
+| _[wc](https://man7.org/linux/man-pages/man1/pwd.1.html)_ | **P**rint **W**ork **D**irectory = Mostra qual o _Diretório_/_Pasta_ atual de trabalho |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[](https://man7.org/linux/man-pages/man1/mkdir.1.html)_ | **C**o**P**y = copia arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
 
 
 # websites para mexer com bioinformática
