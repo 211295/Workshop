@@ -41,10 +41,10 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | **M**a**K** a **DIR**ectory = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
 | _nano_ | **P**rint **W**ork **D**irectory = Mostra qual o _Diretório_/_Pasta_ atual de trabalho |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
 | _[grep](https://man7.org/linux/man-pages/man1/grep.1.html)_ | **GREP** = arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
-| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ | **M**o**V**e = Move arquivo ou _Diretório_/_Pasta_, OU modifica o nome | `-t` `-v` `-f` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
-| _[awk](https://man7.org/linux/man-pages/man1/awk.1.html)_ | **A** **W** **K** = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
+| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ | ** | `-t` `-v` `-f` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
+| _[awk](https://man7.org/linux/man-pages/man1/awk.1p.html)_ | **A** **W** **K** = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
 | _[wc](https://man7.org/linux/man-pages/man1/wc.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
-| _[colrm](https://man7.org/linux/man-pages/man1/.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
+| _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
 
 
 # websites para mexer com bioinformática
