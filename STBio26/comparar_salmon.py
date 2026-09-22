@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 comparar_salmon.py — Minicurso de Bioinformatica, bloco de transcriptomica.
-Gerado com auxilio de IA - Claude Opus 5.
 
 
 Le dois arquivos quant.sf do salmon (controle e tratado/infectado),
