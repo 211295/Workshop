@@ -45,7 +45,9 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[awk](https://man7.org/linux/man-pages/man1/awk.1p.html)_ | **A** **W** **K** = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
 | _[wc](https://man7.org/linux/man-pages/man1/wc.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
 | _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
-
+| _[column](https://man7.org/linux/man-pages/man1/column.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | **SORT** = Organiza o arquivo, ordenando de diversas formas diferentes | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ |
+ 
 >[!WARNING]
 > Outro comando básico porem fatal, é o [rm](https://man7.org/linux/man-pages/man1/rm.1.html) (**R**e**M**ove), uma vez usado, não há mais volta
 
