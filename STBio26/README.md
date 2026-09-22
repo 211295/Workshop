@@ -51,12 +51,12 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 
 ***
 # Softwares de bioinformática
-#### Programas utilizados em Bioinfo 
+#### Programas utilizados no tutorial
 
-| PROGRAMA/link | DESCRIÇÃO |  | Utilidades |
-|:----------:|:----------------|:-----------------------------------------------:|:-----------------------------------------------------|
+| PROGRAMA/link | DESCRIÇÃO |
+|:----------:|:----------------|
 
-fastp seqtk salmon BLAST iqtree BRAKER (anotacao) TrimAl MAFFT MACSE BWA Samtoolt FASTQC SRATools 
+BLAST MAFFT iqtree fastp seqtk BWA Samtools SRATools salmon
 
 # websites para mexer com bioinformática
 ## Lição de casa
