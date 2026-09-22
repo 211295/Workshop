@@ -63,9 +63,10 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | **[fastp](https://github.com/opengene/fastp)** | A tool designed to provide ultrafast all-in-one preprocessing and quality control for FastQ data. This tool is designed for processing short reads (i.e. Illumina NovaSeq, MGI). Há diversas funções possiveis para o programa ex: filtragem, limpeza de bases, remove adaptadores, "cortagem" de alinhamento... |
 | **[seqtk](https://github.com/lh3/seqtk)**| Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FASTQ format. It seamlessly parses both FASTA and FASTQ files which can also be optionally compressed by gzip. |
 | **[BWA](https://github.com/lh3/BWA)** | _**B**urrows-**W**heeler **A**ligner_ programa para alinhar sequências de DNA ou RNA (reads) contra um genoma de referência longo (ex: genoma Humano) |
-| **[SAMTools]()** |  |
-| **[SRATools]()** |  |
-| **[Salmon]()**  |  |
+| **[SAMTools](https://www.htslib.org/)** |  |
+| **[SRATools](https://github.com/ncbi/sra-tools)** |  |
+| **[Salmon](https://combine-lab.github.io/salmon/)**  |  |
+
 
 # websites para mexer com bioinformática
 ## Lição de casa
