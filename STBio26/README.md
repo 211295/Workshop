@@ -46,6 +46,17 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[wc](https://man7.org/linux/man-pages/man1/wc.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
 | _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
 
+>[!WARING]
+> Outro comando básico porem fatal, é o [rm](https://man7.org/linux/man-pages/man1/rm.1.html) (**R**e**M**ove), uma vez usado, não há mais volta
+
+***
+# Softwares de bioinformática
+#### Programas utilizados em Bioinfo 
+
+| PROGRAMA/link | DESCRIÇÃO |  | Utilidades |
+|:----------:|:----------------|:-----------------------------------------------:|:-----------------------------------------------------|
+
+fastp seqtk salmon BLAST iqtree BRAKER (anotacao) TrimAl MAFFT MACSE BWA Samtoolt FASTQC SRATools 
 
 # websites para mexer com bioinformática
 ## Lição de casa
