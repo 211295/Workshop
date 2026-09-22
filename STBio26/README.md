@@ -55,10 +55,17 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 # Softwares de bioinformática
 #### Programas utilizados no tutorial
 
-| PROGRAMA/link | DESCRIÇÃO |
-|:----------:|:----------------|
-
-BLAST MAFFT iqtree fastp seqtk BWA Samtools SRATools salmon
+| PROGRAMA / FERRAMENTA | DESCRIÇÃO |
+|:----------:|:--------------------------------------------------------------------------------------------------------------------|
+| **[BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279690/)** | _**B**asic **L**ocal **A**lignment **S**earch **T**ool_ é o programa de alinhamento local mais famoso e mais utilizado. Há diversas [funcionalidades](https://blast.ncbi.nlm.nih.gov/Blast.cgi) do uso do alinhador entre as moléculas de Amino Ácidos e Nucleotídeos (DNA e RNA). |
+| **[MAFFT](https://mafft.cbrc.jp/alignment/software/linux.html)** | Programa de múltiplos alinhamentos **globais** das sequências necessárias. Homo logous regions are rapidly identified by the fast Fourier transform (FFT), in which an amino acid sequence is converted to a sequence composed of volume and polarity values of each amino acid residue. (ii) We propose a simplified scoring system that performs well for reducing CPU time and increasing the accuracy of alignments even for sequences having large insertions or extensions as well as distantly related sequences of similar length |
+| **[IQTree](https://iqtree.github.io/)** | Large phylogenomics data sets require fast tree inference methods, especially for maximum-likelihood (ML) phylogenies. Fast programs exist, but due to inherent heuristics to find optimal trees, it is not clear whether the best tree is found. Thus, there is need for additional approaches that employ different search strategies to find ML trees and that are at the same time as fast as currently available ML programs. Utiliza o [Model Finder](https://www.nature.com/articles/nmeth.4285) como método de estimativa filogenética através do modelo de heterogeneidade de sitios. |
+| **[fastp](https://github.com/opengene/fastp)** | A tool designed to provide ultrafast all-in-one preprocessing and quality control for FastQ data. This tool is designed for processing short reads (i.e. Illumina NovaSeq, MGI). Há diversas funções possiveis para o programa ex: filtragem, limpeza de bases, remove adaptadores, "cortagem" de alinhamento... |
+| **[seqtk](https://github.com/lh3/seqtk)**| Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FASTQ format. It seamlessly parses both FASTA and FASTQ files which can also be optionally compressed by gzip. |
+| **[BWA](https://github.com/lh3/BWA)** | _**B**urrows-**W**heeler **A**ligner_ programa para alinhar sequências de DNA ou RNA (reads) contra um genoma de referência longo (ex: genoma Humano) |
+| **[SAMTools]()** |  |
+| **[SRATools]()** |  |
+| **[Salmon]()**  |  |
 
 # websites para mexer com bioinformática
 ## Lição de casa
