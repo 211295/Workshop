@@ -23,3 +23,17 @@ $ grep -c ">" *.fa
 ```
 >[!WARNING]
 > Não recomenda-se utilizar o `cat` com intuito de visualizar arquivos muito grandes
+
+
+***
+### Visualização da árvore (iTol)
+&emsp; Esta etapa pode ser feita da maneira que preferir. 
+
+&emsp; Nós recomendamos uma visualização através de uma plataforma _on-line_ chamada [iTOL](https://itol.embl.de/). 
+
+&emsp; Após verificar se a árvore foi gerada, pode dar um "print" nela com `cat` (arquivo pequeno) e copiar para área de `Visualize support values. Explore clade distances.` no site. Entre no "Upload a tree" e cole no espaço adqueado. Após colar o código da árvore basta clicar em `Upload`.
+>[!TIP]
+> Pode-se verificar que o site aceita carregar arquivos direto pelo computador. Mas devo lembrar que será apenas nos formatos _Newick_, _Nexus_ ou _PhyloXML_
+
+
+
