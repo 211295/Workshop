@@ -40,14 +40,14 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[tail](https://man7.org/linux/man-pages/man1/tail.1.html)_ | Mostra as últimas linhas | `-n` | Um modo de visualizar as últimas linhas de um arquivo (em ordem), quando junto do `-n` podendo visualizar quantas linhas necessárias |
 | _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | **TOUCH** = cria um arquivo em branco |  | Pode-se criar um arquivo novo com intuito de garantir que o _output_ sejam indexados ao arquivo novo (utilizando o sinal `>`). |
 | _[nano](https://linux.die.net/man/1/nano)_ | **N**ano's **ANO**ther editor = Edita um arquivo texto (e até mesmo cria caso não exista) |  | Após a edição, deve-se apertar `CRTL` + `X`, e depois `Y` para salvar as alterações. |
-| _[grep](https://man7.org/linux/man-pages/man1/grep.1.html)_ | **GREP** = arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
-| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ | **SED** = | `-t` `-v` `-f` | Editor de arquivos muito completo, mantendo o original e disponibilizando na tela somente a troca especificada entre as aspas |
+| _[grep](https://man7.org/linux/man-pages/man1/grep.1.html)_ | Adquire/pega/seleciona  | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
+| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ |  | `-t` `-v` `-f` | Editor de arquivos muito completo, mantendo o original e disponibilizando na tela somente a troca especificada entre as aspas |
 | _[awk](https://man7.org/linux/man-pages/man1/awk.1p.html)_ | **A** **W** **K** =  | `-F` | É utilizado para transitar entre os diretórios de trabalho |
 | _[wc](https://man7.org/linux/man-pages/man1/wc.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
-| _[cut](https://man7.org/linux/man-pages/man1/cut.1.html)_ | **CUT** = Corta o número de elementos de todas as linhas de um arquivo como se fossem colunas | `-b` `-c` `-f` `-s` `-w` | Geralmente utilizado junto a outros  |
+| _[cut](https://man7.org/linux/man-pages/man1/cut.1.html)_ | Corta o número de elementos de todas as linhas de um arquivo como se fossem colunas | `-b` `-c` `-f` `-s` `-w` | Geralmente utilizado junto a outros  |
 | _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
-| _[column](https://man7.org/linux/man-pages/man1/column.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
-| _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | **SORT** = Organiza o arquivo, ordenando de diversas formas diferentes | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ |
+| _[column](https://man7.org/linux/man-pages/man1/column.1.html)_ | Disponibiliza o  | `-d` `-S` `-t` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | Organiza o arquivo, ordenando de diversas formas diferentes | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ |
  
 >[!WARNING]
 > Outro comando básico porem fatal, é o [rm](https://man7.org/linux/man-pages/man1/rm.1.html) (**R**e**M**ove), uma vez usado, não há mais volta
