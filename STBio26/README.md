@@ -20,7 +20,7 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 
 ### Inicialização na bioinformática:
 #### A estrutura lógica da linha de comando será basicamente esta:
-## `COMANDO` + `-OPÇÃO` + `OBJETO`
+## `COMANDO` + `-OPÇÃO` + `OBJETO` 
 
 #### Principais comandos para manuzeio e manipulação de dados biológicos com a linguagem BASH. 
 > [Curso referência](https://cursosextensao.usp.br/enrol/index.php?id=2285) e Disciplina [IBI5765](https://uspdigital.usp.br/janus/componente/disciplinasOferecidasInicial.jsf?action=3&sgldis=IBI5765) (realizada no Instituto de Ciências Biomédias), ministrado pelo Professor Dr. [João Marcelo Pareira Alves](https://scholar.google.com/citations?hl=pt-BR&user=kUPJajcAAAAJ).
@@ -35,15 +35,16 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[cp](https://man7.org/linux/man-pages/man1/mkdir.1.html)_ | **C**o**P**y = copia arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
 | _[cat](https://man7.org/linux/man-pages/man1/cat.1.html)_ | **C**onc**AT**enate = printa o conteuto de todos os arquivos concatenando seus conteudos | `-A` `-n` | Geralmente utilizado para verificar o conteúdo de arquivos pequenos. O inverso dele é o comando `TAC` |
 | _[less](https://man7.org/linux/man-pages/man1/less.1.html)_ | Mostra o conteúdo na tela do terminal em uma "tela a parte" | `-S` | Como outros comandos, utiliza-se para visualizar o arquivo mas neste caso este não printa, mostra somente o conteudo que cabe na tela. Geralmente utilizado para verificar tabelas de maneira organizada (opção `-S`) |
-| _[more](https://man7.org/linux/man-pages/man1/more.1.html)_ | Mostra o conteudo do arquivo em uma tela a parte |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
-| _[head](https://man7.org/linux/man-pages/man1/head.1.html)_ | Mostra as primeiras linhas | `-n` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
-| _[tail](https://man7.org/linux/man-pages/man1/tail.1.html)_ | Mostra as últimas linhas | `-n` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
-| _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | **M**a**K** a **DIR**ectory = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
-| _nano_ | **P**rint **W**ork **D**irectory = Mostra qual o _Diretório_/_Pasta_ atual de trabalho |  | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[more](https://man7.org/linux/man-pages/man1/more.1.html)_ | Mostra o conteúdo do arquivo em uma tela a parte |  | Um modo de visualizar um arquivo. Melhor utilizado para arquivos XXXXX |
+| _[head](https://man7.org/linux/man-pages/man1/head.1.html)_ | Mostra as primeiras linhas | `-n` | Um modo de visualizar as primeiras linhas de um arquivo, quando junto do `-n` podendo visualizar quantas linhas necessárias |
+| _[tail](https://man7.org/linux/man-pages/man1/tail.1.html)_ | Mostra as últimas linhas | `-n` | Um modo de visualizar as últimas linhas de um arquivo (em ordem), quando junto do `-n` podendo visualizar quantas linhas necessárias |
+| _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | **TOUCH** = cria um arquivo em branco |  | Pode-se criar um arquivo novo com intuito de garantir que o _output_ sejam indexados ao arquivo novo (utilizando o sinal `>`). |
+| _[nano](https://linux.die.net/man/1/nano)_ | **N**ano's **ANO**ther editor = Edita um arquivo texto (e até mesmo cria caso não exista) |  | Após a edição, deve-se apertar `CRTL` + `X`, e depois `Y` para salvar as alterações. |
 | _[grep](https://man7.org/linux/man-pages/man1/grep.1.html)_ | **GREP** = arquivos ou _Diretório_/_Pasta_ | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
-| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ | ** | `-t` `-v` `-f` | Utilizado para modificar nome (move um arquivo para um "novo arquivo"), subscreve arquivos que estão em outros diretórios (opção `-f`), move arquivos entre _Diretórios_/_Pastas_ |
-| _[awk](https://man7.org/linux/man-pages/man1/awk.1p.html)_ | **A** **W** **K** = cria um _Diretório_/_Pasta_ de trabalho |  | É utilizado para transitar entre os diretórios de trabalho |
+| _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ | **SED** = | `-t` `-v` `-f` | Editor de arquivos muito completo, mantendo o original e disponibilizando na tela somente a troca especificada entre as aspas |
+| _[awk](https://man7.org/linux/man-pages/man1/awk.1p.html)_ | **A** **W** **K** =  | `-F` | É utilizado para transitar entre os diretórios de trabalho |
 | _[wc](https://man7.org/linux/man-pages/man1/wc.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
+| _[cut](https://man7.org/linux/man-pages/man1/cut.1.html)_ | **CUT** = Corta o número de elementos de todas as linhas de um arquivo como se fossem colunas | `-b` `-c` `-f` `-s` `-w` | Geralmente utilizado junto a outros  |
 | _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
 | _[column](https://man7.org/linux/man-pages/man1/column.1.html)_ | **W**orld **C**ount = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
 | _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | **SORT** = Organiza o arquivo, ordenando de diversas formas diferentes | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ |
@@ -53,7 +54,7 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 
 ***
 # Softwares de bioinformática
-#### Programas utilizados no tutorial
+#### Esses programas/ferramentas utilizadas no tutorial são alternativas 
 
 | PROGRAMA / FERRAMENTA | DESCRIÇÃO |
 |:----------:|:--------------------------------------------------------------------------------------------------------------------|
@@ -68,10 +69,10 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | **[Salmon](https://combine-lab.github.io/salmon/)**  |  |
 
 
-# websites para mexer com bioinformática
+## websites para mexer com bioinformática
+Site de alinhadores e [toolkit.tuebingen.mpg.de](https://toolkit.tuebingen.mpg.de/). Para outras ferramentas utiliza-se [Galaxy](https://galaxy-main.usegalaxy.org/)
+
 ## Lição de casa
 Tutorial disponibilizado no [Canva.com]() para recriar as análises feitas durante a aula em uma plataforma online
 
-https://galaxy-main.usegalaxy.org/ 
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1
-## https://toolkit.tuebingen.mpg.de/tools/mafft
