@@ -5,10 +5,12 @@
 
 &emsp; Primeiro iniciaremos com a exploração dos dados iniciais. Os dados estão presentes na pasta [Workshop/STBio26/PrimeiroDia](https://github.com/211295/Workshop/tree/main/STBio26/PrimeiroDia) e adquiridas no banco de dados [UniProt](https://www.uniprot.org/).
 
+&emps; Utilize o comando wget para baixar diretamente no seu computador ou servidor remoto os os dados dos bancos de dados públicos. Neste caso, os dados já estão disponibilizados para vocês na página do GitHub.
 ```
-# Utilize o comando wget para baixar diretamente no seu computador ou servidor os dados dos bancos de dados
-$ wget
-# Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversas
+$ wget ; gunzip *.gz
+```
+&emps; Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversas.
+```
 $ head -n <N> *.fa
 $ tail -n <N> *.fa
 $ more *.fa
