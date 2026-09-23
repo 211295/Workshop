@@ -36,9 +36,9 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[cat](https://man7.org/linux/man-pages/man1/cat.1.html)_ | **C**onc**AT**enate = printa o conteuto de todos os arquivos concatenando seus conteudos | `-A` `-n` | Geralmente utilizado para verificar o conteúdo de arquivos pequenos. O inverso dele é o comando `TAC` |
 | _[less](https://man7.org/linux/man-pages/man1/less.1.html)_ | Mostra o conteúdo na tela do terminal em uma "tela a parte" | `-S` | Como outros comandos, utiliza-se para visualizar o arquivo mas neste caso este não printa, mostra somente o conteudo que cabe na tela. Geralmente utilizado para verificar tabelas de maneira organizada (opção `-S`) |
 | _[more](https://man7.org/linux/man-pages/man1/more.1.html)_ | Mostra o conteúdo do arquivo em uma tela a parte |  | Um modo de visualizar um arquivo. Melhor utilizado para arquivos XXXXX |
-| _[head](https://man7.org/linux/man-pages/man1/head.1.html)_ | Mostra as primeiras linhas | `-n` | Um modo de visualizar as primeiras linhas de um arquivo, quando junto do `-n` podendo visualizar quantas linhas necessárias |
-| _[tail](https://man7.org/linux/man-pages/man1/tail.1.html)_ | Mostra as últimas linhas | `-n` | Um modo de visualizar as últimas linhas de um arquivo (em ordem), quando junto do `-n` podendo visualizar quantas linhas necessárias |
-| _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | **TOUCH** = cria um arquivo em branco |  | Pode-se criar um arquivo novo com intuito de garantir que o _output_ sejam indexados ao arquivo novo (utilizando o sinal `>`). |
+| _[head](https://man7.org/linux/man-pages/man1/head.1.html)_ | Mostra as primeiras linhas de um arquivo | `-n` | Um modo de visualizar as primeiras linhas de um arquivo, quando junto do `-n` podendo visualizar quantas linhas necessárias |
+| _[tail](https://man7.org/linux/man-pages/man1/tail.1.html)_ | Mostra as últimas linhas de um arquivo | `-n` | Um modo de visualizar as últimas linhas de um arquivo (em ordem), quando junto do `-n` podendo visualizar quantas linhas necessárias |
+| _[touch](https://man7.org/linux/man-pages/man1/touch.1.html)_ | Cria um arquivo em branco |  | Pode-se criar um arquivo novo com intuito de garantir que o _output_ sejam indexados ao arquivo novo (utilizando o sinal `>`). |
 | _[nano](https://linux.die.net/man/1/nano)_ | **N**ano's **ANO**ther editor = Edita um arquivo texto (e até mesmo cria caso não exista) |  | Após a edição, deve-se apertar `CRTL` + `X`, e depois `Y` para salvar as alterações. |
 | _[grep](https://man7.org/linux/man-pages/man1/grep.1.html)_ | Adquire/pega/seleciona  | `-t` | Importante lembrar que a cópia deve haver um nome diferente caso esteja presente no mesmo _Diretório_/_Pasta_ |
 | _[sed](https://man7.org/linux/man-pages/man1/sed.1.html)_ |  | `-t` `-v` `-f` | Editor de arquivos muito completo, mantendo o original e disponibilizando na tela somente a troca especificada entre as aspas |
@@ -50,9 +50,9 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | Organiza o arquivo, ordenando de diversas formas diferentes | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ |
  
 >[!WARNING]
-> Outro comando básico porem fatal, é o [rm](https://man7.org/linux/man-pages/man1/rm.1.html) (**R**e**M**ove), uma vez usado, não há mais volta
-
+> Outro comando básico porem fatal, é o _[rm](https://man7.org/linux/man-pages/man1/rm.1.html)_ (**R**e**M**ove), uma vez usado, não há mais volta
 ***
+
 # Softwares de bioinformática
 #### Esses programas/ferramentas utilizadas no tutorial são alternativas 
 
@@ -73,6 +73,6 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 Site de alinhadores e [toolkit.tuebingen.mpg.de](https://toolkit.tuebingen.mpg.de/). Para outras ferramentas utiliza-se [Galaxy](https://galaxy-main.usegalaxy.org/)
 
 ## Lição de casa
-Tutorial disponibilizado no [Canva.com]() para recriar as análises feitas durante a aula em uma plataforma online
+Tutorial disponibilizado no [Canva.com](canva.com) para recriar as análises feitas durante a aula em uma plataforma online
 
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1
