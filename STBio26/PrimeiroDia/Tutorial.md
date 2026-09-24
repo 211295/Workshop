@@ -2,18 +2,28 @@
 ### Baixar arquivos - Alinhamento Local - Alinhamento Global - Construção Filogenética
 ***
 &emsp; Ao final deste tutorial o aluno entenderá como são utilizados os alinhamentos e como são de construídos as filogenias através de similaridades das bases.
+> [!WARNING]
+> Neste tutorial as citações de códigos estão com o sinal de dolar `$` e com o _output_, pois no **Terminal** do Linux o _PROMPT_ tem uma configuração e os comandos serão inseridos após o sinal de dolar.
+>
+> Portanto não funcionará copiar e colar o código todo do quadrado de citação.
+```
+fesalles@Br-SP95:~$
+<user> @ <remote computer adress> : <working directory> $ 
+```
 
-&emsp; Primeiro iniciaremos com a exploração dos dados iniciais. Os dados estão presentes na pasta [Workshop/STBio26/PrimeiroDia](https://github.com/211295/Workshop/tree/main/STBio26/PrimeiroDia) e adquiridas no banco de dados [UniProt](https://www.uniprot.org/).
+#### Abra no computador o aplicativo chamado Ubunto (icone laranja). Este será seu ambiente de pesquisa.
+> Caso o sistema operacional for Linux :registered:, basta apertar `CRTL` + `T` 
 
-&emsp; Utilize o comando wget para baixar diretamente no seu computador ou servidor remoto os os dados dos bancos de dados públicos. Os dados estão disponíveis no [uniprotkb](https://www.uniprot.org/uniprotkb). 
+&emsp; Iniciando a exploração dos dados presentes na pasta [Workshop/STBio26/PrimeiroDia](https://github.com/211295/Workshop/tree/main/STBio26/PrimeiroDia) e adquiridas no banco de dados [UniProt](https://www.uniprot.org/), e [NCBI/proteins](https://www.ncbi.nlm.nih.gov/home/proteins/).
 
-Baixe o arquivo fasta, clicando com botão direito e copiando o _link_ (se clicar no botão fasta, será baixado no computador o arquivo). Em seguida insira no terminal junto do comando `wget`:
+&emsp; Utilize o comando wget para baixar diretamente no seu computador ou servidor remoto os dados dos bancos de dados públicos. Os dados estão disponíveis no [uniprotkb](https://www.uniprot.org/uniprotkb). 
+
+Baixe o arquivo `.fasta`, clicando com botão direito e copiando o _link_ (se clicar no botão do arquivo, será baixado no computador diretamente). Em seguida insira no terminal junto do comando `wget`:
 
 <img width="1244" height="676" alt="image" src="https://github.com/user-attachments/assets/40cba966-a9a8-46d0-b1a7-dc04f56b09c9" />
 
-
 ```
-$ wget https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz ; gunzip *.gz
+$ wget https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz ; gunzip *.gz ; echo "Dezipado"
 ```
 
 &emsp; Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversas.
