@@ -9,9 +9,9 @@ Assitentes: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [
 ###### Após a breve explicação sobre tipo de arquivos e abordagens de tipos de estudos, vamos iniciar o aprendizado do "terminal"
 
 
-Para começar iremos introduzir o terminal e a linguagem Bash/Linux. O terminal de um computador é a área onde conversamos com o computador sem a interface gráfica (portanto não utilizamos mouse para mover os arquivos ou clicar neles), permitindo usar scripts e comandos básicos para realizar as tarefas computacionais.
+&emsp; Para começar iremos introduzir o terminal e a linguagem Bash/Linux. O terminal de um computador é a área onde conversamos com o computador sem a interface gráfica (portanto não utilizamos mouse para mover os arquivos ou clicar neles), permitindo usar scripts e comandos básicos para realizar as tarefas computacionais.
 
-Para quem possiu o sistema Linux basta apertar `Ctrl` + `Alt` + `T` . E para outros sistemas operacionais há aplicativos ou outras interfaces:
+&emsp; Para quem possiu o sistema Linux basta apertar `Ctrl` + `Alt` + `T` . E para outros sistemas operacionais há aplicativos ou outras interfaces:
 
 **Windows:** WSL, Ubuntu e Xmobe
 
@@ -19,9 +19,9 @@ Para quem possiu o sistema Linux basta apertar `Ctrl` + `Alt` + `T` . E para out
 
 **IOS:** iSH ou a-Shell
 
-Iniciaremos com a visualização da tela e os primeiros comandos mais simples. Agora chamaremos todos os arquivos seguintes dependendo do conteundo dele. E cada um terá uma `terminação` especifica. E também toda pasta agora será chamada de `diretório`. 
+&emsp; Iniciaremos com a visualização da tela e os primeiros comandos mais simples. Agora chamaremos todos os arquivos seguintes dependendo do conteundo dele. E cada um terá uma `terminação` especifica. E também toda pasta agora será chamada de `diretório`. 
 
-Procure o aplicativo chamado `Ubunto`
+&emsp; Procure o aplicativo chamado `Ubuntu`
 
 **Ubuntu 24.04** :o:
 
@@ -38,7 +38,7 @@ $ ls -lh
 $ ls -lash
 ```
 
-Interessante notar que as opções dos comandos não tem ordem correta, somente em alguns poucos casos onde uma opção tem que obrigatóriamente vir antes de outra.
+&emsp; Interessante notar que as opções dos comandos não tem ordem correta, somente em alguns poucos casos onde uma opção tem que obrigatóriamente vir antes de outra.
 
 Encontrou o diretório chamado `tutorial_workshop`? Vamos utilizar então agora um PADRÃO de comando que irá se repetir
 ```
@@ -53,19 +53,20 @@ catch_genes.sh all_proteins.fasta transform_single_line_fasta.sh
 
 > Se quiser, pode usar o mesmo comando no outro diretório para ver qual o conteudo.
 
-Agora entramemos no `diretório` chamado `tutorial_workshop`. Se fosse um computador com interface gráfica você clicaria duas vezes na pasta para entrar nela, mas no nosso caso será em linha de comando, ao mesmo tempo que já mostraremos o conteudo dela. So é possivel por conta do `;`, pois o computador entende que isso seria uma linha nova:
+&emsp; Agora entramemos no `diretório` chamado `tutorial_workshop`. Se fosse um computador com interface gráfica você clicaria duas vezes na pasta para entrar nela, mas no nosso caso será em linha de comando, ao mesmo tempo que já mostraremos o conteudo dela. So é possivel por conta do `;`, pois o computador entende que isso seria uma linha nova:
 ``` 
 $ cd tutorial_workshop ; ls -lh
 ```
 
-Percebe-se que há dois script (verde) de final ".sh" e um fasta. Utilizaremos um `catch_genes.sh` para recuperarmos as sequências do arquivo fasta das proteinas de Eukariotos.
+&emsp; Percebe-se que há dois script (verde) de final ".sh" e um fasta. Utilizaremos um `catch_genes.sh` para recuperarmos as sequências do arquivo fasta das proteinas de Eukariotos.
 ***
 ### Inspecionar os arquivos
-Agora vamos inspecionar os arquivos. O tamanho já nos foi dado, precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. 
+&emsp; Agora vamos inspecionar os arquivos. O tamanho já nos foi dado, precisamos ver o conteudo. Para inspecionar os arquivos temos diversos comandos: `head`, `tail`, `more`, `less`, `cat`, `tac` ... Cada um com suas especificidades. 
 
-Este arquivo de proteinas foi baixada do site [UniProt](https://www.uniprot.org/uniprotkb). São as proteínas de todos os organismos vivos. Vamos trabalhar com um fasta com muitas sequências, todas proteínas, porém poderia ser um genoma, um trasncriptoma, sequencias codificadoras, etc...
+&emsp; Este arquivo de proteinas foi baixada do site [UniProt](https://www.uniprot.org/uniprotkb). São as proteínas de todos os organismos vivos. Vamos trabalhar com um fasta com muitas sequências, todas proteínas, porém poderia ser um genoma, um trasncriptoma, sequencias codificadoras, etc...
 
-:warning: Procure não usar o `cat` ou `tac` para arquivos muito grandes :warning:
+> [!WARNING]
+>:warning: Procure não usar o `cat` ou `tac` para arquivos muito grandes :warning:
 
 ``` 
 $ head all_proteins.fasta
@@ -100,7 +101,7 @@ $ [comando] --help
 ```
 > Para sair do manual basta clicar na tecla 'Q', de quit
 
-Agora inspecionaremos o arquivo fasta com um pouco mais de detalhes. Contaremos quantas sequencias há no arquivo `fasta`. Cada início de sequência tem seu cabeçalho iniciado por `>___` e na linha de baixo o conteudo da sequência. Iremos tambem calcular quantas linhas INICIAM com o aminoacido `Metionina` e a quantidade de linhas totais no arquivo. E ai qual o resultado? Discuta o por quê disso.
+&emsp; Agora inspecionaremos o arquivo fasta com um pouco mais de detalhes. Contaremos quantas sequencias há no arquivo `fasta`. Cada início de sequência tem seu cabeçalho iniciado por `>___` e na linha de baixo o conteudo da sequência. Iremos tambem calcular quantas linhas INICIAM com o aminoacido `Metionina` e a quantidade de linhas totais no arquivo. E ai qual o resultado? Discuta o por quê disso.
 
 ```
 $ grep -c ">" eukaria_protein.fasta
@@ -122,18 +123,18 @@ $ wc -l eukaria_protein.fasta
 1149254 all_proteins.fasta
 ```
 
-O primeiro comando conta automaticamente o numero de linhas que apresentam o sinal '>' e o segundo comando seleciona as linhas que apresentam '>' - ou seja, ele seleciona os 'headers', e DEPOIS conta o número de linhas total do comando anterior. Só é possivel isso pois utilizamos o 'pipe' `|` - significa 'tubo'  ou 'cano' - portanto o resultado (output) do `grep` entra em um cano e segue automaticametne para o proximo comando.
+&emsp; O primeiro comando conta automaticamente o numero de linhas que apresentam o sinal '>' e o segundo comando seleciona as linhas que apresentam '>' - ou seja, ele seleciona os 'headers', e DEPOIS conta o número de linhas total do comando anterior. Só é possivel isso pois utilizamos o 'pipe' `|` - significa 'tubo'  ou 'cano' - portanto o resultado (output) do `grep` entra em um cano e segue automaticametne para o proximo comando.
 
-Agora inspecione com `cat` os arquivos `*.sh` (**Shell**). Pode observar que ambos tem um cabeçalho único: `#!/bin/bash`.
+&emsp; Agora inspecione com `cat` os arquivos `*.sh` (**Shell**). Pode observar que ambos tem um cabeçalho único: `#!/bin/bash`.
 Esta linha exige que o arquivo seja lido pelo computador de um jeito especial. E isso trasnforma os arquivos textos em "scripts".
 
 ***
 ### Baixar os arquivos
-Vamos iniciar e baixar nossa proteina de interesse no site do NCBI.
+##### Vamos iniciar e baixar nossa proteina de interesse no site do NCBI.
 
 ⚠️ Agora importante se certificar que a proteina a ser baixada está no diretório que será trabalhado e com algum nome que seja útil e informativo para você. Portanto vamos renomear, caso necessário, e mover o arquivo até o diretório `tutorial-workshop`
 
-Vá até o site do [NCBI](https://www.ncbi.nlm.nih.gov/protein/), e procure na aba de pesquisa pela proteina "Histone [nome_de_uma_espécie]", ou qualquer outra proteina que você conheça, de preferença uma proteina bem estudada. Clique no botão `FASTA` abaixo e então copie o conteudo e vamos colar em um arquivo.
+&emsp; Vá até o site do [NCBI](https://www.ncbi.nlm.nih.gov/protein/), e procure na aba de pesquisa pela proteina "Histone [nome_de_uma_espécie]", ou qualquer outra proteina que você conheça, de preferença uma proteina bem estudada. Clique no botão `FASTA` abaixo e então copie o conteudo e vamos colar em um arquivo.
 
 Para criar um arquivo usamos o comando `touch`. E para edita-lo usamos o comando `nano`
 > Obs1: geralmente usamos o nano diretamente em um arquivo não existente, pois ele já cria automaticamente, pulando o comando touch
@@ -156,9 +157,9 @@ $ mv [arquivo] -t [diretório]
 ```
 ***
 ### Alinhamento local (BLAST)
-Agora iremos rodar o primeiro programa, o BLAST ([baixado](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) diretamente no computador com o comando `wget`), para alinhar as proteínas que queremos adquirir com a proteína alvo. Nesta etapa vale a pena e pesquisar e [ler um pouco sobre](https://pmc.ncbi.nlm.nih.gov/articles/PMC441573/). Utilizaremos o comando `blastp` para alinhar proteína com todas as outras proteínas.
+&emsp; Agora iremos rodar o primeiro programa, o BLAST ([baixado](https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/) diretamente no computador com o comando `wget`), para alinhar as proteínas que queremos adquirir com a proteína alvo. Nesta etapa vale a pena e pesquisar e [ler um pouco sobre](https://pmc.ncbi.nlm.nih.gov/articles/PMC441573/). Utilizaremos o comando `blastp` para alinhar proteína com todas as outras proteínas.
 
-Primeiramente, devemos criar um banco com o comando `makeblastdb` do programa BLAST. Para isso vamos criar um novo diretório (`mkdir`), copiar o arquivo fasta de proteinas neste diretório criado, e depois utilizar o comando no arquivo clonado.
+&emsp; Primeiramente, devemos criar um banco com o comando `makeblastdb` do programa BLAST. Para isso vamos criar um novo diretório (`mkdir`), copiar o arquivo fasta de proteinas neste diretório criado, e depois utilizar o comando no arquivo clonado.
 
 ```
 $ mkdir database/ ; cp all_proteins.fasta database/
@@ -178,7 +179,7 @@ $ ls -lh BLAST-[protein].out ; wc -l BLAST-[protein].out ; head BLAST-[protein].
 prot sequence % comprimento incongruencia Nº'-' inicio fim inicio fim evalue pontuação
 ```
 
-Veja que temos 12 colunas dessa [tabela](https://www.metagenomics.wiki/tools/blast/blastn-output-format-6) (leia sobre ela). E precisamos pegar então as sequências que são similares a aquela proteína que foi escolhida. Usaremos um outro comando, e após isso usaremos um script já pronto `catch_genes.sh`:
+&emsp; Veja que temos 12 colunas dessa [tabela](https://www.metagenomics.wiki/tools/blast/blastn-output-format-6) (leia sobre ela). E precisamos pegar então as sequências que são similares a aquela proteína que foi escolhida. Usaremos um outro comando, e após isso usaremos um script já pronto `catch_genes.sh`:
 ```
 $ awk '{print $2}' BLAST-[protein].out | uniq > list_of_sequences.txt
 $ wc -l list_of_sequences.txt
@@ -196,7 +197,7 @@ $ ls -h sequencies_of_[protein].fasta; grep -c '>' sequencies_of_[protein].fasta
 
 ***
 ### Alinhamento global (MAFFT)
-Após a seleção dessas sequências, vamos fazer o alinhamento de todas elas aminoácido por aminoácido. E o que isso significa? Significa que aminoácidos iguais irão ser associados à uma posição na sequência. Por exemplo se na posição 4 há um **V** (valina) para a maioria das sequências, as sequências sem **V** serão adcionados um traço "-" , e isso será lido posteriormente como uma variação da proteína.
+&emsp; Após a seleção dessas sequências, vamos fazer o alinhamento de todas elas aminoácido por aminoácido. E o que isso significa? Significa que aminoácidos iguais irão ser associados à uma posição na sequência. Por exemplo se na posição 4 há um **V** (valina) para a maioria das sequências, as sequências sem **V** serão adcionados um traço "-" , e isso será lido posteriormente como uma variação da proteína.
 
 Para isso usaremos o programa [MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/). Este programa ja foi [baixado](https://mafft.cbrc.jp/alignment/software/linuxportable.html). Pode verificar no diretório de programas.
 ```
@@ -216,7 +217,7 @@ $ ls -h sequencies_of_[protein].aligned.fasta; grep -c '>' sequencies_of_[protei
 ```
 ***
 ### Checagem do alinhamento (ESTE PASSO É EXTRA, FAÇA SOMENTE SE HOUVER TEMPO)
-Após o alinhamento, podemos checar de vários jeitos se deu certo ou nâo. Um dos jeitos que eu gosto de checar é contando se o número de cabeçalhos bate com com o número do tamanho das sequências. Ou seja, construiremos um novo arquivo com o cabeçalho da sequencie o comprimento da sequencia substituindo o conteudo.
+&emsp; Após o alinhamento, podemos checar de vários jeitos se deu certo ou nâo. Um dos jeitos que eu gosto de checar é contando se o número de cabeçalhos bate com com o número do tamanho das sequências. Ou seja, construiremos um novo arquivo com o cabeçalho da sequencie o comprimento da sequencia substituindo o conteudo.
 Por exemplo:
 ```
 input.fasta           | length.fasta
@@ -248,7 +249,7 @@ Se os números forem iguais, significa que deu certo.
 
 ***
 ### Construção de uma árvore por similaridade (IQTree)
-Próximo passo iremos ver o quão relacionada estão essas sequências através da similaridade que eles apresentam . O programa novamente esta [baixado](https://iqtree.github.io/) e só deveremos rodar a linha de comando. Este programa necessita um arquivo fasta alinhado globalmente, gerado pelo `mafft`. Poderiam ter usado outros programas para alinhamento, mas alguns não gerão o arquivo fasta.
+&emsp; Próximo passo iremos ver o quão relacionada estão essas sequências através da similaridade que eles apresentam . O programa novamente esta [baixado](https://iqtree.github.io/) e só deveremos rodar a linha de comando. Este programa necessita um arquivo fasta alinhado globalmente, gerado pelo `mafft`. Poderiam ter usado outros programas para alinhamento, mas alguns não gerão o arquivo fasta.
 
 | Programas que alinham | Tipo de arquivo gerado | website |
 |:-----------------------|:-------------------------:|:---------------------------------------------------------------:|
