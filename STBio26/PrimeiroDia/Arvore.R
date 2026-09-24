@@ -1,6 +1,8 @@
 ### Visualização de árvores pelo Phytools
 packageVersion('phytools')
 if(!require(phytools)){install.packages("phytools");library(phytools)}
+if(!require(ape)){install.packages("ape");library(ape)}
+if(!require(phytools)){install.packages("phytools");library(phytools)}
 
 ### Pode carregar seu pacote direto do computador
 ### Defina o "Diretório de trabalho" (SET Work Directory)
