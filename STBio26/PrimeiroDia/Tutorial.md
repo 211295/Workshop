@@ -39,33 +39,25 @@ $ less -S uniprot_sprot.fasta
 >[!WARNING]
 > Não recomenda-se utilizar o `cat` com intuito de visualizar arquivos muito grandes
 
-Inspecione o arquivo um pouco mais: Contagem de linhas, contagem de cabeçalhos, contagem de 
+Inspecione o arquivo um pouco mais: contagem de linhas e contagem de cabeçalhos ...
 ```
 # contar a quantidade de linhas de 3 maneiras distintas (a última nem um pouco usual e com muito exagero)
 $ wc -l uniprot_sprot.fasta
 4347145 uniprot_sprot.fasta
 $ cat uniprot_sprot.fasta | wc -l
 4347145
-# Print o arquivo completo com o numero total de linhas 
+# Print o arquivo completo com o número total de linhas 
 $ cat -n uniprot_sprot.fasta | tail -n 1
 4347145 LTLMLRRSDYCGICGEVLPKKLVFENSPSAPPYEA
 ```
-Inspecione mais um pouco. Qual o tipo de molécula está presente neste arquivo fasta? Quantos cabeçalhos há neste arquivo?
+Quantos cabeçalhos há neste arquivo? Porque o número de cabeçalhos é muito menor que o número de linhas totais? Lembre-se que os cabeçalhos iniciam sempre com um caractere específico por isso utiliza-se a contagem "pegando" o caractere e o contando.
 ```
-$ head uniprot_sprot.fasta
->sp|Q6GZX4|001R_FRG3G Putative transcription factor 001R OS=Frog virus 3 (isolate Goorha) OX=654924 GN=FV3-001R PE=4 SV=1
-MAFSAEDVLKEYDRRRRMEALLLSLYYPNDRKLLDYKEWSPPRVQVECPKAPVEWNNPPS
-EKGLIVGHFSGIKYKGEKAQASEVDVNKMCCWVSKFKDAMRRYQGIQTCKIPGKVLSDLD
-AKIKAYNLTVEGVEGFVRYSRVTKQHVAAFLKELRHSKQYENVNLIHYILTDKRVDIQHL
-EKDLVKDFKALVESAHRMRQGHMINVKYILYQLLKKHGHGPDGPDILTVKTGSKGVLYDD
-SFRKIYTDLGWKFTPL
->sp|Q6GZX3|002L_FRG3G Uncharacterized protein 002L OS=Frog virus 3 (isolate Goorha) OX=654924 GN=FV3-002L PE=4 SV=1
-MSIIGATRLQNDKSDTYSAGPCYAGGCSAFTPRGTCGKDWDLGEQTCASGFCTSQPLCAR
-IKKTQVCGLRYSSKGKDPLVSAEWDSRGAPYVRCTYDADLIDTQAQVDQFVSMFGESPSL
-AERYCMRGVKNTAGELVSRVSSDADPAGGWCRKWYSAHRGPDQDAALGSFCIKNPGAADC
 $ grep -c ">" uniprot_sprot.fasta 
 575748
 ```
+
+Baixe o arquivo de proteína que preferir, 
+***
 
 
 ***
