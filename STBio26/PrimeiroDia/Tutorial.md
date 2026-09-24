@@ -9,7 +9,11 @@
 ```
 $ wget ; gunzip *.gz
 ```
+
 &emsp; Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversas.
+
+Comandos `head`, `tail`, `more`, `less`, `cat`, `tac`
+> Para o comando `less`, deve-se sair apertando a tecla `Q`, de "_quit_"
 ```
 $ head -n <N> *.fa
 $ tail -n <N> *.fa
