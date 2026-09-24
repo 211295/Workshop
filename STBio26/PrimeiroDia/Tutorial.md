@@ -5,28 +5,43 @@
 
 &emsp; Primeiro iniciaremos com a exploração dos dados iniciais. Os dados estão presentes na pasta [Workshop/STBio26/PrimeiroDia](https://github.com/211295/Workshop/tree/main/STBio26/PrimeiroDia) e adquiridas no banco de dados [UniProt](https://www.uniprot.org/).
 
-&emsp; Utilize o comando wget para baixar diretamente no seu computador ou servidor remoto os os dados dos bancos de dados públicos. Neste caso, os dados já estão disponibilizados para vocês na página do GitHub.
+&emsp; Utilize o comando wget para baixar diretamente no seu computador ou servidor remoto os os dados dos bancos de dados públicos. Os dados estão disponíveis no [uniprotkb](https://www.uniprot.org/uniprotkb). 
+
+Baixe o arquivo fasta, clicando com botão direito e copiando o _link_ (se clicar no botão fasta, será baixado no computador o arquivo). Em seguida insira no terminal junto do comando `wget`:
+
+<img width="1244" height="676" alt="image" src="https://github.com/user-attachments/assets/40cba966-a9a8-46d0-b1a7-dc04f56b09c9" />
+
+
 ```
-$ wget ; gunzip *.gz
+$ wget https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz ; gunzip *.gz
 ```
 
 &emsp; Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversas.
 
-Comandos `head`, `tail`, `more`, `less`, `cat`, `tac`
+Comandos `head`, `tail`, `more`, `less`, `cat`, `tac`.
 > Para o comando `less`, deve-se sair apertando a tecla `Q`, de "_quit_"
 ```
-$ head -n <N> *.fa
-$ tail -n <N> *.fa
-$ more *.fa
-$ less -S *.fa
-# contar a quantidade de linhas de 3 maneiras distintas (a última nem um pouco usual e com muito exagero)
-$ wc -l *.fa
-$ cat *.fa | wc -l
-# Contar o número de sequências presente nos arquivos
-$ grep -c ">" *.fa
+$ head -n <N> uniprot_sprot.fasta
+$ tail -n <N> uniprot_sprot.fasta
+$ more uniprot_sprot.fasta
+$ less -S uniprot_sprot.fasta
 ```
 >[!WARNING]
 > Não recomenda-se utilizar o `cat` com intuito de visualizar arquivos muito grandes
+
+Inspecione o arquivo um pouco mais: Contagem de linhas, contagem de cabeçalhos, contagem de 
+```
+# contar a quantidade de linhas de 3 maneiras distintas (a última nem um pouco usual e com muito exagero)
+$ wc -l uniprot_sprot.fasta
+4347145 uniprot_sprot.fasta
+$ cat uniprot_sprot.fasta | wc -l
+4347145
+# Print o arquivo completo com o numero total de linhas 
+$ cat -n uniprot_sprot.fasta | tail -n 1
+4347145 LTLMLRRSDYCGICGEVLPKKLVFENSPSAPPYEA
+```
+Inspecione mais um pouco, qual o tipo de molécula 
+
 
 
 ***
