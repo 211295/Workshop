@@ -56,8 +56,15 @@ $ grep -c ">" uniprot_sprot.fasta
 575748
 ```
 
-Baixe o arquivo de proteína que preferir, 
+Baixe o arquivo de proteína (hemoglobina neste caso)
+> [!TIP]
+> Qualquer proteína ou gene pode ser escolhido para fazer os passos seguintes
+```
+$ wget  ; gunzip *.gz
+```
 ***
+#### Inicie com o programa BLAST para adquirir as proteínas com maior similaridade.
+
 
 
 ***
