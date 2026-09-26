@@ -189,13 +189,12 @@ Date and Time: Thu Sep 24 21:18:09 2026
 2. Pe
 
 ### Visualização da árvore (iTol)
-&emsp; Esta etapa pode ser feita da maneira que preferir. 
+#### Esta etapa pode ser feita da maneira que preferir. 
 
 &emsp; Nós recomendamos uma visualização através de uma plataforma _on-line_ chamada [iTOL](https://itol.embl.de/). 
 
-&emsp; Após verificar se a árvore foi gerada, pode dar um "print" nela com `cat` (arquivo pequeno) e copiar para área de `Visualize support values. Explore clade distances.` no site. Entre no "Upload a tree" e cole no espaço adqueado. Após colar o código da árvore basta clicar em `Upload`.
+- Após verificar se a árvore foi gerada, pode dar um "print" nela com `cat` (arquivo pequeno) e copiar para área de `Visualize support values. Explore clade distances.` no site. Entre no "Upload a tree" e cole no espaço adqueado. Após colar o código da árvore basta clicar em `Upload`.
 >[!TIP]
 > Pode-se verificar que o site aceita carregar arquivos direto pelo computador. Mas devo lembrar que será apenas nos formatos _Newick_, _Nexus_ ou _PhyloXML_
 
-
-
+- Outra opção é utilizar o código em [R](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/Arvore.R) disponibilizado.
