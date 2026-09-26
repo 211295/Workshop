@@ -116,11 +116,77 @@ iqtree3  iqtree3_arm  iqtree3_intel
 Usa-se o comando `iqtree3` para 
 ***
 ```
+# Não especificar o modelo de substituição, o programa procura automaticamente
+$ ./iqtree-3.1.4-Linux/bin/iqtree3 -s hemoglobin.fasta -nt 4
+
+IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 10 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Br-SP95 (AVX512, FMA3, 3 GB RAM)
+Command: /home/<user>/iqtree-3.1.4-Linux/bin/iqtree3_intel -s <alinhamento_prot>.fa -nt 4
+Seed:    441864 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Thu Sep 24 21:17:55 2026
+Kernel:  AVX+FMA - 4 threads (8 CPU cores detected)
 ```
+[...]
 ```
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.002 seconds
+Perform fast likelihood tree search using LG+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+1. Initial log-likelihood: -4107.569
+Optimal log-likelihood: -4107.529
+Proportion of invariable sites: 0.070
+Gamma shape alpha: 2.066
+Parameters optimization took 1 rounds (0.016 sec)
+Time for fast ML tree search: 0.134 seconds
+
+NOTE: ModelFinder requires 6 MB RAM!
+ModelFinder will test up to 1232 protein models (sample size: 151 epsilon: 0.100) ...
+Akaike Information Criterion:           Q.YEAST+F+I+G4
+Corrected Akaike Information Criterion: LG+I+G4
+Bayesian Information Criterion:         LG+I+G4
+Best-fit model: LG+I+G4 chosen according to BIC
+
+All model information printed to <alinhamento_prot>.fa.model.gz
+CPU time for ModelFinder: 18.711 seconds (0h:0m:18s)
+Wall-clock time for ModelFinder: 4.720 seconds (0h:0m:4s)
 ```
+[...]
 ```
+--------------------------------------------------------------------
+|                    FINALIZING TREE SEARCH                        |
+--------------------------------------------------------------------
+Performs final model parameters optimization
+Estimate model parameters (epsilon = 0.010)
+1. Initial log-likelihood: -4105.685
+Optimal log-likelihood: -4105.684
+Proportion of invariable sites: 0.072
+Gamma shape alpha: 1.995
+Parameters optimization took 1 rounds (0.015 sec)
+BEST SCORE FOUND : -4105.684
+Total tree length: 9.559
+
+Total number of iterations: 124
+CPU time used for tree search: 33.067 sec (0h:0m:33s)
+Wall-clock time used for tree search: 8.273 sec (0h:0m:8s)
+Total CPU time used: 54.078 sec (0h:0m:54s)
+Total wall-clock time used: 13.570 sec (0h:0m:13s)
+
+Analysis results written to:
+  IQ-TREE report:                <alinhamento_prot>.fa.iqtree
+  Maximum-likelihood tree:       <alinhamento_prot>.fa.treefile
+  Likelihood distances:          <alinhamento_prot>.fa.mldist
+  Screen log file:               <alinhamento_prot>.fa.log
+
+Date and Time: Thu Sep 24 21:18:09 2026
 ```
+- Verifique e inspesione o arquivo `*.iqtree` e `*.log`
+1. Identifique a linha onde esta a informação do Modelo selecionado. Reflita sobre o modelo
+2. Pe
 
 ### Visualização da árvore (iTol)
 &emsp; Esta etapa pode ser feita da maneira que preferir. 
