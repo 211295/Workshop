@@ -197,4 +197,4 @@ Date and Time: Thu Sep 24 21:18:09 2026
 >[!TIP]
 > Pode-se verificar que o site aceita carregar arquivos direto pelo computador. Mas devo lembrar que será apenas nos formatos _Newick_, _Nexus_ ou _PhyloXML_
 
-- Outra opção é utilizar o código em [R](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/Arvore.R) disponibilizado.
+- Outra opção é utilizar o código em [R](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/Arvore.R) disponibilizado no tutorial. Para isto deve .
