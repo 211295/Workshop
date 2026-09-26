@@ -114,7 +114,6 @@ iqtree-3.1.4-Linux/bin:
 iqtree3  iqtree3_arm  iqtree3_intel
 ```
 Usa-se o comando `iqtree3` para 
-***
 ```
 $ ./iqtree-3.1.4-Linux/bin/iqtree3 -s hemoglobin.fasta -nt 4
 ```
