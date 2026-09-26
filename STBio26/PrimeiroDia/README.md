@@ -66,7 +66,7 @@ $ wget  ; gunzip *.gz
 ***
 ### Alinhamento Local ([BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279690/))
 #### Inicie com o programa BLAST para adquirir as proteínas com maior similaridade.
-Dentro do [manual](https://www.ncbi.nlm.nih.gov/books/NBK279690/) procure pela instalação em `Exectables`. [Baixe](https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/) pelo index correspondente ao sistema operacional. Neste caso usa-se `x64-linux`. 
+- Dentro do [manual](https://www.ncbi.nlm.nih.gov/books/NBK279690/) procure pela instalação em `Exectables`. [Baixe](https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/) pelo index correspondente ao sistema operacional. Neste caso usa-se `x64-linux`. 
 ```
 $ wget https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.17.0+-x64-linux.tar.gz
 $ tar zxvpf ncbi-blast-2.17.0+-x64-linux.tar.gz
@@ -77,7 +77,7 @@ $ tar zvpf ncbi-blast-2.17.0+-x64-linux.tar.gz
 ```
 > A opção `-x` do comando `tar` é o equivalente ao comando `gunzip`
 
-Construa o banco de dados a partir do grupo de proteínas disponibilizadas. Neste caso todos as proteínas revisadas pelo [UniProt](https://www.uniprot.org/uniprotkb)
+- Construa o banco de dados a partir do grupo de proteínas disponibilizadas. Neste caso todos as proteínas revisadas pelo [UniProt](https://www.uniprot.org/uniprotkb)
 ```
 $ ./ncbi-blast-2.17.0+/bin/makeblastdb -in uniprot_sport.fasta -dbtype prot -out database/uniprot
 
@@ -93,7 +93,7 @@ $ ls database/
 uniprot.pdb  uniprot.pin  uniprot.pot  uniprot.ptf
 uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ```
-Alinhe os arquivos da proteína elegida com todas as proteínas do fasta.
+- Alinhe os arquivos da proteína elegida com todas as proteínas do fasta.
 ***
 ### Alinhamento Global (MAFFT)
 
@@ -115,6 +115,13 @@ iqtree3  iqtree3_arm  iqtree3_intel
 ```
 Usa-se o comando `iqtree3` para 
 ***
+```
+```
+```
+```
+```
+```
+
 ### Visualização da árvore (iTol)
 &emsp; Esta etapa pode ser feita da maneira que preferir. 
 
