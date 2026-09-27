@@ -117,7 +117,7 @@ Usa-se o comando `iqtree3` para
 ```
 $ ./iqtree-3.1.4-Linux/bin/iqtree3 -s hemoglobin.fasta -nt 4
 ```
-> Não especificar o modelo de substituição na opção `-m`, o programa define automaticamente
+> Se não se especificar o modelo de substituição na opção `-m`, o programa define automaticamente
 ```
 IQ-TREE version 3.1.4 for Linux x86 64-bit built Sep 10 2026
 Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
