@@ -32,6 +32,7 @@ Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversa
 - Comandos `head`, `tail`, `more`, `less`, `cat`, `tac`.
 > Para o comando `less`, deve-se sair apertando a tecla `Q`, de "_quit_"
 ```
+# Teste cada um separadamente
 $ head -n <N> uniprot_sprot.fasta
 $ tail -n <N> uniprot_sprot.fasta
 $ more uniprot_sprot.fasta
@@ -57,12 +58,14 @@ $ grep -c ">" uniprot_sprot.fasta
 575748
 ```
 
-Baixe o arquivo de proteína (hemoglobina neste caso)
+- Baixe o arquivo de proteína (hemoglobina neste caso). Conseguimos construir o 
 > [!TIP]
 > Qualquer proteína ou gene pode ser escolhido para fazer os passos seguintes
 ```
-$ wget  ; gunzip *.gz
+# Construiremos os arquivos de 
+$ touch hemoglobin.fasta ; nano hemoglobin
 ```
+
 ***
 ### Alinhamento Local ([BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279690/))
 #### Inicie com o programa BLAST para adquirir as proteínas com maior similaridade.
@@ -94,9 +97,12 @@ uniprot.pdb  uniprot.pin  uniprot.pot  uniprot.ptf
 uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ```
 - Alinhe os arquivos da proteína elegida com todas as proteínas do fasta.
+
 ***
 ### Alinhamento Global (MAFFT)
-
+#### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/ubuntu_on_windows.html)
+> Outros programas de alinhamento estão indicadas em [github/STBio26/Bando de dados.md](https://github.com/211295/Workshop/tree/main/Teorica)
+ 
 ***
 ### Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
 #### Análise de similaridade de sequências e construção filogenética 
