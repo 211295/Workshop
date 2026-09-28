@@ -65,7 +65,11 @@ $ grep -c ">" uniprot_sprot.fasta
 # Construiremos os arquivos de 
 $ touch hemoglobin.fasta ; nano hemoglobin
 ```
-
+- Verifique os programas baixados
+```
+$ ls /programas/
+ncbi-blast-2.17.0+/  mafft-7.526-linux/  iqtree-3.0.1-Linux/
+```
 ***
 ### Alinhamento Local ([BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279690/))
 #### Inicie com o programa BLAST para adquirir as proteínas com maior similaridade.
@@ -82,7 +86,7 @@ $ tar zvpf ncbi-blast-2.17.0+-x64-linux.tar.gz
 
 - Construa o banco de dados a partir do grupo de proteínas disponibilizadas. Neste caso todos as proteínas revisadas pelo [UniProt](https://www.uniprot.org/uniprotkb)
 ```
-$ ./ncbi-blast-2.17.0+/bin/makeblastdb -in uniprot_sport.fasta -dbtype prot -out database/uniprot
+$ .programas/ncbi-blast-2.17.0+/bin/makeblastdb -in uniprot_sport.fasta -dbtype prot -out database/uniprot
 
 Building a new DB, current time: 09/25/2026 22:47:26
 New DB name:   /home/<user>/<directory>/database/uniprot
@@ -97,19 +101,66 @@ uniprot.pdb  uniprot.pin  uniprot.pot  uniprot.ptf
 uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ```
 - Alinhe os arquivos da proteína elegida com todas as proteínas do fasta.
+  
+- Utilize o `blastp` com as opções: `-out`, `-query`, `db`, `outfmt`
+   1. o "objeto" esta definido na opção `-query`
+   2. o database construido é obrigatório para o comando `-db`
+   3. o formato `6` de _output_ é uma tabela com algumas informações;
 
+```
+$ 
+```
+>[!TIP]
+> Pode-se utilizar uma opção que limita para ter o número máximo de sequencias: `-max_target_seqs` - intuito não ter uma tabela gigante.
+
+Inspecione o arquivo gerado: `BLAST-[protein].out`
+> Como ele é grande não utilize o comando `cat`
+```
+$ ls -lh BLAST-[protein].out
+
+$ wc -l BLAST-[protein].out
+11370
+$ head BLAST-[protein].out ## tipo de arquivo tsv
+1    2        3 4           5             6     7      8   9      10  11     12
+prot sequence % comprimento incongruencia Nº'-' inicio fim inicio fim evalue pontuação
+```
+
+&emsp; Veja o significado das 12 colunas dessa [tabela](https://www.metagenomics.wiki/tools/blast/blastn-output-format-6) (leia sobre ela). 
+
+- Selecione as sequências que são similares a aquela proteína de interesse.
+```
+$ cut -fk4 
+```
+
+```
+$ nano catch_genes.sh
+$ ./catch_genes.sh
+Searched 574627 FASTA records.
+Found 30 IDs out of 30 in the ID list
+$ ls -h sequencies_of_[protein].fasta; grep -c '>' sequencies_of_[protein].fasta; grep -c '^M' sequencies_of_[protein].fasta; wc -l sequencies_of_[protein].fasta; head sequencies_of_[protein].fasta
+```
+
+Para isso usaremos o programa . Este programa ja foi [baixado](https://mafft.cbrc.jp/alignment/software/linuxportable.html). Pode verificar no diretório de programas.
+
+Agora vamos rodar o `mafft`:
+```
+$ mkdir output
+$ mafft --maxiterate 1000 --globalpair --reorder sequencies_of_[protein].fasta > output/sequencies_of_[protein].aligned.fasta
+```
 ***
-### Alinhamento Global (MAFFT)
-#### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/ubuntu_on_windows.html)
-> Outros programas de alinhamento estão indicadas em [github/STBio26/Bando de dados.md](https://github.com/211295/Workshop/tree/main/Teorica)
+### Alinhamento Global ([MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/))
+#### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/linuxportable.html)
+> Outros programas de alinhamento estão indicadas em [github/Teorica/README.md](https://github.com/211295/Workshop/tree/main/Teorica)
 
 - Este programa também pode ser baixado pelo comando `wget`.
 ```
-$ wget https://mafft.cbrc.jp/alignment/software/mafft_7.526-1_amd64.deb
-# O próximo passo é importante porém não é possível neste caso.
-$ sudo dpkg -i mafft_7.526-1_amd64.deb
+$ wget https://mafft.cbrc.jp/alignment/software/mafft-7.526-linux.tgz
+$ ls -F
 ```
-E para rodar será necessário 
+&emsp; Nesta etapa, o alinhamento será feito entre todos os aminoácidos. 
+- E o que isso significa?
+> Aminoácidos iguais irão ser associados à uma "posição" na sequência. Por exemplo se na posição 4 há um **V** (valina) para a maioria das sequências, as sequências sem **V** serão adocionados um traço "-" nesta posição, e isso será lido posteriormente como uma variação da proteína.
+
 ***
 ### Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
 #### Análise de similaridade de sequências e construção filogenética 
