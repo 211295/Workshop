@@ -60,13 +60,21 @@ $ grep -c ">" uniprot_sprot.fasta
 575748
 ```
 
-- Baixe o arquivo de proteína (hemoglobina neste caso). Conseguimos construir o 
+- Construa o arquivo fasta da proteína (hemoglobina neste caso). Conseguimos construir tanto utilizando o banco de dados no [NCBI]() quanto [Uniprot]()
 > [!TIP]
 > Qualquer proteína ou gene pode ser escolhido para fazer os passos seguintes
+<img width="952" height="338" alt="image" src="https://github.com/user-attachments/assets/393897f8-1906-41ef-bf17-6fff215b1736" />
+
+Encontre para baixar o tipo de arquivo _FASTA_
+<img width="864" height="359" alt="image" src="https://github.com/user-attachments/assets/f648a62e-6314-4f21-b01b-69b9ce63fad0" />
+
 ```
-# Construiremos os arquivos de 
-$ touch hemoglobin.fasta ; nano hemoglobin
+# Construiremos os arquivos de proteínas com esses 2 comandos
+$ touch hemoglobin.fasta ; nano hemoglobina.fasta
 ```
+Copie e cole o arquivo [hemoglobin.fasta](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/hemoglobin.fasta) no **terminal**
+
+
 - Verifique os programas baixados
 ```
 $ ls /programas/
