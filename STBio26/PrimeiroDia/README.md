@@ -102,12 +102,19 @@ uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ### Alinhamento Global (MAFFT)
 #### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/ubuntu_on_windows.html)
 > Outros programas de alinhamento estão indicadas em [github/STBio26/Bando de dados.md](https://github.com/211295/Workshop/tree/main/Teorica)
- 
+
+- Este programa também pode ser baixado pelo comando `wget`.
+```
+$ wget https://mafft.cbrc.jp/alignment/software/mafft_7.526-1_amd64.deb
+# O próximo passo é importante porém não é possível neste caso.
+$ sudo dpkg -i mafft_7.526-1_amd64.deb
+```
+E para rodar será necessário 
 ***
 ### Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
 #### Análise de similaridade de sequências e construção filogenética 
 
-Inicie procurando o programa para se baixar em 64-linux, e clique com o botão direito do mouse para copiar o link. Cole no **terminal** junto ao comando `wget` , como feito no `BLAST`.
+- Inicie procurando o programa para se baixar em 64-linux, e clique com o botão direito do mouse para copiar o link. Cole no **terminal** junto ao comando `wget` , como feito no `BLAST`.
 
 <img width="1162" height="630" alt="image" src="https://github.com/user-attachments/assets/12c10f95-2a69-45dc-b832-dcb1c661f62d" />
 
