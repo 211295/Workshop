@@ -117,7 +117,8 @@ uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
    3. o formato `6` de _output_ é uma tabela com algumas informações;
 
 ```
-$ 
+$ ./programas/ncbi-blast-2.17.0+/bin/blastp -query hemoglobin.fasta -db database/uniprot -outfmt 6 -e
+value 1e-50 -out BLAST-hemoglobin.output.tsv
 ```
 >[!TIP]
 > Pode-se utilizar uma opção que limita para ter o número máximo de sequencias: `-max_target_seqs` - intuito não ter uma tabela gigante.
