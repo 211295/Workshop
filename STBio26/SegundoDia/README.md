@@ -13,33 +13,33 @@
 - Arquivos de RNA-seq (SRR/SRA) depositados
 
 1.**Baixando e preparando os dados**
-Primeiro, vamos baixar o Genoma viral:
+&emsp; Primeiro, vamos baixar o Genoma viral:
 ```bash
 wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi 
 ```
-Em seguida, a referência para o transcriptoma:
+&emsp; Em seguida, a referência para o transcriptoma:
 ```bash
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
 ```
-Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
+&emsp; Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
 SRR***
 > [!NOTE]
 > Estes arquivos são sub-amostras do sequenciamento completo. Optamos por fazer isso para reduzir o tamanho do SRR e também o tempo de processamento.
 
-O programa que vamos usar aceita apenas uma entrada, não tem problema. Vamos concatenar (juntar em um único arquivo) os arquivos fasta:
+&emsp; O programa que vamos usar aceita apenas uma entrada, não tem problema. Vamos concatenar (juntar em um único arquivo) os arquivos fasta:
 ```bash
 cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
 ```
 2.**Controle de qualidade**
-É necessário remover os adaptadores de sequênciamneto. Como boa prática, é necessário conferir o controle de qualidade do sequenciamento. O melhor e mais rápido hoje é o fastp que faz as duas coisas:
+&emsp; É necessário remover os adaptadores de sequênciamneto. Como boa prática, é necessário conferir o controle de qualidade do sequenciamento. O melhor e mais rápido hoje é o fastp que faz as duas coisas:
 ```sh
 fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j report.json -h report.html
 ```
 -------------Leitura do controle de qualidade
 3.**Preparando o ìndice**
-O que é um índice? Uma estrutura de busca pré-processada. Sem ela, para cada read o software precisaria que varrer 110 mil transcritos. É o mesmo princípio do índice remissivo no fim de um livro. Isso ajuda muito no processamento!
+&emsp; O que é um índice? Uma estrutura de busca pré-processada. Sem ela, para cada read o software precisaria que varrer 110 mil transcritos. É o mesmo princípio do índice remissivo no fim de um livro. Isso ajuda muito no processamento!
 
-Existem muitos quantificadores de transcriptoma. Usaremos o Salmon pois é ultra rápido, não usa um alinhador externo e bastante eficiente.
+&emsp; Existem muitos quantificadores de transcriptoma. Usaremos o Salmon pois é ultra rápido, não usa um alinhador externo e bastante eficiente.
 Para criar um índx para o Salmon:
 ```bash
 salmon index -t ref.fa -i index_dir -k 31 -p 4
