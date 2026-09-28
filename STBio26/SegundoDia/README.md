@@ -7,24 +7,24 @@
 &emsp; O trabalho de referência é um esforço contra a pandemia de COVID-19 e fez um screening de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas. **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, para SARS-CoV2). 
 > Para a prática foram escolhidos os dados [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:. 
 
-1.**Baixando e preparando os dados**
+&emsp; 1.**Baixando e preparando os dados**
 wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi 
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
 SRR***
 cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
-2.**Controle de qualidade**
+&emsp; 2.**Controle de qualidade**
 fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j report.json -h report.html
-3.**Preparando o ìndice**
+&emsp; 3.**Preparando o ìndice**
 salmon index -t ref.fa -i index_dir -k 31 -p 4
-4.**Quantificanfo**
+&emsp; 4.**Quantificanfo**
 salmon quant -i index_dir -l A -r SRR11517744.fastq -p 4 -o quantificação_controle
 salmon quant -i index_dir -l A -r SRR11517748.fastq -p 4 -o quantificação_doença
-5.**Visualização dos dados**
+&emsp; 5.**Visualização dos dados**
 printar as 30 primeiras linhas em colunas alinhadas e fáceis de ler
 head -30 quant.sf | column -t 
 python compara_salmon.py quant_1 quant_2 --nome-a --nome-b --saida
     python3 comparar_salmon.py quantificação_controle/quant.sf  quantificação_doença/quant.sf --nome-a Controle --nome-b SARS_CoV_2 --      saida salmon_compare.tsv
-6.**Enriquecimento funcional**
+&emsp; 6.**Enriquecimento funcional**
 awk '$7=="sim" && $6>1 {print $1}' tabela_comparacao.tsv | head -n150
 sort -nrk4 quantificação_controle/quant.sf | cut -f1 | head -15 | cut -d'_' -f2-
 sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -15 | cut -d'_' -f2-
