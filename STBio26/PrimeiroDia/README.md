@@ -67,13 +67,12 @@ $ grep -c ">" uniprot_sprot.fasta
 
 Encontre para baixar o tipo de arquivo _FASTA_
 <img width="864" height="359" alt="image" src="https://github.com/user-attachments/assets/f648a62e-6314-4f21-b01b-69b9ce63fad0" />
-
+- Construa os arquivos de proteínas com esses 2 comandos
 ```
-# Construiremos os arquivos de proteínas com esses 2 comandos
 $ touch hemoglobin.fasta ; nano hemoglobina.fasta
 ```
 Copie e cole o arquivo [hemoglobin.fasta](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/hemoglobin.fasta) no **terminal**
-
+Para sair do arquivo editor: `CRTL` + `X`, digite `Y` (_yes_), para salvar o arquivo.
 
 - Verifique os programas baixados
 ```
