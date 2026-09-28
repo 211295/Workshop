@@ -25,6 +25,8 @@ fesalles@Br-SP95:~$
 
 ```
 $ wget https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz ; gunzip *.gz ; echo "Dezipado"
+$ ls
+programas/ uniprot_sport.fasta
 ```
 
 Após "dezipar" o arquivo pode inspeciona-lo, visualizando-o de maneiras diversas.
