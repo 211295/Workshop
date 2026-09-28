@@ -107,8 +107,10 @@ uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ### Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
 #### Análise de similaridade de sequências e construção filogenética 
 
-Inicie 
+Inicie procurando o programa para se baixar em 64-linux, e clique com o botão direito do mouse para copiar o link. Cole no **terminal** junto ao comando `wget` , como feito no `BLAST`.
+
 <img width="1162" height="630" alt="image" src="https://github.com/user-attachments/assets/12c10f95-2a69-45dc-b832-dcb1c661f62d" />
+
 ```
 $ wget https://github.com/iqtree/iqtree3/releases/download/v3.1.4/iqtree-3.1.4-Linux.tar.gz
 $ tar zxvpf iqtree-3.1.4-Linux.tar.gz
@@ -191,8 +193,8 @@ Analysis results written to:
 Date and Time: Thu Sep 24 21:18:09 2026
 ```
 - Verifique e inspesione o arquivo `*.iqtree` e `*.log`
-1. Identifique a linha onde esta a informação do Modelo selecionado. Reflita sobre o modelo
-2. Pe
+  1. Identifique a linha onde esta a informação do Modelo selecionado. 
+  2. Pesquise sobre os [tipos de modelo](https://iqtree.github.io/doc/Substitution-Models): Discuta sobre o modelo selecionado e [por quê](https://academic.oup.com/mbe/article/37/2/549/5613171). 
 
 ### Visualização da árvore (iTol)
 #### Esta etapa pode ser feita da maneira que preferir. 
