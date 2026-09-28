@@ -1,20 +1,30 @@
 # TRANSCRIPTÔMICA COMPARATIVA
-### Desenvolvido por 
-### Revisado por 
+### Desenvolvido por Leandro de Brito Gonçalves
+### Revisado por Felipe Simionato Salles
 ***
 &emsp; Nesta parte do curso, pretendemos comparar duas amostras de RNA-seq, uma controle e uma condição, quantificando a abundância relativa de transcritos, medida em TPM (transcripts per million), e identificar genes que são mais transcritos em cada situação.
 
-&emsp; O aluno deve sair capaz de fazer o processamento básico de arquivos FASTQ até a obtenção de uma tabela de abundância (.tsv) e, adicionalmente, uma interpretação funcional. 
-
-&emsp; Pela questão de tempo e complexidade da aula, minha intenção é a apresentar o seguinte
-
-&emsp; Este trabalho foi feito no esforço contra a pandemia de COVID-19 e fez um screening de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas. **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, para SARS-CoV2). 
+&emsp; O trabalho de referência é um esforço contra a pandemia de COVID-19 e fez um screening de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas. **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, para SARS-CoV2). 
 > Para a prática foram escolhidos os dados [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:. 
 
-&emsp; Os autores relatam que os genes induzidos por SARS-CoV são
-- ISGs efetores: IFIT1, IFIT2, IFIT3, ISG15, IFI6, IFI27, MX1, MX2, OAS1, OAS2, OAS3, OASL, RSAD2, IFITM1, IFITM3, HERC5, USP18, BST2, XAF1
-- Sensores e fatores de transcrição: DDX58 (RIG-I), IFIH1 (MDA5), STAT1, STAT2, IRF7, IRF9
-- Quimiocinas: CXCL10, CXCL11, CCL5, IL6
-- Interferons: IFNB1, IFNL1, IFNL2, IFNL3
-
-&emsp; Deveríamos achá-los no final do curso, mas, a análise é meio simplista, então, esse não pode ser um objetivo. 
+1.**Baixando e preparando os dados**
+wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi 
+wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
+SRR***
+cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
+2.**Controle de qualidade**
+fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j report.json -h report.html
+3.**Preparando o ìndice**
+salmon index -t ref.fa -i index_dir -k 31 -p 4
+4.**Quantificanfo**
+salmon quant -i index_dir -l A -r SRR11517744.fastq -p 4 -o quantificação_controle
+salmon quant -i index_dir -l A -r SRR11517748.fastq -p 4 -o quantificação_doença
+5.**Visualização dos dados**
+printar as 30 primeiras linhas em colunas alinhadas e fáceis de ler
+head -30 quant.sf | column -t 
+python compara_salmon.py quant_1 quant_2 --nome-a --nome-b --saida
+    python3 comparar_salmon.py quantificação_controle/quant.sf  quantificação_doença/quant.sf --nome-a Controle --nome-b SARS_CoV_2 --      saida salmon_compare.tsv
+6.**Enriquecimento funcional**
+awk '$7=="sim" && $6>1 {print $1}' tabela_comparacao.tsv | head -n150
+sort -nrk4 quantificação_controle/quant.sf | cut -f1 | head -15 | cut -d'_' -f2-
+sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -15 | cut -d'_' -f2-
