@@ -95,7 +95,7 @@ $ tar zvpf ncbi-blast-2.17.0+-x64-linux.tar.gz
 
 - Construa o banco de dados a partir do grupo de proteínas disponibilizadas. Neste caso todos as proteínas revisadas pelo [UniProt](https://www.uniprot.org/uniprotkb)
 ```
-$ .programas/ncbi-blast-2.17.0+/bin/makeblastdb -in uniprot_sport.fasta -dbtype prot -out database/uniprot
+$ ./programas/ncbi-blast-2.17.0+/bin/makeblastdb -in uniprot_sport.fasta -dbtype prot -out database/uniprot
 
 Building a new DB, current time: 09/25/2026 22:47:26
 New DB name:   /home/<user>/<directory>/database/uniprot
