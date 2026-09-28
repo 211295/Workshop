@@ -155,11 +155,22 @@ $ mafft --maxiterate 1000 --globalpair --reorder sequencies_of_[protein].fasta >
 - Este programa também pode ser baixado pelo comando `wget`.
 ```
 $ wget https://mafft.cbrc.jp/alignment/software/mafft-7.526-linux.tgz
+$ tar xfzv mafft-7.526-linux.tgz
+
+## abriu um monte de coisa
+
 $ ls -F
+mafft.bat*  mafftdir/
 ```
 &emsp; Nesta etapa, o alinhamento será feito entre todos os aminoácidos. 
 - E o que isso significa?
 > Aminoácidos iguais irão ser associados à uma "posição" na sequência. Por exemplo se na posição 4 há um **V** (valina) para a maioria das sequências, as sequências sem **V** serão adocionados um traço "-" nesta posição, e isso será lido posteriormente como uma variação da proteína.
+
+- Alinhe as proteínas utilizando o comando:
+```
+$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 BLAST_protein.in > BLAST_protein.out
+```
+- Inspecione o arquivo final, e procure entender se faz sentido o resultado.
 
 ***
 ### Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
