@@ -45,9 +45,9 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | _[awk](https://man7.org/linux/man-pages/man1/awk.1p.html)_ | **A** **W** **K** :date: =  | `-F` | É utilizado para transitar entre os diretórios de trabalho |
 | _[wc](https://man7.org/linux/man-pages/man1/wc.1.html)_ | **W**orld **C**ount :calling: = Conta o número de elementos de um arquivo, ou | `-l` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
 | _[cut](https://man7.org/linux/man-pages/man1/cut.1.html)_ | Corta o número de elementos de todas as linhas de um arquivo como se fossem colunas :scissors: | `-b` `-c` `-f` `-s` `-w` | Geralmente utilizado junto a outros comandos como o `cat`|
-| _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Utiliza-se dos outputs de outros arquivos. Necessita-se dos números especificados  |
-| _[column](https://man7.org/linux/man-pages/man1/column.1.html)_ | Disponibiliza o  | `-d` `-S` `-t` | Garante o nome correto do _Diretório_/_Pasta_ e do o caminho atual de trabalho |
-| _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | Organiza o arquivo, ordenando de diversas formas :abc: :1234:  | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ gerado, podendo ser organizado em ordem alfabética ou numérica, ou em notação científica |
+| _[colrm](https://man7.org/linux/man-pages/man1/colrm.1.html)_ | **COL**umn **R**e**M**ove = Remove a coluna de strings selecioanda |  | Utiliza-se junto de outros arquivos. Necessita-se dos números especificados |
+| _[column](https://man7.org/linux/man-pages/man1/column.1.html)_ | Disponibiliza o arquivo em formato de "tabela" | `-d` `-S` `-t` `-J` | Facilita a visualização por tabular um _output_, já que geralmente as tabelas `.tsv` e `.csv` não organiza-se de maneira simétrica cada coluna |
+| _[sort](https://man7.org/linux/man-pages/man1/sort.1.html)_ | Organiza o arquivo, ordenando de diversas formas :abc: :1234: | `-n` `-r` `-k` `-d` `-h` | Utiliza-se junto a outros comandos para organizar o _output_ gerado, podendo ser organizado em ordem alfabética ou numérica, ou em notação científica |
  
 >[!WARNING]
 > Outro comando básico porem fatal, é o _[rm](https://man7.org/linux/man-pages/man1/rm.1.html)_ (**R**e**M**ove), uma vez usado, não há mais volta
