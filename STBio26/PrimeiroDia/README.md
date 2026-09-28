@@ -3,7 +3,7 @@
 ***
 &emsp; Ao final deste tutorial o aluno entenderá como são utilizados os alinhamentos e como são de construídos as filogenias através de similaridades das bases.
 > [!WARNING]
-> Neste tutorial as citações de códigos estão com o sinal de dolar `$` e com o _output_, pois no **Terminal** do Linux o _PROMPT_ tem uma configuração e os comandos serão inseridos após o sinal de dolar.
+> Neste tutorial as citações de códigos estão com o sinal de dolar `$` e com o _intput_, pois no **Terminal** do Linux o _PROMPT_ tem uma configuração e os comandos serão inseridos após o sinal de dolar.
 >
 > Portanto não funcionará copiar e colar o código todo do quadrado de citação.
 ```
