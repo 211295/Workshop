@@ -1,0 +1,10 @@
+## Este arquivo é um guia para instalação de alguns programas atraves de um ambiente (de fonte aberta) muito utilizado em Linux
+# Os ambientes mais conhecidos são CONDA e MAMBA
+# 
+| Feature | Conda | Mamba |
+|:------------|:------------|:-------------|
+| Primary Language | Python (with C++ libmamba solver in recent updates) | C++ |
+| Velocidade | Baixa rapido nas versoes mais recentes | Extremamente rapido nos downloads | 
+| Padrao Ecosistemas | Anaconda e Miniconda distributions | Miniforge and Mambaforge distributions |
+
+# primeiro instale um dos programas
