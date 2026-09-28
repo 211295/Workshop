@@ -111,7 +111,7 @@ uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ```
 - Alinhe os arquivos da proteína elegida com todas as proteínas do fasta.
   
-- Utilize o `blastp` com as opções: `-out`, `-query`, `db`, `outfmt`
+- Utilize o `blastp` com as opções: `-out`, `-query`, `-db`, `-outfmt`
    1. o "objeto" esta definido na opção `-query`
    2. o database construido é obrigatório para o comando `-db`
    3. o formato `6` de _output_ é uma tabela com algumas informações;
