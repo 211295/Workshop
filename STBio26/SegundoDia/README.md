@@ -16,11 +16,11 @@
 Primeiro, vamos baixar o Genoma viral:
 ```bash
 wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi 
-````markdown
+```
 Em seguida, a referência para o transcriptoma:
 ```bash
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
-````markdown
+```
 Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
 SRR***
 > [!NOTE]
@@ -29,11 +29,11 @@ SRR***
 O programa que vamos usar aceita apenas uma entrada, não tem problema. Vamos concatenar (juntar em um único arquivo) os arquivos fasta:
 ```bash
 cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
-````markdown
+```
 2.**Controle de qualidade**
 ```sh
 fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j report.json -h report.html
-````markdown
+```
 3.**Preparando o ìndice**
 salmon index -t ref.fa -i index_dir -k 31 -p 4
 
