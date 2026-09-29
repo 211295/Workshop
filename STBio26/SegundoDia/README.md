@@ -53,23 +53,35 @@ salmon index -t ref.fa -i index_dir -k 31 -p 4
 &emsp; Vamos estimar a expressão quantificando os transcritos de cada um dos arquivos SRR. Rode um, quando terminar, rode o outro. Isso deve demorar cerca de 5 min. 
 ```bash
 salmon quant -i index_dir -l A -r SRR11517744.fastq -p 4 -o quantificação_controle
+```
+```bash
 salmon quant -i index_dir -l A -r SRR11517748.fastq -p 4 -o quantificação_doença
 ```
 5.**Visualização dos dados**
+
 &emsp;  O salmon entrega os seguintes arquivos de saída que nos importam:
 -aux_info/meta_info.json, que é o arquivo de metadados e
 - quant.sf, um tsv com os dados de quantificação;
   
 Use um ```bash cat quant.sf ``` e veja que tem as seguintes colunas, que significam:
 
-|Name |Header do transcrito ou nome do gene/transcrito/proteína|
-|Length |Tamanho, em nucleotídeos|
-|EffectiveLength		|Número de posições que um fragmento médio pode se alinhar ao transcrito |
-|TPM |Métrica normalizada de expressão (reas per million)|
-|NumReads|Valor absoluto de leituras que mapearam em cima do transcrito|
+| Coluna | Descrição |
+| :--- | :--- |
+| Name | Header do transcrito ou nome do gene/transcrito/proteína |
+| Length | Tamanho, em nucleotídeos |
+| EffectiveLength | Número de posições que um fragmento médio pode se alinhar ao transcrito |
+| TPM | Métrica normalizada de expressão (reads per million) |
+| NumReads | Valor absoluto de leituras que mapearam em cima do transcrito |
 
-printar as 30 primeiras linhas em colunas alinhadas e fáceis de ler
+Vamos ver as 30 primeiras linhas em colunas alinhadas e fáceis de ler:
+```bash
 head -30 quant.sf | column -t 
+```
+Mas nós queremos ver aqueles com maior TPM
+```bash
+sort -nkr6 quant.sf | head -30 | column -t
+```
+
 python compara_salmon.py quant_1 quant_2 --nome-a --nome-b --saida
     python3 comparar_salmon.py quantificação_controle/quant.sf  quantificação_doença/quant.sf --nome-a Controle --nome-b SARS_CoV_2 --      saida salmon_compare.tsv
     
