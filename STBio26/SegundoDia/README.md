@@ -38,6 +38,7 @@ cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
 fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j report.json -h report.html
 ```
 -------------Leitura do controle de qualidade
+
 3.**Preparando o ìndice**
 
 &emsp; O que é um índice? Uma estrutura de busca pré-processada. Sem ela, para cada read o software precisaria que varrer 110 mil transcritos. É o mesmo princípio do índice remissivo no fim de um livro. Isso ajuda muito no processamento!
@@ -61,11 +62,11 @@ salmon quant -i index_dir -l A -r SRR11517748.fastq -p 4 -o quantificação_doen
   
 Use um ```bash cat quant.sf ``` e veja que tem as seguintes colunas, que significam:
 
-|Name    			|Header do transcrito ou nome do gene/transcrito/proteína|
-|Length  			|Tamanho, em nucleotídeos
-|EffectiveLength		|Número de posições que um fragmento médio pode se alinhar ao transcrito 
-|TPM				    |Métrica normalizada de expressão (reas per million)
-|NumReads|Valor absoluto de leituras que mapearam em cima do transcrito
+|Name |Header do transcrito ou nome do gene/transcrito/proteína|
+|Length |Tamanho, em nucleotídeos|
+|EffectiveLength		|Número de posições que um fragmento médio pode se alinhar ao transcrito |
+|TPM |Métrica normalizada de expressão (reas per million)|
+|NumReads|Valor absoluto de leituras que mapearam em cima do transcrito|
 
 printar as 30 primeiras linhas em colunas alinhadas e fáceis de ler
 head -30 quant.sf | column -t 
