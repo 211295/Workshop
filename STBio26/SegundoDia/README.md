@@ -82,10 +82,36 @@ Mas nós queremos ver aqueles com maior TPM
 sort -nkr6 quant.sf | head -30 | column -t
 ```
 
+Temos esse script escrito na linguagem python que vai nos ajudar a comaprar as duas quantificaçãoes que fizemos:
+
+```python
 python compara_salmon.py quant_1 quant_2 --nome-a --nome-b --saida
-    python3 comparar_salmon.py quantificação_controle/quant.sf  quantificação_doença/quant.sf --nome-a Controle --nome-b SARS_CoV_2 --      saida salmon_compare.tsv
+````
+por exemplo:
+    python3 comparar_salmon.py quantificação_controle/quant.sf  quantificação_doença/quant.sf --nome-a Controle --nome-b SARS_CoV_2 --saida salmon_compare.tsv
+
+    ------- Leitura do arquivo de saída
     
 6.**Enriquecimento funcional**
+&emsp;  Beleza. Sabemos quais os transcritos que são mais expressos em cada situação e ainda temos os valores de _fold change_ que permite comparar o perfil de transcrição em cada contexto. Mas qual o significado biológico disso?
+  Enriquecimento funcional é uma análise estatística que associa uma lista de genes a termos Gene Onthology (Processos Biológicos, Funções Moleculares e Compartimento Celular). 
+  Priemiro, vamos extrair uma lista dos 150 mais expressos com maior aumento em COVID
+```bash
 awk '$7=="sim" && $6>1 {print $1}' tabela_comparacao.tsv | head -n150
-sort -nrk4 quantificação_controle/quant.sf | cut -f1 | head -15 | cut -d'_' -f2-
-sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -15 | cut -d'_' -f2-
+```
+Acesse o [Enrichr]([url](https://maayanlab.cloud/Enrichr/)) que é um tipo de "Google" 
+Cole a lista de genes no quadro e depois clique em "submit"
+No topo da pagina que abrir, clique em "Ontologies"
+E depois clique no quadro "GO Biological processes 2026"
+
+-------LEITURA DO ENRICHR
+
+Podemos navegar nos quadros "GO Cellular Component 2026" e "GO Molecular Function 2026"
+
+Podemos ver os arquivos sem comparação, apenas, os mais expressos em cada contexto
+```bash
+sort -nrk4 quantificação_controle/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
+```
+```bash
+sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
+```
