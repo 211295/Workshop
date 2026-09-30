@@ -1,4 +1,4 @@
-# TRANSCRIPTÔMICA COMPARATIVA
+# PRIEMIRA PARTE: TRANSCRIPTÔMICA COMPARATIVA
 ### Desenvolvido por Leandro de Brito Gonçalves
 ### Revisado por Felipe Simionato Salles
 ***
@@ -115,3 +115,20 @@ sort -nrk4 quantificação_controle/quant.sf | cut -f1 | head -150 | cut -d'_' -
 ```bash
 sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
 ```
+
+# SEGUNDA PARTE: ALINHAMENTO GENOMA-TRANSCRIPTOMA
+7.**Construíndo Índice do Genoma**
+&emsp;  Para essa parte, vamos usar o mesmo genoma de SARS-CoV que usamos NC_045512.2.fa e vamos alinha-lo com o arquivo SRR infectado, pois, neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo fasta.
+```bash
+head -1 NC_045512.2.fa
+```
+
+Será necessário que o _header_ do arquivo fasta seja igual ao nome.
+```bash
+sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
+```
+>[!TIP]
+>O que significa o comando?
+sed é um programa Linux para edição de texto
+-i é a opção de substituir o arquivo original
+'1s/.*/>NC_045512.2/' diz "substitua tudo na primeira linha por >NC_045512.2"
