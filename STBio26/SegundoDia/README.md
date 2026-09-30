@@ -22,11 +22,11 @@
 >
 > Genoma_viral.fasta + FASTQ → [Alinhamento: **BWA**] → BAM → [Filtragem: **samtools**] → BAM viral → Visualização no **IGV**
 
-## NOMES DOS ARQUIVOS
+## OS MATERIAIS QUE VAMOS USAR
 
 &emsp; Para não se perder, usaremos estes nomes do começo ao fim:
 
-| &emsp; Os materiais que vamos usar são: | . |
+| &emsp; Arquivo: | o que é |
 | :--- | :--- |
 | `SRR11517744.subsample.fastq` | sequenciamento bruto depositado, controle |
 | `SRR11517748.subsample.fastq` | sequenciamento bruto depositado, infectado |
