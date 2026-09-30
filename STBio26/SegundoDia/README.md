@@ -347,9 +347,10 @@ bwa mem -t 2 NC_045512.2.fa SRR11517748.subsample.fastq | samtools sort -@ 2 -o 
 > * **`-` (traço final)**: indica que a entrada de dados vem do *pipe* (STDIN).
 
 > [!NOTE]
-> Por que o *pipe*? Sem ele, seria preciso gravar em disco um arquivo SAM intermediário — que em projetos reais tem dezenas de gigabytes — só para lê-lo de volta e apagá-lo em seguida. Com o *pipe*, os dados passam da memória do BWA direto para a do samtools, sem nunca tocar o disco.
->
-> Este passo demora alguns minutos.
+> Lembra do *pipe* ? Com o *pipe*, os dados passam da memória do BWA direto para a do samtools, sem nunca tocar o disco. Pulamos uma etapa!
+
+> [!CAUTION]
+> Este passo pode demorar alguns minutos.
 
 > [!NOTE]
 > Reparou que tanto o BWA quanto o Samtools usam uma opção para definir o número de _threads_, mas, o BWA usa `-t` e o Samtools `-@`?
