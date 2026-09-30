@@ -190,7 +190,7 @@ salmon quant -i index_dir -l A -r infectado.fastq -p 4 -o quant_infectado
 - `aux_info/meta_info.json`, que é o arquivo de metadados;
 - `quant.sf`, um TSV com os dados de quantificação.
 
-Use um `cat quant.sf` e veja que tem as seguintes colunas, que significam:
+Use o `head` em um dos arquivos `quant.sf` e veja que tem as seguintes colunas, que significam:
 
 | Coluna | Descrição |
 | :--- | :--- |
