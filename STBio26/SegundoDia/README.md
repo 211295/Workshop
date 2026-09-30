@@ -7,20 +7,38 @@
 &emsp; O trabalho de referência é um esforço contra a pandemia de COVID-19 e fez um screening de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas. **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, para SARS-CoV2). 
 > Para a prática foram escolhidos os dados [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:.
 
+## MAPA DE PROCESSOs
+> [!TIP]
+> **FASTQ → [Controel de qualidade: fastp] → FASTQ limpo + Genoma_viral.fasta + GENCODE.fasta → [Quantificação: salmon] → quant.sf → [script] → tabela → [Enrichr] → termos GO**
+> **Genoma_viral.fasta + FASTQ → [Alinhamento: BWA] → BAM → [Filtragem: Samtools] → BAM Viral → Visualização IGV**
+
 &emsp; Os materiais que vamos usar são:
 - Referência para transcriptoma humano GENCODE
 - Genoma de SARS-CoV2
 - Arquivos de RNA-seq (SRR/SRA) depositados
 
+00.**Ativando o ambiente conda**
+>[!IMPORTANT]
+>Antes de tudo, vamos ativar o ambiente Conda
+
+```sh
+conda activate curso_toolbox
+```
+
 1.**Baixando e preparando os dados**
 
 &emsp; Primeiro, vamos baixar o Genoma viral:
 ```bash
-wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi 
+wget -O NC_045512.2.fa "wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_045512.2&rettype=fasta&retmode=text" 
 ```
 &emsp; Em seguida, a referência para o transcriptoma:
 ```bash
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
+```
+Para descomprimir o arquivo do GENCODE
+```bash
+zcat gencode.v50.transcripts.fa.gz \
+  | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode_limpo.fa
 ```
 &emsp; Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
 SRR***
@@ -35,7 +53,10 @@ cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
 
 &emsp; É necessário remover os adaptadores de sequênciamneto. Como boa prática, é necessário conferir o controle de qualidade do sequenciamento. O melhor e mais rápido hoje é o fastp que faz as duas coisas:
 ```sh
-fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j report.json -h report.html
+fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j controle_report.json -h controle_report.html
+```
+```sh
+fastp -i SRR11517748.subsample.fastq -o SRR11517748.quality.fastq -j doença_report.json -h doença_report.html
 ```
 -------------Leitura do controle de qualidade
 
@@ -70,7 +91,7 @@ Use um ```bash cat quant.sf ``` e veja que tem as seguintes colunas, que signifi
 | Name | Header do transcrito ou nome do gene/transcrito/proteína |
 | Length | Tamanho, em nucleotídeos |
 | EffectiveLength | Número de posições que um fragmento médio pode se alinhar ao transcrito |
-| TPM | Métrica normalizada de expressão (reads per million) |
+| TPM | Métrica normalizada de expressão (_transcripts per million_) |
 | NumReads | Valor absoluto de leituras que mapearam em cima do transcrito |
 
 Vamos ver as 30 primeiras linhas em colunas alinhadas e fáceis de ler:
@@ -79,7 +100,7 @@ head -30 quant.sf | column -t
 ```
 Mas nós queremos ver aqueles com maior TPM
 ```bash
-sort -nkr6 quant.sf | head -30 | column -t
+sort -nrk6 quant.sf | head -30 | column -t
 ```
 
 Temos esse script escrito na linguagem python que vai nos ajudar a comaprar as duas quantificaçãoes que fizemos:
@@ -118,11 +139,12 @@ sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -150 | cut -d'_' -f
 
 # SEGUNDA PARTE: ALINHAMENTO GENOMA-TRANSCRIPTOMA
 7.**Alinhamento com o BWA**
-&emsp;  Para essa parte, vamos usar o mesmo genoma de SARS-CoV que usamos NC_045512.2.fa e vamos alinha-lo com o arquivo SRR infectado, pois, neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo fasta.
+&emsp;  Para essa parte, vamos usar o mesmo genoma de SARS-CoV que usamos NC_045512.2.fa e vamos alinhas as _reads_ do arquivo SRR infectado contra o genoma, pois, neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo fasta.
 ```bash
 head -1 NC_045512.2.fa
 ```
-Será necessário que o _header_ do arquivo fasta seja igual ao nome.
+Será necessário que o _header_ do arquivo fasta seja igual ao nome do "cromossomo" no genoma que o IGV vai carregar. 
+
 ```bash
 sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
 ```
@@ -147,7 +169,7 @@ Repare que surgiram cinco arquivos novos: .amb, .ann, .bwt, .pac e .sa. Você nu
 
 Com o índex na mãos, poderemos usar o alinhador. O comando que vamos usar alinha o RNA-seq contra o genoma viral e ordena com o Samtools:
 ```bash
-bwa mem -t 4 NC_045512.2.fa infectado.fq.gz \ | samtools sort -@ 2 -o infectado.bam - 
+bwa mem -t 4 NC_045512.2.fa infectado.fq.gz | samtools sort -@ 2 -o SRR11517744.fastq - 
 ```
 > [!TIP]
 > **O que significa o comando?**
@@ -160,18 +182,18 @@ bwa mem -t 4 NC_045512.2.fa infectado.fq.gz \ | samtools sort -@ 2 -o infectado.
 > * **`|` (pipe)**: redireciona a saída do BWA diretamente para a entrada do `samtools`;
 > * **`sort`**: subcomando do `samtools` que reordena os alinhamentos por coordenada genômica;
 > * **`-@ 2`**: define 2 *threads* para o `samtools sort`;
-> * **`-o infectado.bam`**: especifica o nome do arquivo BAM de saída;
+> * **`-o SRR11517744.fastq`**: especifica o nome do arquivo BAM de saída;
 > * **`-` (traço final)**: indica que a entrada de dados vem do *pipe* (STDIN).
 
 Vamos precisar criar outro índex, agora, do novo arquivo BAM que criamos
 ```bash
-samtools index infectado.bam Index .bai
+samtools index SRR11517744.fastq
 ```
 
 Vamos ver algumas informações?
 ```bash
-samtools flagstat infectado.bam
-´´´
+samtools flagstat SRR11517744.fastq
+```
     O que a saída mostra, linha a linha:
       in total — o número de reads processados. Deve bater com o número de reads do FASTQ
       mapped — quantos encontraram posição no genoma viral, em número absoluto e em porcentagem. É a linha que interessa
@@ -181,7 +203,7 @@ samtools flagstat infectado.bam
 8.**Criação de um Alinhamento apenas viral**
 &emsp;  Usamos um arquivo SRR com transcritos de origem humana e viral. Vamos filtrar as reads alinhadas e criar seu índex. Vamos chamar viral.bam
 ```bash
-samtools view -b -F 4 infectado.bam > viral.bam
+samtools view -b -F 4 SRR11517744.fastq > viral.bam
 ```
 
 > [!TIP]
@@ -191,7 +213,7 @@ samtools view -b -F 4 infectado.bam > viral.bam
 > * **`view`**: é o subcomando utilizado para ler, converter e filtrar os dados contidos nos arquivos;
 > * **`-b`**: indica o formato de saída BAM;
 > * **`-F 4`**: é a regra de filtragem (a regra nº 4 descarta reads não mapeadas, mantendo apenas as que mapearam);
-> * **`infectado.bam`**: é o arquivo BAM de entrada;
+> * **`SRR11517744.fastq`**: é o arquivo BAM de entrada;
 > * **`viral.bam`**: é o arquivo BAM de saída.
 
 Como sempre, montaremos um index
