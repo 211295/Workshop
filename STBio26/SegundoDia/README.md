@@ -271,7 +271,7 @@ Acesse o [Enrichr](https://maayanlab.cloud/Enrichr/).
 2. No topo da página que abrir, clique em **Ontologies**
 3. Clique no quadro **GO Biological Process**
 
--------LEITURA DO ENRICHR
+--------- Leitura do Enricher
 
 Podemos navegar também nos quadros **GO Cellular Component** e **GO Molecular Function**.
 
