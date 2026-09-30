@@ -110,7 +110,7 @@ O total de _reads_ em `ref.fa` deve ser igual a do `gencode.v50.transcripts.fa` 
 
 ## 2. Controle de qualidade
 
-&emsp; É necessário remover os adaptadores de sequenciamento. Como boa prática, é necessário conferir o controle de qualidade do sequenciamento. O melhor e mais rápido hoje é o **fastp**, que faz as duas coisas:
+&emsp; É necessário remover os adaptadores de sequenciamento. Como boa prática, é importante conferir o controle de qualidade do sequenciamento. Lembra que essa informação fica armazenada no FASTQ? O melhor jeito e mais rápido hoje é o **fastp**, que faz as duas coisas:
 
 ```sh
 fastp -i SRR11517744.subsample.fastq -o controle.fastq  -j controle_report.json  -h controle_report.html
