@@ -235,7 +235,7 @@ python3 comparar_salmon.py quant_controle/quant.sf quant_infectado/quant.sf \
 ------- Leitura do arquivo de saída
 
 > [!WARNING]
-> Temos **uma amostra por condição**. Isso permite comparar valores de TPM e ordenar genes por variação, mas **não permite fazer estatística**: não há como estimar variabilidade com n = 1. O que faremos aqui é análise exploratória. Para expressão diferencial de verdade seriam necessárias réplicas e ferramentas como DESeq2 ou edgeR.
+> Temos **uma amostra por condição**. Isso permite comparar valores de TPM e ordenar genes por variação, mas **não permite fazer estatística** O que faremos aqui é análise exploratória.
 
 ---
 
@@ -271,14 +271,14 @@ Podemos navegar também nos quadros **GO Cellular Component** e **GO Molecular F
 Podemos ver os arquivos sem comparação, apenas os mais expressos em cada contexto:
 
 ```bash
-tail -n +2 quant_controle/quant.sf  | sort -k4,4nr | cut -f1 | head -150 | cut -d'_' -f2-
+sort -nrk4 quant_controle/quant.sf  | cut -f1 | head -150 | cut -d'_' -f2-
 ```
 
 ```bash
-tail -n +2 quant_infectado/quant.sf | sort -k4,4nr | cut -f1 | head -150 | cut -d'_' -f2-
+sort -nrk4 quant_infectado/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
 ```
 
-&emsp; O `cut -d'_' -f2-` descarta o identificador ENST e deixa apenas o símbolo do gene, que é o que o Enrichr reconhece.
+&emsp; O `cut -d'_' -f2-` pega apenas o símbolo do gene, que é o que o Enrichr reconhece.
 
 ---
 
