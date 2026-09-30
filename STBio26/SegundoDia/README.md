@@ -201,7 +201,7 @@ Use o `head` em um dos arquivos `quant.sf` e veja que tem as seguintes colunas, 
 | NumReads | Valor estimado de leituras que mapearam em cima do transcrito |
 
 > [!NOTE]
-> A coluna `NumReads` pode vir com casas decimais. Não é erro. Quando um read é compatível com várias isoformas do mesmo gene, o algoritmo não escolhe uma — ele reparte o read proporcionalmente à abundância estimada de cada uma. Quantificação de transcrito é inferência estatística, não contagem literal.
+> A coluna `NumReads` pode vir com casas decimais. Não é erro. Quando uma _read_ é alinhavel com várias referências (normalmente isoformas ou parálogos) ele reparte a _read_ proporcionalmente à abundância estimada de cada uma. Ou seja, não é uma contagem literal.
 
 Vamos ver as 30 primeiras linhas em colunas alinhadas e fáceis de ler:
 
