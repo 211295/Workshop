@@ -290,13 +290,13 @@ sort -nrk4 quant_infectado/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
 
 ## 7. Alinhamento com o BWA
 
-&emsp; Para essa parte, vamos usar o mesmo genoma de SARS-CoV-2 que usamos, `NC_045512.2.fa`, e vamos alinhar as *reads* do arquivo SRR infectado contra esse genoma — pois neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo FASTA:
+&emsp; Para essa parte, vamos usar o mesmo genoma de SARS-CoV-2 que usamos, `NC_045512.2.fa`, e vamos alinhar as *reads* do arquivo SRR infectado contra esse genoma, pois neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo FASTA:
 
 ```bash
 head -1 NC_045512.2.fa
 ```
 
-Será necessário que o *header* do arquivo FASTA seja igual ao nome do "cromossomo" no genoma que o IGV vai carregar:
+Será necessário que o *header* do arquivo FASTA seja igual ao nome do "cromossomo" no genoma que o IGV vai carregar (passo 10):
 
 ```bash
 sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
@@ -309,12 +309,12 @@ sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
 > * **`-i`**: é a opção de editar diretamente o arquivo original (*in-place*);
 > * **`'1s/.*/>NC_045512.2/'`**: instrução para substituir todo o conteúdo da primeira linha por `>NC_045512.2`.
 
-&emsp; Por que isso importa? Esse nome vai ser copiado para dentro do arquivo de alinhamento e usado como identificador do "cromossomo". Lá na frente, o IGV vai comparar esse nome com o do genoma que carregamos. Se os dois não baterem, o IGV carrega tudo sem dar erro nenhum — e mostra uma tela vazia. É um dos problemas mais difíceis de diagnosticar justamente porque nada falha.
+&emsp; Por que isso importa? Esse nome vai ser copiado para dentro do arquivo de alinhamento e usado como identificador do "cromossomo". Lá na frente, o IGV vai comparar esse nome com o do genoma que carregamos. Se os dois não baterem, o IGV carrega tudo sem dar erro nenhum — e mostra uma tela vazia. É um dos problemas mais difíceis de diagnosticar justamente porque não é considerado uma falha, mas, a abertura de projetos diferentes.
 
-&emsp; Existe uma diversidade de alinhadores, e cada um tem especificidades e objetivos diferentes (Slides). Para essa prática, vamos usar o BWA por estas razões:
+&emsp; Existe uma diversidade de alinhadores (Bowtie2, STAR, HISAT...), e cada um tem especificidades e objetivos diferentes (Anexo Tabela_Alinhadores.md). Para essa prática, vamos usar o BWA por estas razões:
 
 - Primeiro, porque o SARS-CoV-2 **não tem íntrons**. O genoma dele é RNA contínuo, sem *splicing*. Alinhadores como STAR e HISAT2 existem exatamente para lidar com esse salto, e resolver esse problema custa memória e tempo.
-- Segundo, temos um RNA-seq de Illumina, com *short reads*.
+- Segundo, temos um RNA-seq de Illumina, com *short reads*. Outros alinhadores lidam melhor com *long reads*
 
 > *Reflexão*: o que importa não é o nome do alinhador, e sim saber qual problema temos e qual ferramenta o resolve. O Bowtie2 faria exatamente o mesmo trabalho.
 
@@ -324,12 +324,12 @@ Vamos criar o índice para o BWA:
 bwa index NC_045512.2.fa
 ```
 
-&emsp; Repare que surgiram cinco arquivos novos: `.amb`, `.ann`, `.bwt`, `.pac` e `.sa`. Você nunca vai abri-los — são de uso interno do programa.
+&emsp; Repare que surgiram cinco arquivos novos: `.amb`, `.ann`, `.bwt`, `.pac` e `.sa`. Você nunca vai abri-los. São de uso interno do programa (lembra que o índex é para o computador ler o arquivo?).
 
-&emsp; Com o índice em mãos, poderemos usar o alinhador. O comando abaixo alinha o RNA-seq contra o genoma viral e ordena o resultado com o samtools:
+&emsp; Com o índice em mãos, poderemos usar o alinhador. O comando abaixo alinha o RNA-seq contra o genoma viral e o Samtools ordena o resultado:
 
 ```bash
-bwa mem -t 4 NC_045512.2.fa infectado.fastq | samtools sort -@ 2 -o infectado.bam -
+bwa mem -t 2 NC_045512.2.fa SRR11517748.subsample.fastq | samtools sort -@ 2 -o infectado.bam -
 ```
 
 > [!TIP]
@@ -337,7 +337,7 @@ bwa mem -t 4 NC_045512.2.fa infectado.fastq | samtools sort -@ 2 -o infectado.ba
 >
 > * **`bwa`**: é o programa alinhador;
 > * **`mem`**: é o algoritmo de alinhamento (*Maximal Exact Matches*);
-> * **`-t 4`**: define o uso de 4 *threads* (processamento em paralelo);
+> * **`-t 2`**: define o uso de 2 *threads* (processamento em paralelo);
 > * **`NC_045512.2.fa`**: é o genoma de referência em FASTA (o BWA busca automaticamente os 5 arquivos de índice na mesma pasta);
 > * **`infectado.fastq`**: é o arquivo FASTQ com as *reads*;
 > * **`|` (pipe)**: redireciona a saída do BWA diretamente para a entrada do `samtools`;
@@ -351,20 +351,23 @@ bwa mem -t 4 NC_045512.2.fa infectado.fastq | samtools sort -@ 2 -o infectado.ba
 >
 > Este passo demora alguns minutos.
 
-Vamos precisar criar outro índice, agora do novo arquivo BAM que criamos:
+> [!NOTE]
+> Reparou que tanto o BWA quanto o Samtools usam uma opção para definir o número de _threads_, mas, o BWA usa `-t` e o Samtools `-@`?
+> Infelizmente não existe um padrão universal para isso e cada desenvolvedor escolhe o jeito de fazer
+
+Vamos precisar criar outro índice, agora para a leitura novo arquivo BAM que acabamos de criar:
 
 ```bash
 samtools index infectado.bam
 ```
 
-&emsp; Surge um arquivo `infectado.bam.bai`. Ele permite pular para qualquer região do alinhamento sem ler o arquivo inteiro, e é o que fará a navegação no IGV ser instantânea.
+&emsp; Surge um arquivo `infectado.bam.bai`. Ele permite pular para qualquer região do alinhamento sem ler o arquivo inteiro, e é o que fará a navegação no IGV ser "instantânea".
 
 Vamos ver algumas informações?
 
 ```bash
 samtools flagstat infectado.bam
 ```
-
 > [!IMPORTANT]
 > **O que a saída mostra, linha a linha:**
 >
@@ -374,7 +377,7 @@ samtools flagstat infectado.bam
 > * **`duplicates`** — zero aqui, porque não rodamos marcação de duplicatas.
 
 > [!IMPORTANT]
-> **Ponto de checagem.** A porcentagem de reads mapeados deve ficar em torno de **17%**. Os outros ~83% são reads humanos, que não têm onde encaixar num genoma de 30 kb.
+> **Ponto de checagem.** A porcentagem de _reads_ mapeados deve ficar em torno de **17%**. Os outros ~83% são _reads_ humanos.
 >
 > Note que esse número já apareceu na primeira parte, quando o Salmon quantificou o genoma viral dentro do transcriptoma humano. **Dois métodos independentes chegando ao mesmo valor** é o tipo de concordância que dá confiança num resultado.
 
@@ -382,7 +385,7 @@ samtools flagstat infectado.bam
 
 ## 8. Criação de um alinhamento apenas viral
 
-&emsp; Usamos um arquivo SRR com transcritos de origem humana e viral. Vamos filtrar as reads alinhadas e criar seu índice. Vamos chamá-lo de `viral.bam`:
+&emsp; Usamos um arquivo SRR com transcritos viral. Vamos filtrar as _reads_ alinhadas e criar seu índice. Vamos chamá-lo de `viral.bam`:
 
 ```bash
 samtools view -b -F 4 infectado.bam > viral.bam
@@ -404,7 +407,7 @@ Como sempre, montaremos um índice:
 samtools index viral.bam
 ```
 
-&emsp; O arquivo resultante tem cerca de 17% do tamanho do original, o que faz diferença na hora de carregar no navegador.
+&emsp; O arquivo resultante tem cerca de 17% do tamanho do original.
 
 ---
 
@@ -429,11 +432,10 @@ samtools coverage viral.bam
 > | **meanbaseq** | Qualidade média das bases (escore Phred, $Q$) |
 > | **meanmapq** | Qualidade média do alinhamento (escore Phred de confiança na posição) |
 
+&emsp; Agora usse a função de histograma que desenha um histograma da cobertura ao longo do genoma, direto no terminal.
 ```bash
-samtools coverage -m viral.bam
+samtools coverage viral.bam --histogram
 ```
-
-&emsp; A opção `-m` desenha um histograma da cobertura ao longo do genoma, direto no terminal.
 
 &emsp; **O que nós fizemos aqui:** alinhamos os transcritos sequenciados contra um genoma de referência. Depois, filtramos aqueles transcritos que alinham com a referência — no caso, o vírus.
 
@@ -452,13 +454,13 @@ samtools coverage -m viral.bam
 > [!WARNING]
 > São dois menus diferentes. Carregar o BAM pelo menu **Genome** produz o erro `Genome did not load: did not detect index file (expected extension .fai)` — o carregador de genoma foi procurar um índice de FASTA dentro de um BAM.
 >
-> E o `.bai` precisa ir junto porque o navegador não tem permissão de listar pastas: ele só enxerga os arquivos que o usuário entrega explicitamente.
+> E o `.bai` precisa ir junto explicitamente.
 
-&emsp; Comigo, demorou cerca de 3 min para carregar o alinhamento.
+&emsp; Comigo, demorou cerca de 3 min para carregar os arquivos.
 
-&emsp; Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de reads alinhadas ao longo do genoma.
+&emsp; Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de _reads_ alinhadas ao longo do genoma.
 
-&emsp; **O que aquela "colina" representa?** Ela mostra o número de reads que alinham em cada posição. O comando `samtools coverage viral.bam` nos mostrou que 99,6% do genoma alinhou com alguma read — mas essa cobertura **não é uniforme**. A grande maioria das reads (aprox. 76,7%) alinha no final do genoma, nas ORFs **N** (*nucleocapsid phosphoprotein*) e **ORF10**.
+&emsp; **O que aquela "colina" representa?** Ela mostra o número de reads que alinham em cada posição. O comando `samtools coverage viral.bam` nos mostrou que 99,6% do genoma alinhou com alguma read — mas essa cobertura **não é uniforme**. A grande maioria das reads (aprox. 76,7%) alinha no final do genoma, nas ORFs **[N]([url](https://www.ncbi.nlm.nih.gov/gene/?term=YP_009724397.2))** (*nucleocapsid phosphoprotein*) e **[ORF10]([url](https://www.ncbi.nlm.nih.gov/gene/?term=YP_009725255.1))**.
 
 &emsp; Isso significa que a maior parte do que está sendo transcrito pela célula hospedeira corresponde à região final do genoma viral.
 
@@ -468,54 +470,33 @@ samtools coverage -m viral.bam
 > Cada degrau da colina marca o início de uma unidade de transcrição. Ou seja: a cobertura está mostrando **onde estão os genes**.
 
 > [!WARNING]
-> A faixa de reads vai parecer cheia de bases coloridas, como se a amostra tivesse mutações por toda parte. Não tem. São 30 mil bases espremidas em poucos pixels, e cada traço colorido é uma discordância em *algum* dos centenas de reads empilhados naquele ponto — em sua maioria, erro de sequenciamento.
+> A faixa de _reads_ vai parecer cheia de bases coloridas, como se a amostra tivesse mutações por toda parte. Não tem. São 30 mil bases espremidas em poucos pixels, e cada traço colorido é uma discordância em *algum* dos centenas de _reads_ empilhados naquele ponto, que pode ser erro de sequenciamento, por exemplo.
 >
-> A prova está na faixa de **cobertura**, que permanece cinza: o IGV só a coloriria se alguma posição tivesse mais de 20% de discordância. Erro é espalhado; variante é coluna.
+> A comprovação está na **cobertura**, que permanece cinza: o IGV só a coloriria se alguma posição tivesse mais de 20% de discordância.
 
 ---
 
 ## Cobertura vs. profundidade
 
-&emsp; Em português, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Em inglês a distinção é explícita: *breadth* e *depth of coverage*.
+&emsp; Em português, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Em inglês há distinção: *breadth of coverage* e *depth of coverage*.
 
 | | Pergunta que responde | Unidade |
 | :--- | :--- | :--- |
 | **Profundidade** | Quantas vezes eu li **esta base**? | vezes (×) |
 | **Amplitude** | Que **fração da referência** eu consegui ler? | porcentagem |
 
-&emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. A saída do `samtools coverage` traz as duas na mesma linha: a coluna `coverage` é a amplitude, e `meandepth` é a profundidade.
+&emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
 
 &emsp; A conta básica da profundidade média:
 
 $$\text{profundidade} = \frac{\text{n}^\circ \text{ de reads} \times \text{tamanho do read}}{\text{tamanho da referência}}$$
 
-&emsp; E o ponto mais importante: **média esconde a distribuição**. Nosso genoma tem amplitude de 99,6% e profundidade média altíssima, mas a colina do IGV mostra que a profundidade varia mais de cem vezes entre o começo e o fim do genoma. Reportar apenas a média esconderia justamente a informação mais interessante do dado.
-
-> [!IMPORTANT]
-> Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
-
--------LEITURA E DISCUSSÃO
-
 ---
 
-## Extra — Como encontrar éxons?
-
-&emsp; O SARS-CoV-2 não tem íntrons, então a cobertura dele é contínua. Num eucarioto, a mesma análise produz uma figura bem diferente: **blocos de cobertura separados por vales**. Os blocos são os éxons; os vales, os íntrons.
-
-&emsp; É exatamente assim que se anota um genoma recém-sequenciado: projetando evidência transcricional sobre coordenadas genômicas para descobrir onde estão os genes.
-
--------EXEMPLO COM GENE EUCARIÓTICO
-
-> [!NOTE]
-> Um detalhe interessante: o BWA não conhece *splicing*. Um read que atravessa uma junção éxon-éxon não pode ser partido em dois pedaços distantes, então o alinhador **recorta as pontas que não encaixam** (*soft clipping*). No IGV, ao ligar a opção "Show soft-clipped bases", essas caudas recortadas aparecem empilhadas exatamente nas bordas dos éxons.
->
-> O alinhador está apontando onde estão as junções sem saber que elas existem — e é por isso que existem alinhadores *splice-aware* como o STAR e o HISAT2.
-
----
 
 ## Solução de problemas
 
-| Mensagem ou sintoma | Causa provável |
+| Mensagem | Causa provável |
 | :--- | :--- |
 | `command not found` | esqueceu o `conda activate curso_toolbox` |
 | Nomes com `\|` na tabela do Salmon | pulou a limpeza dos cabeçalhos do GENCODE |
