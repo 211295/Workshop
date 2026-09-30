@@ -29,8 +29,6 @@
 | `SRR11517748.subsample.fastq` | sequenciamento bruto depositado, infectado |
 | `gencode.v50.transcripts.fa` | referência de transcriptoma humano |
 | `NC_045512.2.fa` | genoma do SARS-CoV-2 |
-| `comparacao.tsv` | tabela comparativa final |
-
 
 ---
 
