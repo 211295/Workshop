@@ -1,157 +1,317 @@
-# PRIEMIRA PARTE: TRANSCRIPTÔMICA COMPARATIVA
+# PRIMEIRA PARTE: TRANSCRIPTÔMICA COMPARATIVA
 ### Desenvolvido por Leandro de Brito Gonçalves
 ### Revisado por Felipe Simionato Salles
 ***
-&emsp; Nesta parte do curso, pretendemos comparar duas amostras de RNA-seq, uma controle e uma condição, quantificando a abundância relativa de transcritos, medida em TPM (transcripts per million), e identificar genes que são mais transcritos em cada situação.
 
-&emsp; O trabalho de referência é um esforço contra a pandemia de COVID-19 e fez um screening de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas. **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, para SARS-CoV2). 
-> Para a prática foram escolhidos os dados [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:.
+&emsp; Nesta parte do curso, pretendemos comparar duas amostras de RNA-seq, uma controle e uma condição, quantificando a abundância relativa de transcritos, medida em TPM (*transcripts per million*), e identificar genes que são mais transcritos em cada situação.
 
-## MAPA DE PROCESSOs
+&emsp; O trabalho de referência é um esforço contra a pandemia de COVID-19 e fez um *screening* de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas: **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, infecção por SARS-CoV-2).
+
+> Para a prática foram escolhidos os dados de [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:
+
+## MAPA DE PROCESSOS
+
 > [!TIP]
-> Parte 1
-> **FASTQ → [Controel de qualidade: fastp] → FASTQ limpo + Genoma_viral.fasta + GENCODE.fasta → [Quantificação: salmon] → quant.sf → [script] → tabela → [Enrichr] → termos GO**
+> **Parte 1**
+>
+> FASTQ → [Controle de qualidade: **fastp**] → FASTQ limpo
+> FASTQ limpo + Genoma_viral.fasta + GENCODE.fasta → [Quantificação: **salmon**] → `quant.sf`
+> `quant.sf` → [script Python] → tabela comparativa → [**Enrichr**] → termos GO
 
 > [!TIP]
-> Parte 2
-> **Genoma_viral.fasta + FASTQ → [Alinhamento: BWA] → BAM → [Filtragem: Samtools] → BAM Viral → Visualização IGV**
+> **Parte 2**
+>
+> Genoma_viral.fasta + FASTQ → [Alinhamento: **BWA**] → BAM
+> BAM → [Filtragem: **samtools**] → BAM viral → Visualização no **IGV**
+
+## NOMES DOS ARQUIVOS
+
+&emsp; Para não se perder, usaremos estes nomes do começo ao fim:
+
+| Arquivo | O que é |
+| :--- | :--- |
+| `SRR11517744.subsample.fastq` | reads brutos, controle |
+| `SRR11517748.subsample.fastq` | reads brutos, infectado |
+| `controle.fastq` / `infectado.fastq` | reads após o fastp |
+| `NC_045512.2.fa` | genoma do SARS-CoV-2 |
+| `gencode_limpo.fa` | transcriptoma humano, cabeçalhos simplificados |
+| `ref.fa` | transcriptoma humano + genoma viral |
+| `quant_controle/` e `quant_infectado/` | saídas do salmon |
+| `comparacao.tsv` | tabela comparativa final |
+| `infectado.bam` | alinhamento contra o genoma viral |
+| `viral.bam` | apenas as reads que mapearam |
 
 &emsp; Os materiais que vamos usar são:
+
 - Referência para transcriptoma humano GENCODE
-- Genoma de SARS-CoV2
+- Genoma de SARS-CoV-2
 - Arquivos de RNA-seq (SRR/SRA) depositados
 
-00.**Ativando o ambiente conda**
->[!IMPORTANT]
->Antes de tudo, vamos ativar o ambiente Conda
+---
+
+## 0. Ativando o ambiente conda
+
+> [!IMPORTANT]
+> Antes de tudo, ative o ambiente Conda. Esquecer este passo é a causa número um de erros do tipo `command not found`.
 
 ```sh
 conda activate curso_toolbox
 ```
 
-1.**Baixando e preparando os dados**
+---
 
-&emsp; Primeiro, vamos baixar o Genoma viral:
+## 1. Baixando e preparando os dados
+
+&emsp; Primeiro, vamos baixar o genoma viral:
+
 ```bash
-wget -O NC_045512.2.fa "wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_045512.2&rettype=fasta&retmode=text" 
+wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_045512.2&rettype=fasta&retmode=text"
 ```
+
 &emsp; Em seguida, a referência para o transcriptoma:
+
 ```bash
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
 ```
-Para descomprimir o arquivo do GENCODE
+
+&emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho para o formato `ENST00000xxxxx.y_SÍMBOLO`:
+
 ```bash
 zcat gencode.v50.transcripts.fa.gz \
   | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode_limpo.fa
 ```
+
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`zcat`**: descomprime o arquivo enviando o conteúdo para a saída padrão, sem criar arquivo intermediário (no macOS, use `gzcat`);
+> * **`|` (pipe)**: entrega a saída do `zcat` direto para o `awk`;
+> * **`awk -F'|'`**: define a barra vertical como separador de campos;
+> * **`/^>/`**: aplica a regra apenas às linhas que começam com `>`, ou seja, os cabeçalhos;
+> * **`substr($1,2)`**: pega o primeiro campo sem o caractere `>`;
+> * **`$6`**: é o símbolo do gene;
+> * **`next`**: pula para a próxima linha sem aplicar as demais regras;
+> * **`{print}`**: imprime todas as outras linhas (as sequências) sem alteração.
+
+&emsp; Sem essa limpeza, a tabela final ficaria ilegível e o script de comparação não conseguiria identificar os genes.
+
 &emsp; Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
+
 SRR***
+
 > [!NOTE]
 > Estes arquivos são sub-amostras do sequenciamento completo. Optamos por fazer isso para reduzir o tamanho do SRR e também o tempo de processamento.
 
-&emsp; O programa que vamos usar aceita apenas uma entrada, não tem problema. Vamos concatenar (juntar em um único arquivo) os arquivos fasta:
-```bash
-cat NC_045512.2.fa gencode.v50.transcripts.fa > ref.fa
-```
-2.**Controle de qualidade**
+&emsp; O programa que vamos usar aceita apenas uma entrada, não tem problema. Vamos concatenar (juntar em um único arquivo) os arquivos FASTA:
 
-&emsp; É necessário remover os adaptadores de sequênciamneto. Como boa prática, é necessário conferir o controle de qualidade do sequenciamento. O melhor e mais rápido hoje é o fastp que faz as duas coisas:
-```sh
-fastp -i SRR11517744.subsample.fastq -o SRR11517744.quality.fastq -j controle_report.json -h controle_report.html
+```bash
+cat gencode_limpo.fa NC_045512.2.fa > ref.fa
 ```
-```sh
-fastp -i SRR11517748.subsample.fastq -o SRR11517748.quality.fastq -j doença_report.json -h doença_report.html
+
+&emsp; Confira quantas sequências entraram na referência:
+
+```bash
+grep -c '^>' ref.fa
 ```
+
+> [!NOTE]
+> Estamos usando o conjunto **completo** do GENCODE, que inclui RNAs pequenos (snRNA, snoRNA) e pseudogenes além dos genes codificantes. Isso faz com que nomes como `RNVU1-7`, `SNORD3D` e identificadores `ENSG00000...` sem símbolo apareçam no topo das listas. Não é erro: essas sequências são muito parecidas entre si, e a quantificação delas é instável. Se quiser um resultado mais limpo, troque por `gencode.v50.pc_transcripts.fa.gz`, que traz apenas transcritos codificantes de proteína.
+
+---
+
+## 2. Controle de qualidade
+
+&emsp; É necessário remover os adaptadores de sequenciamento. Como boa prática, é necessário conferir o controle de qualidade do sequenciamento. O melhor e mais rápido hoje é o **fastp**, que faz as duas coisas:
+
+```sh
+fastp -i SRR11517744.subsample.fastq -o controle.fastq  -j controle_report.json  -h controle_report.html
+```
+
+```sh
+fastp -i SRR11517748.subsample.fastq -o infectado.fastq -j infectado_report.json -h infectado_report.html
+```
+
+&emsp; Abra os arquivos `.html` no navegador.
+
 -------------Leitura do controle de qualidade
 
-3.**Preparando o ìndice**
+---
 
-&emsp; O que é um índice? Uma estrutura de busca pré-processada. Sem ela, para cada read o software precisaria que varrer 110 mil transcritos. É o mesmo princípio do índice remissivo no fim de um livro. Isso ajuda muito no processamento!
+## 3. Preparando o índice
 
-&emsp; Existem muitos quantificadores de transcriptoma. Usaremos o Salmon pois é ultra rápido, não usa um alinhador externo e bastante eficiente.
-Para criar um índex para o Salmon:
+&emsp; O que é um índice? Uma estrutura de busca pré-processada. Sem ela, para cada read o software precisaria varrer centenas de milhares de transcritos. É o mesmo princípio do índice remissivo no fim de um livro. Isso ajuda muito no processamento!
+
+&emsp; Existem muitos quantificadores de transcriptoma. Usaremos o **Salmon**, pois é ultrarrápido, não usa um alinhador externo e é bastante eficiente.
+
+Para criar um índice para o Salmon:
+
 ```bash
 salmon index -t ref.fa -i index_dir -k 31 -p 4
 ```
-4.**Quantificando**
 
-&emsp; Vamos estimar a expressão quantificando os transcritos de cada um dos arquivos SRR. Rode um, quando terminar, rode o outro. Isso deve demorar cerca de 5 min. 
-```bash
-salmon quant -i index_dir -l A -r SRR11517744.fastq -p 4 -o quantificação_controle
-```
-```bash
-salmon quant -i index_dir -l A -r SRR11517748.fastq -p 4 -o quantificação_doença
-```
-5.**Visualização dos dados**
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`-t`**: o arquivo FASTA de referência;
+> * **`-i`**: o **diretório** de saída do índice (são vários arquivos, não um só);
+> * **`-k 31`**: tamanho do k-mer, ou seja, o comprimento dos pedaços em que a referência é fatiada. 31 é o padrão e funciona bem para reads de 75 bases ou mais;
+> * **`-p 4`**: número de *threads*.
 
-&emsp;  O salmon entrega os seguintes arquivos de saída que nos importam:
--aux_info/meta_info.json, que é o arquivo de metadados e
-- quant.sf, um tsv com os dados de quantificação;
-  
-Use um ```bash cat quant.sf ``` e veja que tem as seguintes colunas, que significam:
+> [!NOTE]
+> Este passo leva alguns minutos e usa bastante memória. É o único passo pesado da prática.
+
+---
+
+## 4. Quantificando
+
+&emsp; Vamos estimar a expressão quantificando os transcritos de cada um dos arquivos. Rode um, quando terminar, rode o outro. Isso deve demorar cerca de 5 min cada.
+
+```bash
+salmon quant -i index_dir -l A -r controle.fastq  -p 4 -o quant_controle
+```
+
+```bash
+salmon quant -i index_dir -l A -r infectado.fastq -p 4 -o quant_infectado
+```
+
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`-i`**: o índice criado no passo anterior;
+> * **`-l A`**: tipo de biblioteca. O `A` deixa o Salmon **detectar automaticamente** a partir dos próprios dados. Errar essa opção manualmente arruína a quantificação sem gerar mensagem de erro;
+> * **`-r`**: arquivo de reads *single-end* (se fosse *paired-end*, seria `-1` e `-2`);
+> * **`-p 4`**: *threads*;
+> * **`-o`**: diretório de saída.
+
+> [!IMPORTANT]
+> **Ponto de checagem.** Confira a taxa de mapeamento de cada amostra:
+>
+> ```bash
+> grep percent_mapped quant_*/aux_info/meta_info.json
+> ```
+>
+> Espere algo entre 70% e 90%. Valores muito abaixo disso indicam problema na referência ou no arquivo de entrada.
+
+---
+
+## 5. Visualização dos dados
+
+&emsp; O Salmon entrega os seguintes arquivos de saída que nos importam:
+
+- `aux_info/meta_info.json`, que é o arquivo de metadados;
+- `quant.sf`, um TSV com os dados de quantificação.
+
+Use um `cat quant.sf` e veja que tem as seguintes colunas, que significam:
 
 | Coluna | Descrição |
 | :--- | :--- |
-| Name | Header do transcrito ou nome do gene/transcrito/proteína |
+| Name | *Header* do transcrito ou nome do gene/transcrito/proteína |
 | Length | Tamanho, em nucleotídeos |
-| EffectiveLength | Número de posições que um fragmento médio pode se alinhar ao transcrito |
-| TPM | Métrica normalizada de expressão (_transcripts per million_) |
-| NumReads | Valor absoluto de leituras que mapearam em cima do transcrito |
+| EffectiveLength | Número de posições em que um fragmento médio pode se alinhar ao transcrito |
+| TPM | Métrica normalizada de expressão (*transcripts per million*) |
+| NumReads | Valor estimado de leituras que mapearam em cima do transcrito |
+
+> [!NOTE]
+> A coluna `NumReads` pode vir com casas decimais. Não é erro. Quando um read é compatível com várias isoformas do mesmo gene, o algoritmo não escolhe uma — ele reparte o read proporcionalmente à abundância estimada de cada uma. Quantificação de transcrito é inferência estatística, não contagem literal.
 
 Vamos ver as 30 primeiras linhas em colunas alinhadas e fáceis de ler:
+
 ```bash
-head -30 quant.sf | column -t 
-```
-Mas nós queremos ver aqueles com maior TPM
-```bash
-sort -nrk6 quant.sf | head -30 | column -t
+head -30 quant_controle/quant.sf | column -t
 ```
 
-Temos esse script escrito na linguagem python que vai nos ajudar a comaprar as duas quantificaçãoes que fizemos:
+Mas nós queremos ver aqueles com maior TPM, que é a **coluna 4**:
 
-```python
-python compara_salmon.py quant_1 quant_2 --nome-a --nome-b --saida
-````
-por exemplo:
-    python3 comparar_salmon.py quantificação_controle/quant.sf  quantificação_doença/quant.sf --nome-a Controle --nome-b SARS_CoV_2 --saida salmon_compare.tsv
-
-    ------- Leitura do arquivo de saída
-    
-6.**Enriquecimento funcional**
-&emsp;  Beleza. Sabemos quais os transcritos que são mais expressos em cada situação e ainda temos os valores de _fold change_ que permite comparar o perfil de transcrição em cada contexto. Mas qual o significado biológico disso?
-  Enriquecimento funcional é uma análise estatística que associa uma lista de genes a termos Gene Onthology (Processos Biológicos, Funções Moleculares e Compartimento Celular). 
-  Priemiro, vamos extrair uma lista dos 150 mais expressos com maior aumento em COVID
 ```bash
-awk '$7=="sim" && $6>1 {print $1}' tabela_comparacao.tsv | head -n150
+tail -n +2 quant_controle/quant.sf | sort -k4,4nr | head -30 | column -t
 ```
-Acesse o [Enrichr]([url](https://maayanlab.cloud/Enrichr/)) que é um tipo de "Google" 
-Cole a lista de genes no quadro e depois clique em "submit"
-No topo da pagina que abrir, clique em "Ontologies"
-E depois clique no quadro "GO Biological processes 2026"
+
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`tail -n +2`**: pula a linha de cabeçalho, que senão entraria na ordenação;
+> * **`sort -k4,4nr`**: ordena pela coluna 4 (`n` = numérico, `r` = decrescente). O `4,4` delimita a chave; escrever só `-k4` faria o `sort` usar da coluna 4 até o fim da linha;
+> * **`column -t`**: alinha as colunas na tela.
+
+Temos um script escrito em Python que vai nos ajudar a comparar as duas quantificações que fizemos:
+
+```bash
+python3 comparar_salmon.py quant_A/quant.sf quant_B/quant.sf --nome-a NOME --nome-b NOME --saida ARQUIVO
+```
+
+Por exemplo:
+
+```bash
+python3 comparar_salmon.py quant_controle/quant.sf quant_infectado/quant.sf \
+    --nome-a Controle --nome-b SARS_CoV_2 --saida comparacao.tsv
+```
+
+------- Leitura do arquivo de saída
+
+> [!WARNING]
+> Temos **uma amostra por condição**. Isso permite comparar valores de TPM e ordenar genes por variação, mas **não permite fazer estatística**: não há como estimar variabilidade com n = 1. O que faremos aqui é análise exploratória. Para expressão diferencial de verdade seriam necessárias réplicas e ferramentas como DESeq2 ou edgeR.
+
+---
+
+## 6. Enriquecimento funcional
+
+&emsp; Beleza. Sabemos quais os transcritos que são mais expressos em cada situação, e ainda temos os valores de *fold change*, que permitem comparar o perfil de transcrição em cada contexto. Mas qual o significado biológico disso?
+
+&emsp; Enriquecimento funcional é uma análise estatística que associa uma lista de genes a termos do Gene Ontology (Processos Biológicos, Funções Moleculares e Componente Celular).
+
+Primeiro, vamos extrair uma lista dos 150 genes com maior aumento em COVID:
+
+```bash
+awk -F'\t' '$7=="sim" && $6>1 {print $1}' comparacao.tsv | head -n 150
+```
+
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`$7=="sim"`**: mantém apenas genes que passaram no filtro de expressão mínima;
+> * **`$6>1`**: mantém apenas genes com log2FC maior que 1, ou seja, que pelo menos dobraram;
+> * **`$1`**: imprime o nome do gene.
+
+Acesse o [Enrichr](https://maayanlab.cloud/Enrichr/), que funciona como um tipo de "Google" de listas de genes.
+
+1. Cole a lista de genes no quadro e clique em **Submit**
+2. No topo da página que abrir, clique em **Ontologies**
+3. Clique no quadro **GO Biological Process**
 
 -------LEITURA DO ENRICHR
 
-Podemos navegar nos quadros "GO Cellular Component 2026" e "GO Molecular Function 2026"
+Podemos navegar também nos quadros **GO Cellular Component** e **GO Molecular Function**.
 
-Podemos ver os arquivos sem comparação, apenas, os mais expressos em cada contexto
+Podemos ver os arquivos sem comparação, apenas os mais expressos em cada contexto:
+
 ```bash
-sort -nrk4 quantificação_controle/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
+tail -n +2 quant_controle/quant.sf  | sort -k4,4nr | cut -f1 | head -150 | cut -d'_' -f2-
 ```
+
 ```bash
-sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -150 | cut -d'_' -f2-
+tail -n +2 quant_infectado/quant.sf | sort -k4,4nr | cut -f1 | head -150 | cut -d'_' -f2-
 ```
+
+&emsp; O `cut -d'_' -f2-` descarta o identificador ENST e deixa apenas o símbolo do gene, que é o que o Enrichr reconhece.
+
+---
 
 # SEGUNDA PARTE: ALINHAMENTO GENOMA-TRANSCRIPTOMA
-7.**Alinhamento com o BWA**
-&emsp;  Para essa parte, vamos usar o mesmo genoma de SARS-CoV que usamos NC_045512.2.fa e vamos alinhas as _reads_ do arquivo SRR infectado contra o genoma, pois, neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo fasta.
+
+## 7. Alinhamento com o BWA
+
+&emsp; Para essa parte, vamos usar o mesmo genoma de SARS-CoV-2 que usamos, `NC_045512.2.fa`, e vamos alinhar as *reads* do arquivo SRR infectado contra esse genoma — pois neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo FASTA:
+
 ```bash
 head -1 NC_045512.2.fa
 ```
-Será necessário que o _header_ do arquivo fasta seja igual ao nome do "cromossomo" no genoma que o IGV vai carregar. 
+
+Será necessário que o *header* do arquivo FASTA seja igual ao nome do "cromossomo" no genoma que o IGV vai carregar:
 
 ```bash
 sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
 ```
+
 > [!TIP]
 > **O que significa o comando?**
 >
@@ -159,22 +319,29 @@ sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
 > * **`-i`**: é a opção de editar diretamente o arquivo original (*in-place*);
 > * **`'1s/.*/>NC_045512.2/'`**: instrução para substituir todo o conteúdo da primeira linha por `>NC_045512.2`.
 
-Por que isso importa? Esse nome vai ser copiado para dentro do arquivo de alinhamento e usado como identificador do "cromossomo". Lá na frente, o IGV vai comparar esse nome com o do genoma que carregamos. Se os dois não baterem, o IGV carrega tudo sem dar erro nenhum — e mostra uma tela vazia. É um dos problemas mais difíceis de diagnosticar justamente porque nada falha. 
+&emsp; Por que isso importa? Esse nome vai ser copiado para dentro do arquivo de alinhamento e usado como identificador do "cromossomo". Lá na frente, o IGV vai comparar esse nome com o do genoma que carregamos. Se os dois não baterem, o IGV carrega tudo sem dar erro nenhum — e mostra uma tela vazia. É um dos problemas mais difíceis de diagnosticar justamente porque nada falha.
 
-&emsp;  Existe uma diversidade de alinhadores e cada um tem uma especificidade e objetivas diferentes (Slides). Para essa prática, vamos usar o BWA por estas razões:
-Primeiro, porque o SARS-CoV-2 não tem íntrons. O genoma dele é RNA contínuo, sem splicing. Alinhadores como STAR e HISAT2 existem exatamente para lidar com esse salto, e resolver esse problema custa memória e tempo. Segundo, temos um RNA-seq de Illumina short reads. 
-_Reflexão_: O que importa não é o nome do alinhador, é saber em qual problema temos e qual ferramenta usar para resolver. O Bowtie2 faria exatamente o mesmo trabalho.
+&emsp; Existe uma diversidade de alinhadores, e cada um tem especificidades e objetivos diferentes (Slides). Para essa prática, vamos usar o BWA por estas razões:
 
-Vamos criar o index para o BWA
+- Primeiro, porque o SARS-CoV-2 **não tem íntrons**. O genoma dele é RNA contínuo, sem *splicing*. Alinhadores como STAR e HISAT2 existem exatamente para lidar com esse salto, e resolver esse problema custa memória e tempo.
+- Segundo, temos um RNA-seq de Illumina, com *short reads*.
+
+> *Reflexão*: o que importa não é o nome do alinhador, e sim saber qual problema temos e qual ferramenta o resolve. O Bowtie2 faria exatamente o mesmo trabalho.
+
+Vamos criar o índice para o BWA:
+
 ```bash
 bwa index NC_045512.2.fa
 ```
-Repare que surgiram cinco arquivos novos: .amb, .ann, .bwt, .pac e .sa. Você nunca vai abri-los, são de uso interno do programa. 
 
-Com o índex na mãos, poderemos usar o alinhador. O comando que vamos usar alinha o RNA-seq contra o genoma viral e ordena com o Samtools:
+&emsp; Repare que surgiram cinco arquivos novos: `.amb`, `.ann`, `.bwt`, `.pac` e `.sa`. Você nunca vai abri-los — são de uso interno do programa.
+
+&emsp; Com o índice em mãos, poderemos usar o alinhador. O comando abaixo alinha o RNA-seq contra o genoma viral e ordena o resultado com o samtools:
+
 ```bash
-bwa mem -t 4 NC_045512.2.fa infectado.fq.gz | samtools sort -@ 2 -o SRR11517744.fastq - 
+bwa mem -t 4 NC_045512.2.fa infectado.fastq | samtools sort -@ 2 -o infectado.bam -
 ```
+
 > [!TIP]
 > **O que significa o comando?**
 >
@@ -182,32 +349,53 @@ bwa mem -t 4 NC_045512.2.fa infectado.fq.gz | samtools sort -@ 2 -o SRR11517744.
 > * **`mem`**: é o algoritmo de alinhamento (*Maximal Exact Matches*);
 > * **`-t 4`**: define o uso de 4 *threads* (processamento em paralelo);
 > * **`NC_045512.2.fa`**: é o genoma de referência em FASTA (o BWA busca automaticamente os 5 arquivos de índice na mesma pasta);
-> * **`infectado.fq.gz`**: é o arquivo FASTQ comprimido com as *reads*;
+> * **`infectado.fastq`**: é o arquivo FASTQ com as *reads*;
 > * **`|` (pipe)**: redireciona a saída do BWA diretamente para a entrada do `samtools`;
 > * **`sort`**: subcomando do `samtools` que reordena os alinhamentos por coordenada genômica;
 > * **`-@ 2`**: define 2 *threads* para o `samtools sort`;
-> * **`-o SRR11517744.fastq`**: especifica o nome do arquivo BAM de saída;
+> * **`-o infectado.bam`**: especifica o nome do arquivo BAM de saída;
 > * **`-` (traço final)**: indica que a entrada de dados vem do *pipe* (STDIN).
 
-Vamos precisar criar outro índex, agora, do novo arquivo BAM que criamos
+> [!NOTE]
+> Por que o *pipe*? Sem ele, seria preciso gravar em disco um arquivo SAM intermediário — que em projetos reais tem dezenas de gigabytes — só para lê-lo de volta e apagá-lo em seguida. Com o *pipe*, os dados passam da memória do BWA direto para a do samtools, sem nunca tocar o disco.
+>
+> Este passo demora alguns minutos.
+
+Vamos precisar criar outro índice, agora do novo arquivo BAM que criamos:
+
 ```bash
-samtools index SRR11517744.fastq
+samtools index infectado.bam
 ```
+
+&emsp; Surge um arquivo `infectado.bam.bai`. Ele permite pular para qualquer região do alinhamento sem ler o arquivo inteiro, e é o que fará a navegação no IGV ser instantânea.
 
 Vamos ver algumas informações?
-```bash
-samtools flagstat SRR11517744.fastq
-```
-    O que a saída mostra, linha a linha:
-      in total — o número de reads processados. Deve bater com o número de reads do FASTQ
-      mapped — quantos encontraram posição no genoma viral, em número absoluto e em porcentagem. É a linha que interessa
-      primary, secondary, supplementary — categorias de alinhamento. Um mesmo read pode ter mais de um registro; os secundários são           alinhamentos alternativos
-      duplicates — zero aqui, porque não rodamos marcação de duplicatas
 
-8.**Criação de um Alinhamento apenas viral**
-&emsp;  Usamos um arquivo SRR com transcritos de origem humana e viral. Vamos filtrar as reads alinhadas e criar seu índex. Vamos chamar viral.bam
 ```bash
-samtools view -b -F 4 SRR11517744.fastq > viral.bam
+samtools flagstat infectado.bam
+```
+
+> [!IMPORTANT]
+> **O que a saída mostra, linha a linha:**
+>
+> * **`in total`** — o número de reads processados. Deve bater com o número de reads do FASTQ;
+> * **`mapped`** — quantos encontraram posição no genoma viral, em número absoluto e em porcentagem. **É a linha que interessa**;
+> * **`primary`, `secondary`, `supplementary`** — categorias de alinhamento. Um mesmo read pode ter mais de um registro; os secundários são alinhamentos alternativos;
+> * **`duplicates`** — zero aqui, porque não rodamos marcação de duplicatas.
+
+> [!IMPORTANT]
+> **Ponto de checagem.** A porcentagem de reads mapeados deve ficar em torno de **17%**. Os outros ~83% são reads humanos, que não têm onde encaixar num genoma de 30 kb.
+>
+> Note que esse número já apareceu na primeira parte, quando o Salmon quantificou o genoma viral dentro do transcriptoma humano. **Dois métodos independentes chegando ao mesmo valor** é o tipo de concordância que dá confiança num resultado.
+
+---
+
+## 8. Criação de um alinhamento apenas viral
+
+&emsp; Usamos um arquivo SRR com transcritos de origem humana e viral. Vamos filtrar as reads alinhadas e criar seu índice. Vamos chamá-lo de `viral.bam`:
+
+```bash
+samtools view -b -F 4 infectado.bam > viral.bam
 ```
 
 > [!TIP]
@@ -216,19 +404,26 @@ samtools view -b -F 4 SRR11517744.fastq > viral.bam
 > * **`samtools`**: é o programa;
 > * **`view`**: é o subcomando utilizado para ler, converter e filtrar os dados contidos nos arquivos;
 > * **`-b`**: indica o formato de saída BAM;
-> * **`-F 4`**: é a regra de filtragem (a regra nº 4 descarta reads não mapeadas, mantendo apenas as que mapearam);
-> * **`SRR11517744.fastq`**: é o arquivo BAM de entrada;
+> * **`-F 4`**: descarta as reads cujo **bit 4** do campo FLAG está ligado, ou seja, as não mapeadas. O `-F` maiúsculo exclui; o `-f` minúsculo faria o contrário, mantendo apenas essas;
+> * **`infectado.bam`**: é o arquivo BAM de entrada;
 > * **`viral.bam`**: é o arquivo BAM de saída.
 
-Como sempre, montaremos um index
+Como sempre, montaremos um índice:
+
 ```bash
-samtools index viral.bam 
+samtools index viral.bam
 ```
 
-9. **Análise de cobertura**
+&emsp; O arquivo resultante tem cerca de 17% do tamanho do original, o que faz diferença na hora de carregar no navegador.
+
+---
+
+## 9. Análise de cobertura
+
 ```bash
-samtools coverage viral.bam 
+samtools coverage viral.bam
 ```
+
 > [!IMPORTANT]
 > **O que significa cada coluna?**
 >
@@ -238,37 +433,105 @@ samtools coverage viral.bam
 > | **startpos** | Posição inicial |
 > | **endpos** | Posição final |
 > | **numreads** | Número de leituras mapeadas |
-> | **covbases** | Número de bases cobertas |
+> | **covbases** | Número de bases cobertas ao menos uma vez |
 > | **coverage** | Proporção de bases cobertas (%) |
 > | **meandepth** | Média de profundidade (reads por posição/nucleotídeo) |
-> | **meanbaseq** | Qualidade média das bases (Phred quality score, $Q$) |
-> | **meanmapq** | Qualidade média do alinhamento (probabilidade de mapeamento correto) |
+> | **meanbaseq** | Qualidade média das bases (escore Phred, $Q$) |
+> | **meanmapq** | Qualidade média do alinhamento (escore Phred de confiança na posição) |
 
 ```bash
-samtools coverage viral.bam -m
+samtools coverage -m viral.bam
 ```
-O que nós fizemos aqui: Alinhamos os transcritos sequenciados em um genoma de referência. Depois, filtramos aqueles transcritos que alinham com a referência, no caso, o virus.
 
-10.**Visualização no IGV**
-Para ver de forma gráfico o alinhamento BAM, vamos usar IGV - Integrative Genome Viewer 
-	Primeiro, clique no link para acessar o site https://igv.org/app/. 
+&emsp; A opção `-m` desenha um histograma da cobertura ao longo do genoma, direto no terminal.
 
-No IGV, já temos o genoma de SARS-CoV baixado. Vá em Genome > SARS-CoV-2 (Jan 2020 COVID-19)
+&emsp; **O que nós fizemos aqui:** alinhamos os transcritos sequenciados contra um genoma de referência. Depois, filtramos aqueles transcritos que alinham com a referência — no caso, o vírus.
 
-Veja que o genoma de SARS-COV tem cerca de 30Kb e com apenas 10 ORFs (quadros azuis)
+---
 
-Agora procure a pasta onde está seu arquivo de alinhamento.
-No IGV, clique em “Tracks” > “Local file”. 
-Comigo, demorou cerca de 3 min para carregar o alinhamentos
+## 10. Visualização no IGV
 
-Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de reads alinhadas ao longo do genoma.
+&emsp; Para ver de forma gráfica o alinhamento BAM, vamos usar o IGV — *Integrative Genomics Viewer*. Primeiro, acesse <https://igv.org/app/>.
 
-O que aquela “colina” representa? Ela mostra o número de reads que alinham em cada posição. Ou seja, o comando “samtools coverage viral.bam” nos mostrou que 99,6% do genoma alinhou com alguma read, mas, não é uniforme. A grande maioria das reads (aprox. 76,7%) alinham no final no genoma, nas ORF “N” (N nucleocapsid phosphoprotein) e na ORF10. 
-Isso significa que a maior parte do genoma viral que está sendo transcrito pela célula hospedeiro são as proteínas dessas duas ORFs
+&emsp; No IGV já temos o genoma de SARS-CoV-2 disponível. Vá em **Genome → SARS-CoV-2 (Jan 2020 COVID-19)**.
 
-Cobertura vs profundidade
+&emsp; Veja que o genoma de SARS-CoV-2 tem cerca de 30 kb e apenas 10 ORFs (quadros azuis).
 
-Extra - Como encontrar éxons?
+&emsp; Agora procure a pasta onde está seu arquivo de alinhamento. No IGV, clique em **Tracks → Local File** e selecione `viral.bam` **e** `viral.bam.bai` **juntos, na mesma seleção**.
 
+> [!WARNING]
+> São dois menus diferentes. Carregar o BAM pelo menu **Genome** produz o erro `Genome did not load: did not detect index file (expected extension .fai)` — o carregador de genoma foi procurar um índice de FASTA dentro de um BAM.
+>
+> E o `.bai` precisa ir junto porque o navegador não tem permissão de listar pastas: ele só enxerga os arquivos que o usuário entrega explicitamente.
 
+&emsp; Comigo, demorou cerca de 3 min para carregar o alinhamento.
 
+&emsp; Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de reads alinhadas ao longo do genoma.
+
+&emsp; **O que aquela "colina" representa?** Ela mostra o número de reads que alinham em cada posição. O comando `samtools coverage viral.bam` nos mostrou que 99,6% do genoma alinhou com alguma read — mas essa cobertura **não é uniforme**. A grande maioria das reads (aprox. 76,7%) alinha no final do genoma, nas ORFs **N** (*nucleocapsid phosphoprotein*) e **ORF10**.
+
+&emsp; Isso significa que a maior parte do que está sendo transcrito pela célula hospedeira corresponde à região final do genoma viral.
+
+> [!NOTE]
+> **Por que a cobertura sobe em degraus?** Coronavírus não transcrevem genes independentes. Eles produzem um conjunto **aninhado de mRNAs subgenômicos**: todos começam com a mesma sequência líder na ponta 5' e **todos terminam no mesmo ponto 3'**. A região do gene N está fisicamente presente em quase todos esses mRNAs, enquanto a região de ORF1ab só existe no RNA genômico completo, que é uma fração pequena do total.
+>
+> Cada degrau da colina marca o início de uma unidade de transcrição. Ou seja: a cobertura está mostrando **onde estão os genes**.
+
+> [!WARNING]
+> A faixa de reads vai parecer cheia de bases coloridas, como se a amostra tivesse mutações por toda parte. Não tem. São 30 mil bases espremidas em poucos pixels, e cada traço colorido é uma discordância em *algum* dos centenas de reads empilhados naquele ponto — em sua maioria, erro de sequenciamento.
+>
+> A prova está na faixa de **cobertura**, que permanece cinza: o IGV só a coloriria se alguma posição tivesse mais de 20% de discordância. Erro é espalhado; variante é coluna.
+
+---
+
+## Cobertura vs. profundidade
+
+&emsp; Em português, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Em inglês a distinção é explícita: *breadth* e *depth of coverage*.
+
+| | Pergunta que responde | Unidade |
+| :--- | :--- | :--- |
+| **Profundidade** | Quantas vezes eu li **esta base**? | vezes (×) |
+| **Amplitude** | Que **fração da referência** eu consegui ler? | porcentagem |
+
+&emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. A saída do `samtools coverage` traz as duas na mesma linha: a coluna `coverage` é a amplitude, e `meandepth` é a profundidade.
+
+&emsp; A conta básica da profundidade média:
+
+$$\text{profundidade} = \frac{\text{n}^\circ \text{ de reads} \times \text{tamanho do read}}{\text{tamanho da referência}}$$
+
+&emsp; E o ponto mais importante: **média esconde a distribuição**. Nosso genoma tem amplitude de 99,6% e profundidade média altíssima, mas a colina do IGV mostra que a profundidade varia mais de cem vezes entre o começo e o fim do genoma. Reportar apenas a média esconderia justamente a informação mais interessante do dado.
+
+> [!IMPORTANT]
+> Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
+
+-------LEITURA E DISCUSSÃO
+
+---
+
+## Extra — Como encontrar éxons?
+
+&emsp; O SARS-CoV-2 não tem íntrons, então a cobertura dele é contínua. Num eucarioto, a mesma análise produz uma figura bem diferente: **blocos de cobertura separados por vales**. Os blocos são os éxons; os vales, os íntrons.
+
+&emsp; É exatamente assim que se anota um genoma recém-sequenciado: projetando evidência transcricional sobre coordenadas genômicas para descobrir onde estão os genes.
+
+-------EXEMPLO COM GENE EUCARIÓTICO
+
+> [!NOTE]
+> Um detalhe interessante: o BWA não conhece *splicing*. Um read que atravessa uma junção éxon-éxon não pode ser partido em dois pedaços distantes, então o alinhador **recorta as pontas que não encaixam** (*soft clipping*). No IGV, ao ligar a opção "Show soft-clipped bases", essas caudas recortadas aparecem empilhadas exatamente nas bordas dos éxons.
+>
+> O alinhador está apontando onde estão as junções sem saber que elas existem — e é por isso que existem alinhadores *splice-aware* como o STAR e o HISAT2.
+
+---
+
+## Solução de problemas
+
+| Mensagem ou sintoma | Causa provável |
+| :--- | :--- |
+| `command not found` | esqueceu o `conda activate curso_toolbox` |
+| Nomes com `\|` na tabela do Salmon | pulou a limpeza dos cabeçalhos do GENCODE |
+| Taxa de mapeamento do Salmon muito baixa | referência errada ou arquivo de entrada trocado |
+| Topo da lista cheio de `SNORD`, `RNVU1`, `ENSG00000...` | é esperado com o GENCODE completo — veja a nota do passo 1 |
+| `Genome did not load: did not detect index file (.fai)` | carregou o BAM pelo menu **Genome** em vez de **Tracks** |
+| IGV recusa carregar o BAM | faltou selecionar o `.bai` junto |
+| IGV mostra o genoma mas nenhuma read | o nome do cromossomo no BAM não bate com o do genoma |
+| `column: command not found` | ferramenta ausente; remova o `\| column -t` do comando |
