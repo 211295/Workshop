@@ -20,8 +20,7 @@
 > [!TIP]
 > **Parte 2**
 >
-> Genoma_viral.fasta + FASTQ → [Alinhamento: **BWA**] → BAM
-> BAM → [Filtragem: **samtools**] → BAM viral → Visualização no **IGV**
+> Genoma_viral.fasta + FASTQ → [Alinhamento: **BWA**] → BAM → [Filtragem: **samtools**] → BAM viral → Visualização no **IGV**
 
 ## NOMES DOS ARQUIVOS
 
