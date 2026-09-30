@@ -26,24 +26,14 @@
 
 &emsp; Para não se perder, usaremos estes nomes do começo ao fim:
 
-| Arquivo | O que é |
+| &emsp; Os materiais que vamos usar são: | . |
 | :--- | :--- |
-| `SRR11517744.subsample.fastq` | reads brutos, controle |
-| `SRR11517748.subsample.fastq` | reads brutos, infectado |
-| `controle.fastq` / `infectado.fastq` | reads após o fastp |
+| `SRR11517744.subsample.fastq` | sequenciamento bruto depositado, controle |
+| `SRR11517748.subsample.fastq` | sequenciamento bruto depositado, infectado |
+| `gencode.v50.transcripts.fa` | referência de transcriptoma humano |
 | `NC_045512.2.fa` | genoma do SARS-CoV-2 |
-| `gencode_limpo.fa` | transcriptoma humano, cabeçalhos simplificados |
-| `ref.fa` | transcriptoma humano + genoma viral |
-| `quant_controle/` e `quant_infectado/` | saídas do salmon |
 | `comparacao.tsv` | tabela comparativa final |
-| `infectado.bam` | alinhamento contra o genoma viral |
-| `viral.bam` | apenas as reads que mapearam |
 
-&emsp; Os materiais que vamos usar são:
-
-- Referência para transcriptoma humano GENCODE
-- Genoma de SARS-CoV-2
-- Arquivos de RNA-seq (SRR/SRA) depositados
 
 ---
 
