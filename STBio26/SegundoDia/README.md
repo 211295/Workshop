@@ -105,7 +105,7 @@ O total de _reads_ em `ref.fa` deve ser igual a do `gencode.v50.transcripts.fa` 
 > **O que significa o comando?**
 > * **`grep`**: Comando que busca termos num arquivo de texto
 > * **`-c`**: Aciona a função contar
-> * **'>'**: Conta quantas ">" tem
+> * **`'>'`**: Conta quantas ">" tem
 ---
 
 ## 2. Controle de qualidade
