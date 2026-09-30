@@ -63,8 +63,7 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/ge
 &emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho:
 
 ```bash
-zcat gencode.v50.transcripts.fa.gz \
-  | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode.v50.transcripts.fa
+zcat gencode.v50.transcripts.fa.gz | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode.v50.transcripts.fa
 ```
 
 > [!TIP]
