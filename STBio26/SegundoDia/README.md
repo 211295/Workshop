@@ -209,14 +209,14 @@ head -30 quant_controle/quant.sf | column -t
 Mas nós queremos ver aqueles com maior TPM, que é a **coluna 4**:
 
 ```bash
-tail -n +2 quant_controle/quant.sf | sort -k4,4nr | head -30 | column -t
+sort -nrk4 quant_controle/quant.sf | head -30 | column -t
 ```
 
 > [!TIP]
 > **O que significa o comando?**
 >
-> * **`tail -n +2`**: pula a linha de cabeçalho, que senão entraria na ordenação;
-> * **`sort -k4,4nr`**: ordena pela coluna 4 (`n` = numérico, `r` = decrescente). O `4,4` delimita a chave; escrever só `-k4` faria o `sort` usar da coluna 4 até o fim da linha;
+> * **`sort -nrk4`**: ordena pela coluna 4 (`n` = numérico, `r` = decrescente, `k4` = coluna 4).;
+> * **`head`**: lista as 30 primeiras linhas  
 > * **`column -t`**: alinha as colunas na tela.
 
 Temos um script escrito em Python que vai nos ajudar a comparar as duas quantificações que fizemos:
