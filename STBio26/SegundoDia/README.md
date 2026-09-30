@@ -339,12 +339,12 @@ bwa mem -t 2 NC_045512.2.fa SRR11517748.subsample.fastq | samtools sort -@ 2 -o 
 > * **`mem`**: é o algoritmo de alinhamento (*Maximal Exact Matches*);
 > * **`-t 2`**: define o uso de 2 *threads* (processamento em paralelo);
 > * **`NC_045512.2.fa`**: é o genoma de referência em FASTA (o BWA busca automaticamente os 5 arquivos de índice na mesma pasta);
-> * **`infectado.fastq`**: é o arquivo FASTQ com as *reads*;
+> * **`SRR11517748.subsample.fastq`**: é o arquivo FASTQ com as *reads*;
 > * **`|` (pipe)**: redireciona a saída do BWA diretamente para a entrada do `samtools`;
 > * **`sort`**: subcomando do `samtools` que reordena os alinhamentos por coordenada genômica;
 > * **`-@ 2`**: define 2 *threads* para o `samtools sort`;
 > * **`-o infectado.bam`**: especifica o nome do arquivo BAM de saída;
-> * **`-` (traço final)**: indica que a entrada de dados vem do *pipe* (STDIN).
+> * **`-` (traço final)**: indica que a entrada de dados vem do *pipe*.
 
 > [!NOTE]
 > Lembra do *pipe* ? Com o *pipe*, os dados passam da memória do BWA direto para a do samtools, sem nunca tocar o disco. Pulamos uma etapa!
