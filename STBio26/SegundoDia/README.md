@@ -246,9 +246,9 @@ python3 comparar_salmon.py quant_controle/quant.sf quant_infectado/quant.sf \
 
 &emsp; Beleza. Sabemos quais os transcritos que são mais expressos em cada situação, e ainda temos os valores de *fold change*, que permitem comparar o perfil de transcrição em cada contexto. Mas qual o significado biológico disso?
 
-&emsp; Enriquecimento funcional é uma análise estatística que associa uma lista de genes a termos do Gene Ontology (Processos Biológicos, Funções Moleculares e Componente Celular).
+&emsp; Enriquecimento funcional é uma análise estatística que associa uma lista de genes a termos do Gene Ontology (Processos Biológicos, Funções Moleculares e Componente Celular). Ou seja, podemos relacionar quais funções biológicas a literatura associa a cada gene.
 
-Primeiro, vamos extrair uma lista dos 150 genes com maior aumento em COVID:
+&emsp; Primeiro, vamos extrair uma lista dos 150 genes com maior aumento em COVID:
 
 ```bash
 awk -F'\t' '$7=="sim" && $6>1 {print $1}' comparacao.tsv | head -n 150
