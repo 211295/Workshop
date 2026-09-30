@@ -11,7 +11,7 @@ fesalles@Br-SP95:~$
 <user> @ <remote computer adress> : ~/<working directory> $ 
 ```
 
-#### Abra no computador o aplicativo chamado Ubunto (icone laranja). Este será seu ambiente de pesquisa.
+#### Abra no computador o aplicativo chamado Ubuntu (icone laranja). Este será seu ambiente de pesquisa.
 > Caso o sistema operacional for Linux :registered:, basta apertar `CRTL` + `T`
 
 
