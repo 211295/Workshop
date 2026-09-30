@@ -24,7 +24,7 @@
 
 ## OS MATERIAIS QUE VAMOS USAR
 
-| &emsp; Arquivo: | o que é |
+| Arquivo: | O que é |
 | :--- | :--- |
 | `SRR11517744.subsample.fastq` | sequenciamento bruto depositado, controle |
 | `SRR11517748.subsample.fastq` | sequenciamento bruto depositado, infectado |
