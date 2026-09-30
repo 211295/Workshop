@@ -11,6 +11,7 @@
 > [!TIP]
 > Parte 1
 > **FASTQ → [Controel de qualidade: fastp] → FASTQ limpo + Genoma_viral.fasta + GENCODE.fasta → [Quantificação: salmon] → quant.sf → [script] → tabela → [Enrichr] → termos GO**
+
 > [!TIP]
 > Parte 2
 > **Genoma_viral.fasta + FASTQ → [Alinhamento: BWA] → BAM → [Filtragem: Samtools] → BAM Viral → Visualização IGV**
