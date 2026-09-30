@@ -146,9 +146,6 @@ salmon index -t ref.fa -i index_dir -k 31 -p 4
 > * **`-k 31`**: tamanho do k-mer, ou seja, o comprimento dos pedaços em que a referência é fatiada. 31 é o padrão e funciona bem para reads de 75 bases ou mais;
 > * **`-p 4`**: número de *threads*.
 
-> [!NOTE]
-> Este passo leva alguns minutos e usa bastante memória. É o único passo pesado da prática.
-
 ---
 
 ## 4. Quantificando
@@ -171,6 +168,9 @@ salmon quant -i index_dir -l A -r infectado.fastq -p 4 -o quant_infectado
 > * **`-r`**: arquivo de reads *single-end* (se fosse *paired-end*, seria `-1` e `-2`);
 > * **`-p 4`**: *threads*;
 > * **`-o`**: diretório de saída.
+
+> [!NOTE]
+> Este passo leva alguns minutos e usa bastante memória. É o único passo pesado da prática.
 
 > [!IMPORTANT]
 > **Ponto de checagem.** Confira a taxa de mapeamento de cada amostra:
