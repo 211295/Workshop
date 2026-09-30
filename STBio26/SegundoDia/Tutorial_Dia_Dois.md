@@ -44,6 +44,9 @@
 conda activate curso_toolbox
 ```
 
+> [!TIP]
+> Se quiser ou precisar desativar o ambiente conda: `$ conda deactivate`
+
 ---
 
 ## 1. Baixando e preparando os dados
