@@ -48,7 +48,7 @@ Para criar um índex para o Salmon:
 ```bash
 salmon index -t ref.fa -i index_dir -k 31 -p 4
 ```
-4.**Quantificanfo**
+4.**Quantificando**
 
 &emsp; Vamos estimar a expressão quantificando os transcritos de cada um dos arquivos SRR. Rode um, quando terminar, rode o outro. Isso deve demorar cerca de 5 min. 
 ```bash
@@ -182,15 +182,15 @@ samtools flagstat infectado.bam
 samtools view -b -F 4 infectado.bam > viral.bam
 ```
 
->[!TIP]
->O que significa o comando?
->samtools é o programa; 
->view é o subcomando utilizado para ler, converter e filtrar os dados contidos nos arquivos;
->-b indica o formato de saída BAM;
->- F 4 é regra de filtragem.
->> A regra n° 4 indica que queremos apenas aquelas reads que mapearam;
->infectado.bam é o arquivo BAM de entrada.
->viral.bam é o arquivo BAM de saída;
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`samtools`**: é o programa;
+> * **`view`**: é o subcomando utilizado para ler, converter e filtrar os dados contidos nos arquivos;
+> * **`-b`**: indica o formato de saída BAM;
+> * **`-F 4`**: é a regra de filtragem (a regra nº 4 descarta reads não mapeadas, mantendo apenas as que mapearam);
+> * **`infectado.bam`**: é o arquivo BAM de entrada;
+> * **`viral.bam`**: é o arquivo BAM de saída.
 
 Como sempre, montaremos um index
 ```bash
@@ -201,19 +201,20 @@ samtools index viral.bam
 ```bash
 samtools coverage viral.bam 
 ```
->[!IMPORTANT]
->O que significa cada coluna?
-| Coluna | Descrição |
-| :--- | :--- |
-| **#rname** | Nome da sequência de referência (cromossomo/contig) |
-| **startpos** | Posição inicial |
-| **endpos** | Posição final |
-| **numreads** | Número de leituras mapeadas |
-| **covbases** | Número de bases cobertas |
-| **coverage** | Proporção de bases cobertas (%) |
-| **meandepth** | Média de profundidade (reads por posição/nucleotídeo) |
-| **meanbaseq** | Qualidade média das bases (Phred quality score, $Q$) |
-| **meanmapq** | Qualidade média do alinhamento (probabilidade de mapeamento correto) |
+> [!IMPORTANT]
+> **O que significa cada coluna?**
+>
+> | Coluna | Descrição |
+> | :--- | :--- |
+> | **#rname** | Nome da sequência de referência (cromossomo/contig) |
+> | **startpos** | Posição inicial |
+> | **endpos** | Posição final |
+> | **numreads** | Número de leituras mapeadas |
+> | **covbases** | Número de bases cobertas |
+> | **coverage** | Proporção de bases cobertas (%) |
+> | **meandepth** | Média de profundidade (reads por posição/nucleotídeo) |
+> | **meanbaseq** | Qualidade média das bases (Phred quality score, $Q$) |
+> | **meanmapq** | Qualidade média do alinhamento (probabilidade de mapeamento correto) |
 
 ```bash
 samtools coverage viral.bam -m
