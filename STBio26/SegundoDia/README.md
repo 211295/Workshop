@@ -60,11 +60,11 @@ wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcg
 wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
 ```
 
-&emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho para o formato `ENST00000xxxxx.y_SÍMBOLO`:
+&emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho:
 
 ```bash
 zcat gencode.v50.transcripts.fa.gz \
-  | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode_limpo.fa
+  | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode.v50.transcripts.fa
 ```
 
 > [!TIP]
@@ -79,11 +79,9 @@ zcat gencode.v50.transcripts.fa.gz \
 > * **`next`**: pula para a próxima linha sem aplicar as demais regras;
 > * **`{print}`**: imprime todas as outras linhas (as sequências) sem alteração.
 
-&emsp; Sem essa limpeza, a tabela final ficaria ilegível e o script de comparação não conseguiria identificar os genes.
-
 &emsp; Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
 
-SRR***
+ -----------------------SRR***
 
 > [!NOTE]
 > Estes arquivos são sub-amostras do sequenciamento completo. Optamos por fazer isso para reduzir o tamanho do SRR e também o tempo de processamento.
@@ -91,17 +89,18 @@ SRR***
 &emsp; O programa que vamos usar aceita apenas uma entrada, não tem problema. Vamos concatenar (juntar em um único arquivo) os arquivos FASTA:
 
 ```bash
-cat gencode_limpo.fa NC_045512.2.fa > ref.fa
+cat gencode.v50.transcripts.fa NC_045512.2.fa > ref.fa
 ```
 
-&emsp; Confira quantas sequências entraram na referência:
+&emsp; Para Conferir quantas sequências entraram na referência:
 
+```bash
+grep -c '^>' gencode.v50.transcripts.fa
+```
 ```bash
 grep -c '^>' ref.fa
 ```
-
-> [!NOTE]
-> Estamos usando o conjunto **completo** do GENCODE, que inclui RNAs pequenos (snRNA, snoRNA) e pseudogenes além dos genes codificantes. Isso faz com que nomes como `RNVU1-7`, `SNORD3D` e identificadores `ENSG00000...` sem símbolo apareçam no topo das listas. Não é erro: essas sequências são muito parecidas entre si, e a quantificação delas é instável. Se quiser um resultado mais limpo, troque por `gencode.v50.pc_transcripts.fa.gz`, que traz apenas transcritos codificantes de proteína.
+O total de _reads_ em `ref.fa` deve ser igual a do `gencode.v50.transcripts.fa` + 1, que é o `NC_045512.2.fa`
 
 ---
 
