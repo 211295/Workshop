@@ -117,18 +117,129 @@ sort -nrk4 quantificação_doença/quant.sf | cut -f1 | head -150 | cut -d'_' -f
 ```
 
 # SEGUNDA PARTE: ALINHAMENTO GENOMA-TRANSCRIPTOMA
-7.**Construíndo Índice do Genoma**
+7.**Alinhamento com o BWA**
 &emsp;  Para essa parte, vamos usar o mesmo genoma de SARS-CoV que usamos NC_045512.2.fa e vamos alinha-lo com o arquivo SRR infectado, pois, neste sabemos que há leituras virais. Mas antes, vamos ver como está escrito o cabeçalho do arquivo fasta.
 ```bash
 head -1 NC_045512.2.fa
 ```
-
 Será necessário que o _header_ do arquivo fasta seja igual ao nome.
 ```bash
 sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
 ```
 >[!TIP]
 >O que significa o comando?
-sed é um programa Linux para edição de texto
--i é a opção de substituir o arquivo original
-'1s/.*/>NC_045512.2/' diz "substitua tudo na primeira linha por >NC_045512.2"
+>sed é um programa Linux para edição de texto
+>-i é a opção de substituir o arquivo original
+>'1s/.*/>NC_045512.2/' diz: "substitua tudo que há apenas na primeira linha por >NC_045512.2"
+
+Por que isso importa? Esse nome vai ser copiado para dentro do arquivo de alinhamento e usado como identificador do "cromossomo". Lá na frente, o IGV vai comparar esse nome com o do genoma que carregamos. Se os dois não baterem, o IGV carrega tudo sem dar erro nenhum — e mostra uma tela vazia. É um dos problemas mais difíceis de diagnosticar justamente porque nada falha. 
+
+&emsp;  Existe uma diversidade de alinhadores e cada um tem uma especificidade e objetivas diferentes (Slides). Para essa prática, vamos usar o BWA por estas razões:
+Primeiro, porque o SARS-CoV-2 não tem íntrons. O genoma dele é RNA contínuo, sem splicing. Alinhadores como STAR e HISAT2 existem exatamente para lidar com esse salto, e resolver esse problema custa memória e tempo. Segundo, temos um RNA-seq de Illumina short reads. 
+_Reflexão_: O que importa não é o nome do alinhador, é saber em qual problema temos e qual ferramenta usar para resolver. O Bowtie2 faria exatamente o mesmo trabalho.
+
+Vamos criar o index para o BWA
+```bash
+bwa index NC_045512.2.fa
+```
+Repare que surgiram cinco arquivos novos: .amb, .ann, .bwt, .pac e .sa. Você nunca vai abri-los, são de uso interno do programa. 
+
+Com o índex na mãos, poderemos usar o alinhador. O comando que vamos usar alinha o RNA-seq contra o genoma viral e ordena com o Samtools:
+```bash
+bwa mem -t 4 NC_045512.2.fa infectado.fq.gz \ | samtools sort -@ 2 -o infectado.bam - 
+```
+>[!TIP]
+>O que significa o comando?
+>bwa é o programa; 
+>mem é o algoritmo de alinhamento, dentre os vários que o BWA oferece. O nome vem de Maximal Exact Matches;
+>-t 4 é o número de threads;
+>NC_045512.2.fa é o genoma de referência. Note que é o FASTA, não o índice. O BWA procura sozinho os cinco arquivos auxiliares ao lado dele;
+>infectado.fq.gz é o arquivo FASTQ contendo os reads;
+>Lembra do pipe ( | ) que falamos na primeira aula? Vamos jogar toda a informação gerada pelo BWA e jogar diretamente no Samtools.
+>sort é o programa do Samtools que reordena os alinhamentos por coordenada. Isso é necessário porque o BWA escreve os _reads_ na ordem em que eles apareciam no FASTQ.
+>-@ 2 é o número de threads, igual ao -t do BWA
+> -o infectado.bam dá o nome ao arquivo de saída. 
+> - sozinho no final significa "a entrada vem do pipe"
+
+Vamos precisar criar outro índex, agora, do novo arquivo BAM que criamos
+```bash
+samtools index infectado.bam Index .bai
+```
+
+Vamos ver algumas informações?
+```bash
+samtools flagstat infectado.bam
+´´´
+    O que a saída mostra, linha a linha:
+      in total — o número de reads processados. Deve bater com o número de reads do FASTQ
+      mapped — quantos encontraram posição no genoma viral, em número absoluto e em porcentagem. É a linha que interessa
+      primary, secondary, supplementary — categorias de alinhamento. Um mesmo read pode ter mais de um registro; os secundários são           alinhamentos alternativos
+      duplicates — zero aqui, porque não rodamos marcação de duplicatas
+
+8.**Criação de um Alinhamento apenas viral**
+&emsp;  Usamos um arquivo SRR com transcritos de origem humana e viral. Vamos filtrar as reads alinhadas e criar seu índex. Vamos chamar viral.bam
+```bash
+samtools view -b -F 4 infectado.bam > viral.bam
+```
+
+>[!TIP]
+>O que significa o comando?
+>samtools é o programa; 
+>view é o subcomando utilizado para ler, converter e filtrar os dados contidos nos arquivos;
+>-b indica o formato de saída BAM;
+>- F 4 é regra de filtragem.
+>> A regra n° 4 indica que queremos apenas aquelas reads que mapearam;
+>infectado.bam é o arquivo BAM de entrada.
+>viral.bam é o arquivo BAM de saída;
+
+Como sempre, montaremos um index
+```bash
+samtools index viral.bam 
+```
+
+9. **Análise de cobertura**
+```bash
+samtools coverage viral.bam 
+```
+>[!IMPORTANT]
+>O que significa cada coluna?
+| Coluna | Descrição |
+| :--- | :--- |
+| **#rname** | Nome da sequência de referência (cromossomo/contig) |
+| **startpos** | Posição inicial |
+| **endpos** | Posição final |
+| **numreads** | Número de leituras mapeadas |
+| **covbases** | Número de bases cobertas |
+| **coverage** | Proporção de bases cobertas (%) |
+| **meandepth** | Média de profundidade (reads por posição/nucleotídeo) |
+| **meanbaseq** | Qualidade média das bases (Phred quality score, $Q$) |
+| **meanmapq** | Qualidade média do alinhamento (probabilidade de mapeamento correto) |
+
+```bash
+samtools coverage viral.bam -m
+```
+O que nós fizemos aqui: Alinhamos os transcritos sequenciados em um genoma de referência. Depois, filtramos aqueles transcritos que alinham com a referência, no caso, o virus.
+
+10.**Visualização no IGV**
+Para ver de forma gráfico o alinhamento BAM, vamos usar IGV - Integrative Genome Viewer 
+	Primeiro, clique no link para acessar o site https://igv.org/app/. 
+
+No IGV, já temos o genoma de SARS-CoV baixado. Vá em Genome > SARS-CoV-2 (Jan 2020 COVID-19)
+
+Veja que o genoma de SARS-COV tem cerca de 30Kb e com apenas 10 ORFs (quadros azuis)
+
+Agora procure a pasta onde está seu arquivo de alinhamento.
+No IGV, clique em “Tracks” > “Local file”. 
+Comigo, demorou cerca de 3 min para carregar o alinhamentos
+
+Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de reads alinhadas ao longo do genoma.
+
+O que aquela “colina” representa? Ela mostra o número de reads que alinham em cada posição. Ou seja, o comando “samtools coverage viral.bam” nos mostrou que 99,6% do genoma alinhou com alguma read, mas, não é uniforme. A grande maioria das reads (aprox. 76,7%) alinham no final no genoma, nas ORF “N” (N nucleocapsid phosphoprotein) e na ORF10. 
+Isso significa que a maior parte do genoma viral que está sendo transcrito pela célula hospedeiro são as proteínas dessas duas ORFs
+
+Cobertura vs profundidade
+
+Extra - Como encontrar éxons?
+
+
+
