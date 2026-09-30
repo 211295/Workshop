@@ -486,7 +486,7 @@ samtools coverage viral.bam --histogram
 
 | | Pergunta que responde | Unidade |
 | :--- | :--- | :--- |
-| **Profundidade** | Quantas vezes eu li **esta base**? | vezes (×) |
+| **Profundidade** | Quantas vezes eu li **esta base**? | Número de vezes |
 | **Amplitude** | Que **fração da referência** eu consegui ler? | porcentagem |
 
 &emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
