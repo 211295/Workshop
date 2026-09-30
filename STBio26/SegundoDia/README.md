@@ -95,13 +95,17 @@ cat gencode.v50.transcripts.fa NC_045512.2.fa > ref.fa
 &emsp; Para Conferir quantas sequências entraram na referência:
 
 ```bash
-grep -c '^>' gencode.v50.transcripts.fa
+grep -c '>' gencode.v50.transcripts.fa
 ```
 ```bash
-grep -c '^>' ref.fa
+grep -c '>' ref.fa
 ```
 O total de _reads_ em `ref.fa` deve ser igual a do `gencode.v50.transcripts.fa` + 1, que é o `NC_045512.2.fa`
-
+> [!TIP]
+> **O que significa o comando?**
+> * **`grep`**: Comando que busca termos num arquivo de texto
+> * **`-c`**: Aciona a função contar
+> * **'>'**: Conta quantas ">" tem
 ---
 
 ## 2. Controle de qualidade
