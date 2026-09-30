@@ -179,7 +179,7 @@ salmon quant -i index_dir -l A -r infectado.fastq -p 4 -o quant_infectado
 > grep percent_mapped quantificação_*/aux_info/meta_info.json
 > ```
 >
-> Espere algo entre 70% e 90%. Valores muito abaixo disso indicam problema na referência ou no arquivo de entrada.
+> Espere algo próximo 90%, no mínimo, 70%. Valores muito abaixo disso indicam "incompatibilidade" na referência ou no arquivo de entrada, por exemplo, quando usamos um genoma de uma espécie muito distante.
 
 ---
 
