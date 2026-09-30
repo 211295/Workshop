@@ -126,11 +126,12 @@ Será necessário que o _header_ do arquivo fasta seja igual ao nome.
 ```bash
 sed -i '1s/.*/>NC_045512.2/' NC_045512.2.fa
 ```
->[!TIP]
->O que significa o comando?
->sed é um programa Linux para edição de texto
->-i é a opção de substituir o arquivo original
->'1s/.*/>NC_045512.2/' diz: "substitua tudo que há apenas na primeira linha por >NC_045512.2"
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`sed`**: é um programa Linux para edição de texto;
+> * **`-i`**: é a opção de editar diretamente o arquivo original (*in-place*);
+> * **`'1s/.*/>NC_045512.2/'`**: instrução para substituir todo o conteúdo da primeira linha por `>NC_045512.2`.
 
 Por que isso importa? Esse nome vai ser copiado para dentro do arquivo de alinhamento e usado como identificador do "cromossomo". Lá na frente, o IGV vai comparar esse nome com o do genoma que carregamos. Se os dois não baterem, o IGV carrega tudo sem dar erro nenhum — e mostra uma tela vazia. É um dos problemas mais difíceis de diagnosticar justamente porque nada falha. 
 
@@ -148,18 +149,19 @@ Com o índex na mãos, poderemos usar o alinhador. O comando que vamos usar alin
 ```bash
 bwa mem -t 4 NC_045512.2.fa infectado.fq.gz \ | samtools sort -@ 2 -o infectado.bam - 
 ```
->[!TIP]
->O que significa o comando?
->bwa é o programa; 
->mem é o algoritmo de alinhamento, dentre os vários que o BWA oferece. O nome vem de Maximal Exact Matches;
->-t 4 é o número de threads;
->NC_045512.2.fa é o genoma de referência. Note que é o FASTA, não o índice. O BWA procura sozinho os cinco arquivos auxiliares ao lado dele;
->infectado.fq.gz é o arquivo FASTQ contendo os reads;
->Lembra do pipe ( | ) que falamos na primeira aula? Vamos jogar toda a informação gerada pelo BWA e jogar diretamente no Samtools.
->sort é o programa do Samtools que reordena os alinhamentos por coordenada. Isso é necessário porque o BWA escreve os _reads_ na ordem em que eles apareciam no FASTQ.
->-@ 2 é o número de threads, igual ao -t do BWA
-> -o infectado.bam dá o nome ao arquivo de saída. 
-> - sozinho no final significa "a entrada vem do pipe"
+> [!TIP]
+> **O que significa o comando?**
+>
+> * **`bwa`**: é o programa alinhador;
+> * **`mem`**: é o algoritmo de alinhamento (*Maximal Exact Matches*);
+> * **`-t 4`**: define o uso de 4 *threads* (processamento em paralelo);
+> * **`NC_045512.2.fa`**: é o genoma de referência em FASTA (o BWA busca automaticamente os 5 arquivos de índice na mesma pasta);
+> * **`infectado.fq.gz`**: é o arquivo FASTQ comprimido com as *reads*;
+> * **`|` (pipe)**: redireciona a saída do BWA diretamente para a entrada do `samtools`;
+> * **`sort`**: subcomando do `samtools` que reordena os alinhamentos por coordenada genômica;
+> * **`-@ 2`**: define 2 *threads* para o `samtools sort`;
+> * **`-o infectado.bam`**: especifica o nome do arquivo BAM de saída;
+> * **`-` (traço final)**: indica que a entrada de dados vem do *pipe* (STDIN).
 
 Vamos precisar criar outro índex, agora, do novo arquivo BAM que criamos
 ```bash
