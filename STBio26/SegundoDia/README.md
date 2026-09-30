@@ -7,7 +7,7 @@
 
 &emsp; O trabalho de referência é um esforço contra a pandemia de COVID-19 e fez um *screening* de transcrição em diversos tipos celulares infectados por diversos vírus respiratórios. Usaremos duas corridas específicas: **SRR11517744** (controle, células CALU-3, tipo de adenocarcinoma de pulmão) e **SRR11517748** (doença, infecção por SARS-CoV-2).
 
-> Para a prática foram escolhidos os dados de [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:
+>  [Blanco-Melo et al., Cell 2020](http://www.cell.com/pb-assets/products/coronavirus/CELL_CELL-D-20-00985.pdf) :page_facing_up:
 
 ## MAPA DE PROCESSOS
 
