@@ -14,8 +14,7 @@
 > [!TIP]
 > **Parte 1**
 >
-> FASTQ → [Controle de qualidade: **fastp**] → FASTQ limpo
-> FASTQ limpo + Genoma_viral.fasta + GENCODE.fasta → [Quantificação: **salmon**] → `quant.sf` → [script Python] → tabela comparativa → [**Enrichr**] → termos GO
+> FASTQ → [Controle de qualidade: **fastp**] → FASTQ limpo + Genoma_viral.fasta + GENCODE.fasta → [Quantificação: **salmon**] → `quant.sf` → [script Python] → tabela comparativa → [**Enrichr**] → termos GO
 
 > [!TIP]
 > **Parte 2**
