@@ -261,7 +261,8 @@ awk -F'\t' '$7=="sim" && $6>1 {print $1}' comparacao.tsv | head -n 150
 > * **`$6>1`**: mantém apenas genes com log2FC maior que 1, ou seja, que pelo menos dobraram;
 > * **`$1`**: imprime o nome do gene.
 
-Acesse o [Enrichr](https://maayanlab.cloud/Enrichr/), que funciona como um tipo de "Google" de listas de genes.
+&emsp; Para isso, existem plataformas web como KEGG (Kyoto Encyclopaedia of Genes and Genomes) e o Gene Ontology. Vamos usar o Enrichr que usa o GO mas gera gráficos.
+Acesse o [Enrichr](https://maayanlab.cloud/Enrichr/). 
 
 1. Cole a lista de genes no quadro e clique em **Submit**
 2. No topo da página que abrir, clique em **Ontologies**
@@ -271,7 +272,7 @@ Acesse o [Enrichr](https://maayanlab.cloud/Enrichr/), que funciona como um tipo 
 
 Podemos navegar também nos quadros **GO Cellular Component** e **GO Molecular Function**.
 
-Podemos ver os arquivos sem comparação, apenas os mais expressos em cada contexto:
+Podemos ver os arquivos sem comparação também (os quant.sf), apenas os mais expressos em cada contexto:
 
 ```bash
 sort -nrk4 quant_controle/quant.sf  | cut -f1 | head -150 | cut -d'_' -f2-
