@@ -116,11 +116,11 @@ O total de _reads_ em `ref.fa` deve ser igual a do `gencode.v50.transcripts.fa` 
 &emsp; É necessário remover os adaptadores de sequenciamento. Como boa prática, é importante conferir o controle de qualidade do sequenciamento. Lembra que essa informação fica armazenada no FASTQ? O melhor jeito e mais rápido hoje é o **fastp**, que faz as duas coisas:
 
 ```sh
-fastp -i SRR11517744.subsample.fastq -o controle.fastq  -j controle_report.json  -h controle_report.html
+fastp -i SRR11517744.subsample.fastq -o SRR11517744.clean.fastq  -j controle_report.json  -h controle_report.html
 ```
 
 ```sh
-fastp -i SRR11517748.subsample.fastq -o infectado.fastq -j infectado_report.json -h infectado_report.html
+fastp -i SRR11517748.subsample.fastq -o SRR11517748.clean.fastq -j infectado_report.json -h infectado_report.html
 ```
 
 &emsp; Abra os arquivos `.html` no navegador.
@@ -156,11 +156,11 @@ salmon index -t ref.fa -i index_dir -k 31 -p 4
 &emsp; Vamos estimar a expressão quantificando os transcritos de cada um dos arquivos. Rode um, quando terminar, rode o outro. Isso deve demorar cerca de 5 min cada.
 
 ```bash
-salmon quant -i index_dir -l A -r controle.fastq  -p 4 -o quant_controle
+salmon quant -i index_dir -l A -r SRR11517744.clean.fastq  -p 4 -o quant_controle
 ```
 
 ```bash
-salmon quant -i index_dir -l A -r infectado.fastq -p 4 -o quant_infectado
+salmon quant -i index_dir -l A -r SRR11517748.clean.fastq -p 4 -o quant_infectado
 ```
 
 > [!TIP]
@@ -332,7 +332,7 @@ bwa index NC_045512.2.fa
 &emsp; Com o índice em mãos, poderemos usar o alinhador. O comando abaixo alinha o RNA-seq contra o genoma viral e o Samtools ordena o resultado:
 
 ```bash
-bwa mem -t 2 NC_045512.2.fa SRR11517748.subsample.fastq | samtools sort -@ 2 -o infectado.bam -
+bwa mem -t 2 NC_045512.2.fa SRR11517744.clean.fastq | samtools sort -@ 2 -o infectado.bam -
 ```
 
 > [!TIP]
