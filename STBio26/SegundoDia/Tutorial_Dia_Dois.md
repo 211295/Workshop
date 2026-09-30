@@ -169,11 +169,11 @@ salmon quant -i index_dir -l A -r infectado.fastq -p 4 -o quant_infectado
 > * **`-p 4`**: *threads*;
 > * **`-o`**: diretório de saída.
 
-> [!NOTE]
+> [!CAUTION]
 > Este passo leva alguns minutos e usa bastante memória. É o único passo pesado da prática.
 
 > [!IMPORTANT]
-> **Ponto de checagem.** Confira a taxa de mapeamento de cada amostra:
+> **Vamos checar** Confira a taxa de mapeamento de cada amostra:
 >
 > ```bash
 > grep percent_mapped quantificação_*/aux_info/meta_info.json
