@@ -14,7 +14,7 @@ fesalles@Br-SP95:~$
 #### Abra no computador o aplicativo chamado Ubunto (icone laranja). Este será seu ambiente de pesquisa.
 > Caso o sistema operacional for Linux :registered:, basta apertar `CRTL` + `T`
 
-
+## 1. Baixar arquivos
 - Iniciando a exploração dos dados presentes na pasta [Workshop/STBio26/PrimeiroDia](https://github.com/211295/Workshop/tree/main/STBio26/PrimeiroDia) e adquiridas no banco de dados [UniProt](https://www.uniprot.org/), e [NCBI/proteins](https://www.ncbi.nlm.nih.gov/home/proteins/).
 
 - Utilize o comando wget para baixar diretamente no seu computador ou servidor remoto os dados dos bancos de dados públicos. Os dados estão disponíveis no [uniprotkb](https://www.uniprot.org/uniprotkb). 
@@ -53,12 +53,12 @@ $ cat uniprot_sprot.fasta | wc -l
 # Print o arquivo completo com o número total de linhas 
 $ cat -n uniprot_sprot.fasta | tail -n 1
 4347145 LTLMLRRSDYCGICGEVLPKKLVFENSPSAPPYEA
-```
-:grey_question: Quantos cabeçalhos há neste arquivo :grey_question: Porque o número de cabeçalhos é muito menor que o número de linhas totais :grey_question: Lembre-se que os cabeçalhos iniciam sempre com um caractere específico por isso utiliza-se a contagem "pegando" o caractere e o contando.
-```
+# Contagem de linhas com o ícone ">"
 $ grep -c ">" uniprot_sprot.fasta 
 575748
 ```
+:grey_question: Quantos cabeçalhos há neste arquivo :grey_question: Porque o número de cabeçalhos é muito menor que o número de linhas totais :grey_question: Lembre-se que os cabeçalhos iniciam sempre com um caractere específico por isso utiliza-se a contagem "pegando" o caractere e o contando.
+
 
 - Construa o arquivo fasta da proteína (hemoglobina neste caso). Conseguimos construir tanto utilizando o banco de dados no [NCBI]() quanto [Uniprot]()
 > [!TIP]
@@ -69,7 +69,7 @@ Encontre para baixar o tipo de arquivo _FASTA_
 <img width="864" height="359" alt="image" src="https://github.com/user-attachments/assets/f648a62e-6314-4f21-b01b-69b9ce63fad0" />
 - Construa os arquivos de proteínas com esses 2 comandos
 ```
-$ touch hemoglobin.fasta ; nano hemoglobina.fasta
+$ touch hemoglobina.fasta ; nano hemoglobina.fasta
 ```
 Copie e cole o arquivo [hemoglobin.fasta](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/hemoglobin.fasta) no **terminal**
 Para sair do arquivo editor: `CRTL` + `X`, digite `Y` (_yes_), para salvar o arquivo.
@@ -80,7 +80,7 @@ $ ls /programas/
 ncbi-blast-2.17.0+/  mafft-7.526-linux/  iqtree-3.0.1-Linux/
 ```
 ***
-### Alinhamento Local ([BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279690/))
+## 2. Alinhamento Local ([BLAST](https://www.ncbi.nlm.nih.gov/books/NBK279690/))
 #### Inicie com o programa BLAST para adquirir as proteínas com maior similaridade.
 - Dentro do [manual](https://www.ncbi.nlm.nih.gov/books/NBK279690/) procure pela instalação em `Exectables`. [Baixe](https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/) pelo index correspondente ao sistema operacional. Neste caso usa-se `x64-linux`. 
 ```
@@ -158,7 +158,7 @@ $ mkdir output
 $ mafft --maxiterate 1000 --globalpair --reorder sequencies_of_[protein].fasta > output/sequencies_of_[protein].aligned.fasta
 ```
 ***
-### Alinhamento Global ([MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/))
+## 3. Alinhamento Global ([MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/))
 #### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/linuxportable.html)
 > Outros programas de alinhamento estão indicadas em [github/Teorica/README.md](https://github.com/211295/Workshop/tree/main/Teorica)
 
@@ -183,7 +183,7 @@ $ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 BLAST_prote
 - Inspecione o arquivo final, e procure entender se faz sentido o resultado.
 
 ***
-### Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
+## 4. Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
 #### Análise de similaridade de sequências e construção filogenética 
 
 - Inicie procurando o programa para se baixar em 64-linux, e clique com o botão direito do mouse para copiar o link. Cole no **terminal** junto ao comando `wget` , como feito no `BLAST`.
