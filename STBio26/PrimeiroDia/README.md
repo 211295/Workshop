@@ -146,15 +146,15 @@ $ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | grep "HBA" > list_hemoglobin
 $ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | grep "HBB" > list_hemoglobinB.txt
 ```
 - Crie um novo arquivo copiando e colando o conteúdo do script presente em [Workshop/STBio26/PrimeiroDia/catch_genes.sh](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/catch_genes.sh). Edite o nome de dentro do arquivo `catch_genes.sh` para os arquivos presente no **Diretório**
+  1. **list_of_sequences.txt** = **list_hemoglobinA.out** ou **list_hemoglobinA.out**
+  2. **all_proteins.fasta** = **uniprot_sprot.fa**
+  3. **[output].fasta** = **sequencies_of_hemoglobinA.fasta** ou **sequencies_of_hemoglobinB.fasta**
 ```
 $ nano catch_genes.sh ; chmod +x catch_genes.sh
 # há outras formas de utilizar o chmod
 $ chmod 755 catch_genes.sh
 ```
 - Edite o arquivo de proteínas do UniProt para o script `catch_genes.sh` funcionar sem problemas
-  1. **list_of_sequences.txt** = **list_hemoglobinA.out** ou **list_hemoglobinA.out**
-  2. **all_proteins.fasta** = **uniprot_sprot.fa**
-  3. **[output].fasta** = **list_hemoglobinA.fasta** ou **list_hemoglobinB.fasta**
 ```
 $ awk '{print $1}' uniprot_sprot.fasta > uniprot_sprot.fa ; rm uniprot_sprot.fasta
 ```
@@ -167,7 +167,7 @@ Found 36 IDs out of 36 in the ID list
 # Edite para um novo nome de lista e novo nome de output
 $ ./catch_genes.sh
 Searched 575748 FASTA records.
-Found 84 IDs out of 84 in the ID list
+Found 85 IDs out of 85 in the ID list
 
 $ ll -h sequencies_of_hemoglobin[AB].fasta; grep -c '>' sequencies_of_hemoglobin[AB].fasta; grep -c '^M' sequencies_of_hemoglobin[AB].fasta; wc -l sequencies_of_hemoglobin[AB].fasta; head sequencies_of_hemoglobin[AB].fasta
 ```
@@ -195,10 +195,14 @@ mafft.bat*  mafftdir/
 
 - Alinhe as proteínas utilizando o comando:
 ```
-$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 sequencies_of_hemoglobinA.fasta > alignment_of_hemoglobinA.fasta
-$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 sequencies_of_hemoglobinB.fasta > alignment_of_hemoglobinB.fasta
+$ ./programas/mafft-linux64/mafft.bat --thread 4 --reorder --localpair sequencies_of_hemoglobinA.fasta > alignment_of_hemoglobinA.fasta
+$ ./programas/mafft-linux64/mafft.bat --thread 4 --reorder --localpair sequencies_of_hemoglobinB.fasta > alignment_of_hemoglobinB.fasta
 ```
+> [!TIP]
+> É possível verificar os comandos do `mafft` tentando aciona-lo sem os devidos parâmetros `./programas/mafft-linux64/mafft.bat`
+
 - Inspecione o arquivo final, e procure entender se faz sentido o resultado.
+> Observe as proteínas que iniciam `M` (Metionina) e as que não iniciam.
 
 ***
 ## 4. Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
@@ -282,10 +286,10 @@ Total CPU time used: 54.078 sec (0h:0m:54s)
 Total wall-clock time used: 13.570 sec (0h:0m:13s)
 
 Analysis results written to:
-  IQ-TREE report:                <alinhamento_prot>.fa.iqtree
-  Maximum-likelihood tree:       <alinhamento_prot>.fa.treefile
-  Likelihood distances:          <alinhamento_prot>.fa.mldist
-  Screen log file:               <alinhamento_prot>.fa.log
+  IQ-TREE report:                <alinhamento>.fa.iqtree
+  Maximum-likelihood tree:       <alinhamento>.fa.treefile
+  Likelihood distances:          <alinhamento>.fa.mldist
+  Screen log file:               <alinhamento>.fa.log
 
 Date and Time: Thu Sep 24 21:18:09 2026
 ```
