@@ -420,7 +420,7 @@ samtools index viral.bam
 
 &emsp; Por costume, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Mas há distinção: *breadth of coverage* (amplitude de combertura ou só cobertura mesmo) e *depth of coverage* (profundidade de cobertura).
 
-| | Pergunta que responde | Unidade | Eixo |
+| Pergunta que responde | Unidade | Eixo |
 | :--- | :--- | :--- |
 | **Amplitude/Cobertura** | O **Quanto da minha referência** eu consegui ler? | porcentagem | Eixo X |
 | **Profundidade** | Quantas vezes eu li **esta base**? | Número de vezes | Eixo Y |
