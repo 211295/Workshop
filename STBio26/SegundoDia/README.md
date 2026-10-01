@@ -331,7 +331,7 @@ bwa index NC_045512.2.fa
 &emsp; Com o índice em mãos, poderemos usar o alinhador. O comando abaixo alinha o RNA-seq contra o genoma viral e o Samtools ordena o resultado:
 
 ```bash
-bwa mem -t 2 NC_045512.2.fa SRR11517744.clean.fastq | samtools sort -@ 2 -o infectado.bam -
+bwa mem -t 2 NC_045512.2.fa SRR11517748.clean.fastq | samtools sort -@ 2 -o infectado.bam -
 ```
 
 > [!TIP]
