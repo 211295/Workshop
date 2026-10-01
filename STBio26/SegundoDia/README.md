@@ -412,6 +412,8 @@ samtools index viral.bam
 
 &emsp; O arquivo resultante tem cerca de 17% do tamanho do original.
 
+&emsp; **O que nós fizemos aqui:** alinhamos os transcritos sequenciados contra um genoma de referência. Depois, filtramos aquelas _reads_ que alinham com a referência, no caso, o vírus.
+
 ---
 
 ## 9. Análise de cobertura
@@ -434,6 +436,8 @@ $$\text{profundidade} = \frac{\text{n}^\circ \text{ de reads} \times \text{taman
 
 ---
 
+Primeiro vamos ver a cobertura: 
+
 ```bash
 samtools coverage viral.bam | column -t
 ```
@@ -453,24 +457,20 @@ samtools coverage viral.bam | column -t
 > | **meanbaseq** | Qualidade média das bases (escore Phred, $Q$) |
 > | **meanmapq** | Qualidade média do alinhamento (escore Phred de confiança na posição) |
 
-&emsp; Agora usse a função de histograma que desenha um histograma da cobertura ao longo do genoma, direto no terminal.
+&emsp; Agora use a função de `--histogram` que desenha um histograma da cobertura ao longo do genoma, direto no terminal.
 ```bash
 samtools coverage viral.bam --histogram
 ```
-&emsp; Podemos conferir a profundidade usando o samtools também:: 
+&emsp; Podemos conferir a profundidade usando o samtools: 
 
 ```bash
 samtools depth viral.bam 
 ```
 &emsp; O comando acima tem alguns filtros e mostra apenas as partes mais "profundas" do alinhamento
-
 &emsp; Para ver o genoma total, sem nenhum filtro, use:
 ```bash
 samtools depth -q0 viral.bam 
 ```
-
-&emsp; **O que nós fizemos aqui:** alinhamos os transcritos sequenciados contra um genoma de referência. Depois, filtramos aqueles transcritos que alinham com a referência — no caso, o vírus.
-
 ---
 
 ## 10. Visualização no IGV
