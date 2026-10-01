@@ -488,8 +488,8 @@ samtools depth -q0 viral.bam
 >
 > E o `.bai` precisa ir junto explicitamente.
 
->[!INFO]
->Comigo, demorou cerca de 3 min para carregar os arquivos.
+> [!INFO]
+> Comigo, demorou cerca de 3 min para carregar os arquivos.
 
 &emsp; Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de _reads_ alinhadas ao longo do genoma.
 
