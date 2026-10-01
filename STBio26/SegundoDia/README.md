@@ -479,13 +479,13 @@ samtools depth -q0 viral.bam
 
 &emsp; No IGV já temos o genoma de SARS-CoV-2 disponível. Vá em **Genome → SARS-CoV-2 (Jan 2020 COVID-19)**.
 
-![image]<img width="775" height="701" alt="image" src="https://github.com/user-attachments/assets/d2e80f69-4c24-4ce4-a50e-6f1ee608d4ac" />
+<img width="775" height="701" alt="image" src="https://github.com/user-attachments/assets/d2e80f69-4c24-4ce4-a50e-6f1ee608d4ac" />
 
 &emsp; Veja que o genoma de SARS-CoV-2 tem cerca de 30 kb e apenas 10 ORFs (quadros azuis).
 
 &emsp; Agora procure a pasta onde está seu arquivo de alinhamento. No IGV, clique em **Tracks → Local File** e selecione `viral.bam` **e** `viral.bam.bai` **juntos, na mesma seleção**.
 
-![image]<img width="645" height="345" alt="image" src="https://github.com/user-attachments/assets/718b3c82-7534-4a5a-bdab-5d9acd72c6c6" />
+<img width="645" height="345" alt="image" src="https://github.com/user-attachments/assets/718b3c82-7534-4a5a-bdab-5d9acd72c6c6" />
 
 > [!WARNING]
 > São dois menus diferentes. Carregar o BAM pelo menu **Genome** produz o erro `Genome did not load: did not detect index file (expected extension .fai)` — o carregador de genoma foi procurar um índice de FASTA dentro de um BAM.
@@ -497,7 +497,7 @@ samtools depth -q0 viral.bam
 
 &emsp; Agora nós estamos vendo as reads alinhadas no genoma. Mova a barra lateral para ver o número de _reads_ alinhadas ao longo do genoma.
 
-![image]<img width="1857" height="742" alt="image" src="https://github.com/user-attachments/assets/74a06aa2-684b-4d17-8b83-504fd3415abb" />
+<img width="1857" height="742" alt="image" src="https://github.com/user-attachments/assets/74a06aa2-684b-4d17-8b83-504fd3415abb" />
 
 &emsp; **O que aquela "colina" representa?** Ela mostra o número de reads que alinham em cada posição. O comando `samtools coverage viral.bam` nos mostrou que 99,6% do genoma alinhou com alguma read — mas essa cobertura **não é uniforme**. A grande maioria das reads (aprox. 76,7%) alinha no final do genoma, nas ORFs **[N]([url](https://www.ncbi.nlm.nih.gov/gene/?term=YP_009724397.2))** (*nucleocapsid phosphoprotein*) e **[ORF10]([url](https://www.ncbi.nlm.nih.gov/gene/?term=YP_009725255.1))**.
 
