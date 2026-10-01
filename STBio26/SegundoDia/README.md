@@ -417,7 +417,7 @@ samtools index viral.bam
 ## 9. Análise de cobertura
 
 ```bash
-samtools coverage viral.bam
+samtools coverage viral.bam | column -t
 ```
 
 > [!IMPORTANT]
