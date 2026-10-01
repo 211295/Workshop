@@ -25,7 +25,7 @@ fesalles@Br-SP95:~$
 
 ```
 $ wget https://ftp.uniprot.org/pub/databases/uniprot/knowledgebase/complete/uniprot_sprot.fasta.gz ; gunzip *.gz ; echo "Dezipado"
-$ ls
+$ ls 
 programas/ uniprot_sport.fasta
 ```
 
@@ -111,13 +111,14 @@ uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
 ```
 - Alinhe os arquivos da proteína elegida com todas as proteínas do fasta.
   
-- Utilize o `blastp` com as opções: `-out`, `-query`, `-db`, `-outfmt`
-   1. o "objeto" esta definido na opção `-query`
-   2. o database construido é obrigatório para o comando `-db`
+- Utilize o `blastp` com as opções: `-out`, `-query`, `-db`, `-outfmt`, `-num_alignments`
+   1. o "objeto" esta definido na opção `-query`;
+   2. o database construido é obrigatório para o comando `-db`;
    3. o formato `6` de _output_ é uma tabela com algumas informações;
+   4. pode-se definir um número limite de alinhamentos individuais a serem processados.
 
 ```
-$ ./programas/ncbi-blast-2.17.0+/bin/blastp -query hemoglobin.fasta -db database/uniprot -outfmt 6 -num_alignments 500000 -evalue 1e-50 -out BLAST-hemoglobin.output.tsv
+$ ./programas/ncbi-blast-2.17.0+/bin/blastp -query hemoglobina.fasta -db database/uniprot -outfmt 6 -num_alignments 10000 -evalue 1e-90 -out BLAST-hemoglobina.output.tsv
 ```
 >[!TIP]
 > Pode-se utilizar uma opção que limita para ter o número máximo de sequencias: `-max_target_seqs` - intuito não ter uma tabela gigante.
@@ -128,39 +129,51 @@ Inspecione o arquivo gerado: `BLAST-[protein].output.tsv`
 $ ls -lh BLAST-hemoglobina.output.tsv
 
 $ wc -l BLAST-hemoglobina.output.tsv
-11370
-$ head BLAST-[protein].out ## tipo de arquivo tsv
+
+$ head BLAST-[protein].out ## tipo de arquivo .tsv
 1    2        3 4           5             6     7      8   9      10  11     12
 prot sequence % comprimento incongruencia Nº'-' inicio fim inicio fim evalue pontuação
 ```
 
 &emsp; Veja o significado das 12 colunas dessa [tabela](https://www.metagenomics.wiki/tools/blast/blastn-output-format-6) (leia sobre ela). 
 
-- Selecione as sequências que são similares a aquela proteína de interesse.
+- Selecione as sequências que são similares a aquela proteína de interesse e separe esses códigos em um novo .
 ```
-$ cut -fk1 
+# Inspecione
+$ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | head -n 50
+# Salve os códigos da tabela 
+$ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | grep "HBA" > list_hemoglobinA.txt
+$ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | grep "HBB" > list_hemoglobinB.txt
 ```
-- Edite o nome de dentro do arquivo `catch_genes.sh` para os arquivos presente no **Diretório**
+- Crie um novo arquivo copiando e colando o conteúdo do script presente em [Workshop/STBio26/PrimeiroDia/catch_genes.sh](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/catch_genes.sh). Edite o nome de dentro do arquivo `catch_genes.sh` para os arquivos presente no **Diretório**
 ```
 $ nano catch_genes.sh ; chmod +x catch_genes.sh
 # há outras formas de utilizar o chmod
 $ chmod 755 catch_genes.sh
+```
+- Edite o arquivo de proteínas do UniProt para o script `catch_genes.sh` funcionar sem problemas
+  1. **list_of_sequences.txt** = **list_hemoglobinA.out** ou **list_hemoglobinA.out**
+  2. **all_proteins.fasta** = **uniprot_sprot.fa**
+  3. **[output].fasta** = **list_hemoglobinA.fasta** ou **list_hemoglobinB.fasta**
+```
+$ awk '{print $1}' uniprot_sprot.fasta > uniprot_sprot.fa ; rm uniprot_sprot.fasta
 ```
 - Execute o arquivo utilizando o `./` (significa, executar neste diretório, caso queira executar um script/código no diretório anterior deve-se utilizar `../`. 
 > Geralmente arquivos com `.sh` são referente a palavra `Shell` - o coração 
 ```
 $ ./catch_genes.sh
 Searched 575748 FASTA records.
-Found 30 IDs out of 30 in the ID list
-$ ls -h sequencies_of_[protein].fasta; grep -c '>' sequencies_of_[protein].fasta; grep -c '^M' sequencies_of_[protein].fasta; wc -l sequencies_of_[protein].fasta; head sequencies_of_[protein].fasta
+Found 36 IDs out of 36 in the ID list
+# Edite para um novo nome de lista e novo nome de output
+$ ./catch_genes.sh
+Searched 575748 FASTA records.
+Found 84 IDs out of 84 in the ID list
+
+$ ll -h sequencies_of_hemoglobin[AB].fasta; grep -c '>' sequencies_of_hemoglobin[AB].fasta; grep -c '^M' sequencies_of_hemoglobin[AB].fasta; wc -l sequencies_of_hemoglobin[AB].fasta; head sequencies_of_hemoglobin[AB].fasta
 ```
 
-Para isso usaremos o programa . Este programa ja foi [baixado](https://mafft.cbrc.jp/alignment/software/linuxportable.html). Pode verificar no diretório de programas.
-
-```
-$ mkdir output
 $ mafft --maxiterate 1000 --globalpair --reorder sequencies_of_[protein].fasta > output/sequencies_of_[protein].aligned.fasta
-```
+
 ***
 ## 3. Alinhamento Global ([MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/))
 #### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/linuxportable.html)
@@ -182,7 +195,8 @@ mafft.bat*  mafftdir/
 
 - Alinhe as proteínas utilizando o comando:
 ```
-$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 sequencies_of_[protein].fasta > alignment_of_[protein].fasta
+$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 sequencies_of_hemoglobinA.fasta > alignment_of_hemoglobinA.fasta
+$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 sequencies_of_hemoglobinB.fasta > alignment_of_hemoglobinB.fasta
 ```
 - Inspecione o arquivo final, e procure entender se faz sentido o resultado.
 
