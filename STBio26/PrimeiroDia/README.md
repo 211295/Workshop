@@ -117,18 +117,17 @@ uniprot.phr  uniprot.pjs  uniprot.psq  uniprot.pto
    3. o formato `6` de _output_ é uma tabela com algumas informações;
 
 ```
-$ ./programas/ncbi-blast-2.17.0+/bin/blastp -query hemoglobin.fasta -db database/uniprot -outfmt 6 -e
-value 1e-50 -out BLAST-hemoglobin.output.tsv
+$ ./programas/ncbi-blast-2.17.0+/bin/blastp -query hemoglobin.fasta -db database/uniprot -outfmt 6 -num_alignments 500000 -evalue 1e-50 -out BLAST-hemoglobin.output.tsv
 ```
 >[!TIP]
 > Pode-se utilizar uma opção que limita para ter o número máximo de sequencias: `-max_target_seqs` - intuito não ter uma tabela gigante.
 
-Inspecione o arquivo gerado: `BLAST-[protein].out`
+Inspecione o arquivo gerado: `BLAST-[protein].output.tsv`
 > Como ele é grande não utilize o comando `cat`
 ```
-$ ls -lh BLAST-[protein].out
+$ ls -lh BLAST-hemoglobina.output.tsv
 
-$ wc -l BLAST-[protein].out
+$ wc -l BLAST-hemoglobina.output.tsv
 11370
 $ head BLAST-[protein].out ## tipo de arquivo tsv
 1    2        3 4           5             6     7      8   9      10  11     12
@@ -139,20 +138,25 @@ prot sequence % comprimento incongruencia Nº'-' inicio fim inicio fim evalue po
 
 - Selecione as sequências que são similares a aquela proteína de interesse.
 ```
-$ cut -fk4 
+$ cut -fk1 
 ```
-
+- Edite o nome de dentro do arquivo `catch_genes.sh` para os arquivos presente no **Diretório**
 ```
-$ nano catch_genes.sh
+$ nano catch_genes.sh ; chmod +x catch_genes.sh
+# há outras formas de utilizar o chmod
+$ chmod 755 catch_genes.sh
+```
+- Execute o arquivo utilizando o `./` (significa, executar neste diretório, caso queira executar um script/código no diretório anterior deve-se utilizar `../`. 
+> Geralmente arquivos com `.sh` são referente a palavra `Shell` - o coração 
+```
 $ ./catch_genes.sh
-Searched 574627 FASTA records.
+Searched 575748 FASTA records.
 Found 30 IDs out of 30 in the ID list
 $ ls -h sequencies_of_[protein].fasta; grep -c '>' sequencies_of_[protein].fasta; grep -c '^M' sequencies_of_[protein].fasta; wc -l sequencies_of_[protein].fasta; head sequencies_of_[protein].fasta
 ```
 
 Para isso usaremos o programa . Este programa ja foi [baixado](https://mafft.cbrc.jp/alignment/software/linuxportable.html). Pode verificar no diretório de programas.
 
-Agora vamos rodar o `mafft`:
 ```
 $ mkdir output
 $ mafft --maxiterate 1000 --globalpair --reorder sequencies_of_[protein].fasta > output/sequencies_of_[protein].aligned.fasta
@@ -178,7 +182,7 @@ mafft.bat*  mafftdir/
 
 - Alinhe as proteínas utilizando o comando:
 ```
-$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 BLAST_protein.in > BLAST_protein.out
+$ ./programas/mafft-linux64/mafft.bat --localpair --max-interate 100 sequencies_of_[protein].fasta > alignment_of_[protein].fasta
 ```
 - Inspecione o arquivo final, e procure entender se faz sentido o resultado.
 
@@ -200,9 +204,9 @@ iqtree-3.1.4-Linux/example.nex  iqtree-3.1.4-Linux/models.nex
 iqtree-3.1.4-Linux/bin:
 iqtree3  iqtree3_arm  iqtree3_intel
 ```
-Usa-se o comando `iqtree3` para 
+Usa-se o comando `iqtree3` para criar o 
 ```
-$ ./iqtree-3.1.4-Linux/bin/iqtree3 -s hemoglobin.fasta -nt 4
+$ ./iqtree-3.1.4-Linux/bin/iqtree3 -s alignment_of_hemoglobina.fasta -nt 4
 ```
 > Se não se especificar o modelo de substituição na opção `-m`, o programa define automaticamente
 ```
