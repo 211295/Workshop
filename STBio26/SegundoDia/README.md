@@ -146,20 +146,20 @@ salmon index -t ref.fa -i index_dir -k 31 -p 4
 > * **`-p 4`**: número de *threads*.
 
 > [!CAUTION]
-> Este passo leva alguns minutos.
+> Este passo leva alguns minutos (Comigo durou 6min).
 
 ---
 
-## 4. Quantificando
+## 4. Quantificando com o Salmon  ><(((°>
 
 &emsp; Vamos estimar a expressão quantificando os transcritos de cada um dos arquivos. Rode um, quando terminar, rode o outro. Isso deve demorar cerca de 5 min cada.
 
 ```bash
-salmon quant -i index_dir -l A -r SRR11517744.clean.fastq  -p 4 -o quant_controle
+salmon quant -i index_dir -l A -r SRR11517744.clean.fastq  -p 4 -o quantificação_controle
 ```
 
 ```bash
-salmon quant -i index_dir -l A -r SRR11517748.clean.fastq -p 4 -o quant_infectado
+salmon quant -i index_dir -l A -r SRR11517748.clean.fastq -p 4 -o quantificação_infectado
 ```
 
 > [!TIP]
@@ -172,7 +172,7 @@ salmon quant -i index_dir -l A -r SRR11517748.clean.fastq -p 4 -o quant_infectad
 > * **`-o`**: diretório de saída.
 
 > [!CAUTION]
-> Este passo leva alguns minutos e usa bastante memória. É o único passo pesado da prática.
+> Este passo pode levar alguns minutos mas usa bastante memória RAM.
 
 > [!IMPORTANT]
 > **Vamos checar** Confira a taxa de mapeamento de cada amostra:
