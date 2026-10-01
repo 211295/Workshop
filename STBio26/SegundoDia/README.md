@@ -418,7 +418,7 @@ samtools index viral.bam
 
 ## Cobertura vs. profundidade
 
-&emsp; Em português, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Em inglês há distinção: *breadth of coverage* e *depth of coverage*.
+&emsp; Por costume, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Mas há distinção: *breadth of coverage* (amplitude de combertura ou só cobertura mesmo) e *depth of coverage* (profundidade de cobertura).
 
 | | Pergunta que responde | Unidade |
 | :--- | :--- | :--- |
