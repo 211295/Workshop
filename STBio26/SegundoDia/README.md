@@ -420,10 +420,11 @@ samtools index viral.bam
 
 &emsp; Por costume, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Mas há distinção: *breadth of coverage* (amplitude de combertura ou só cobertura mesmo) e *depth of coverage* (profundidade de cobertura).
 
-| | Pergunta que responde | Unidade |
+| | Pergunta que responde | Unidade | Eixo |
 | :--- | :--- | :--- |
-| **Profundidade** | Quantas vezes eu li **esta base**? | Número de vezes |
-| **Amplitude** | Que **fração da referência** eu consegui ler? | porcentagem |
+| **Amplitude/Cobertura** | O **Quanto da minha referência** eu consegui ler? | porcentagem | Eixo X |
+| **Profundidade** | Quantas vezes eu li **esta base**? | Número de vezes | Eixo Y |
+
 
 &emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
 
