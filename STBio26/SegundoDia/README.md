@@ -416,6 +416,23 @@ samtools index viral.bam
 
 ## 9. Análise de cobertura
 
+## Cobertura vs. profundidade
+
+&emsp; Em português, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Em inglês há distinção: *breadth of coverage* e *depth of coverage*.
+
+| | Pergunta que responde | Unidade |
+| :--- | :--- | :--- |
+| **Profundidade** | Quantas vezes eu li **esta base**? | Número de vezes |
+| **Amplitude** | Que **fração da referência** eu consegui ler? | porcentagem |
+
+&emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
+
+&emsp; A conta básica da profundidade média:
+
+$$\text{profundidade} = \frac{\text{n}^\circ \text{ de reads} \times \text{tamanho do read}}{\text{tamanho da referência}}$$
+
+---
+
 ```bash
 samtools coverage viral.bam | column -t
 ```
@@ -489,24 +506,6 @@ samtools depth -q0 viral.bam
 > A comprovação está na **cobertura**, que permanece cinza: o IGV só a coloriria se alguma posição tivesse mais de 20% de discordância.
 
 ---
-
-## Cobertura vs. profundidade
-
-&emsp; Em português, os dois conceitos costumam ser chamados de "cobertura", e é daí que vem a confusão. Em inglês há distinção: *breadth of coverage* e *depth of coverage*.
-
-| | Pergunta que responde | Unidade |
-| :--- | :--- | :--- |
-| **Profundidade** | Quantas vezes eu li **esta base**? | Número de vezes |
-| **Amplitude** | Que **fração da referência** eu consegui ler? | porcentagem |
-
-&emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
-
-&emsp; A conta básica da profundidade média:
-
-$$\text{profundidade} = \frac{\text{n}^\circ \text{ de reads} \times \text{tamanho do read}}{\text{tamanho da referência}}$$
-
----
-
 
 ## Solução de problemas
 
