@@ -356,7 +356,7 @@ bwa mem -t 2 NC_045512.2.fa SRR11517744.clean.fastq | samtools sort -@ 2 -o infe
 
 > [!NOTE]
 > Reparou que tanto o BWA quanto o Samtools usam uma opção para definir o número de _threads_, mas, o BWA usa `-t` e o Samtools `-@`?
-> Infelizmente não existe um padrão universal para isso e cada desenvolvedor escolhe o jeito de fazer
+> Infelizmente não existe um padrão universal e cada desenvolvedor escolhe um símbolo para essa função
 
 Vamos precisar criar outro índice, agora para a leitura novo arquivo BAM que acabamos de criar:
 
