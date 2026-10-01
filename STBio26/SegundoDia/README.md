@@ -439,6 +439,11 @@ samtools coverage viral.bam | column -t
 ```bash
 samtools coverage viral.bam --histogram
 ```
+Podemos conferir a profundidade usando o samtools também:: 
+
+```bash
+samtools depth viral.bam 
+```
 
 &emsp; **O que nós fizemos aqui:** alinhamos os transcritos sequenciados contra um genoma de referência. Depois, filtramos aqueles transcritos que alinham com a referência — no caso, o vírus.
 
