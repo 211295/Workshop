@@ -265,6 +265,8 @@ awk -F'\t' '$7=="sim" && $6>1 {print $1}' comparacao.tsv | head -n 150
 
 &emsp; Para isso, existem plataformas web como KEGG (Kyoto Encyclopaedia of Genes and Genomes) e o Gene Ontology. Vamos usar o Enrichr que usa o GO mas gera gráficos.
 Acesse o [Enrichr](https://maayanlab.cloud/Enrichr/). 
+<img width="977" height="560" alt="image" src="https://github.com/user-attachments/assets/aef68654-a490-4f8d-9812-cfed911f471b" />
+
 
 1. Cole a lista de genes no quadro e clique em **Submit**
 2. No topo da página que abrir, clique em **Ontologies**
