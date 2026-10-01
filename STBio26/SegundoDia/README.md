@@ -382,7 +382,7 @@ samtools flagstat infectado.bam
 > [!IMPORTANT]
 > **Ponto de checagem.** A porcentagem de _reads_ mapeados deve ficar em torno de **17%**. Os outros ~83% são _reads_ humanos.
 >
-> Note que esse número já apareceu na primeira parte, quando o Salmon quantificou o genoma viral dentro do transcriptoma humano. **Dois métodos independentes chegando ao mesmo valor** é o tipo de concordância que dá confiança num resultado.
+> Note que esse número já apareceu na primeira parte, quando o Salmon quantificou o genoma viral dentro do transcriptoma humano. Dois métodos independentes chegando ao mesmo valor, ótimo, é o tipo de concordância que dá confiança num resultado.
 
 ---
 
