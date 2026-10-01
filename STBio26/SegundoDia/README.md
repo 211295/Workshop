@@ -145,6 +145,9 @@ salmon index -t ref.fa -i index_dir -k 31 -p 4
 > * **`-k 31`**: tamanho do k-mer, ou seja, o comprimento dos pedaços em que a referência é fatiada. 31 é o padrão e funciona bem para reads de 75 bases ou mais;
 > * **`-p 4`**: número de *threads*.
 
+> [!CAUTION]
+> Este passo leva alguns minutos.
+
 ---
 
 ## 4. Quantificando
