@@ -2,7 +2,7 @@
 ## Toolbox de Bioinformática: ferramentas para análises ômicas
 Criado por Felipe S. Salles || [LinkedIn](https://br.linkedin.com/in/felipe-simionato-salles-b3640120b) || [Lattes](http://lattes.cnpq.br/3781167913621025)
 
-Criado por Leandro Gonçalves || [LinkedIn](https://www.linkedin.com/in/leandro-gon45/) || [Lattes](http://lattes.cnpq.br/3096958278950054)
+Criado por Leandro Gonçalves || [LinkedIn](https://www.linkedin.com/in/leandro-gon45/) || [Lattes](http://lattes.cnpq.br/3096958278950054) || [Insta]([url](https://www.instagram.com/britolg/))
 
 Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [Bruno J. Teixeira de Melo](http://lattes.cnpq.br/0513855441372488)
 ***
@@ -65,9 +65,9 @@ Monitores: [Sophia Pereira Saraiva](http://lattes.cnpq.br/5576461458658817) e [B
 | **[fastp](https://github.com/opengene/fastp)** | A tool designed to provide ultrafast all-in-one preprocessing and quality control for FastQ data. This tool is designed for processing short reads (i.e. Illumina NovaSeq, MGI). Há diversas funções possiveis para o programa ex: filtragem, limpeza de bases, remove adaptadores, "cortagem" de alinhamento... |
 | **[seqtk](https://github.com/lh3/seqtk)**| Seqtk is a fast and lightweight tool for processing sequences in the FASTA or FASTQ format. It seamlessly parses both FASTA and FASTQ files which can also be optionally compressed by gzip. |
 | **[BWA](https://github.com/lh3/BWA)** | _**B**urrows-**W**heeler **A**ligner_ programa para alinhar sequências de DNA ou RNA (reads) contra um genoma de referência longo (ex: genoma Humano) |
-| **[SAMTools](https://www.htslib.org/)** |  |
-| **[SRATools](https://github.com/ncbi/sra-tools)** |  |
-| **[Salmon](https://combine-lab.github.io/salmon/)**  |  |
+| **[SAMTools](https://www.htslib.org/)** | is a set of utilities for interacting with and post-processing short DNA sequence read alignments in the SAM (Sequence Alignment/Map), BAM (Binary Alignment/Map) and CRAM formats, written by Heng Li. |
+| **[SRATools](https://github.com/ncbi/sra-tools)** | The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for using data in the INSDC Sequence Read Archives. |
+| **[Salmon](https://combine-lab.github.io/salmon/)**  | is a ultra-fast program for highly-accurate, transcript-level quantification from RNA-seq data.  |
 
 
 ## websites para mexer com bioinformática
