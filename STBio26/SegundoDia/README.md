@@ -423,10 +423,10 @@ samtools index viral.bam
 | |O que significa | Unidade | Eixo | Pergunta que responde |
 | :--- | :--- | :--- | :--- | :--- |
 | **Amplitude/Cobertura** | O **Quanto da minha referência** eu consegui ler? | porcentagem | Eixo X | Informa a sequencia, mas com possiveis erros |
-| **Profundidade** | **Quantas vezes** eu li cada uma das bases? | Número de vezes | Eixo Y | Nehuma, mas trás confiabilidade à sequência | 
+| **Profundidade** | **Quantas vezes** eu li cada uma das bases? | Número de vezes | Eixo Y | Não informa sequência, mas trás confiabilidade | 
 
 
-&emsp; Profundidade é uma propriedade **de cada posição**. Amplitude é uma propriedade **do conjunto**. Amplitude baixa é um **limite absoluto**: onde não há read, não há resposta possível, e nenhuma estatística resolve. Profundidade baixa ainda dá uma resposta, só que com pouca confiança.
+&emsp; Profundidade é uma propriedade **de cada base/posição**. Amplitude é uma propriedade **do conjunto**. A Amplitude de Cobertura  é uma **resposta absoluta**: onde não há _read_, não há informação possível, e nenhuma estatística resolve. Profundidade é uma **resposta de confiança**, quando a profundidade é baixa ainda dá uma resposta, só que com pouca confiança.
 
 &emsp; A conta básica da profundidade média:
 
