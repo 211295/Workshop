@@ -349,7 +349,7 @@ bwa mem -t 2 NC_045512.2.fa SRR11517744.clean.fastq | samtools sort -@ 2 -o infe
 > * **`-` (traço final)**: indica que a entrada de dados vem do *pipe*.
 
 > [!NOTE]
-> Lembra do *pipe* ? Com o *pipe*, os dados passam da memória do BWA direto para a do samtools, sem nunca tocar o disco. Pulamos uma etapa!
+> Lembra do *pipe* ? Com o *pipe*, os dados saem do BWA direto para a do samtools, usando apenas memória RAM sem nunca tocar o disco (Chama-se STDIN (Standard Input). Pulamos uma etapa!
 
 > [!CAUTION]
 > Este passo pode demorar alguns minutos.
