@@ -14,6 +14,7 @@ Para ativar o ambiente, use
 ```bash
 Conda activate curso_toolbox
 ```
+```
 
 Caso queira desativar
 ```bash
