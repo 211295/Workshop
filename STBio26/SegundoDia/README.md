@@ -57,9 +57,9 @@ wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcg
 
 &emsp; Junto, a referência para o transcriptoma estão previamente baixados aqio no GitHub. Para acessar vá em "< > Code" lá no top da página, depois, em Releases na parte lateral direita. Ou clique no link [Relese]([url](https://github.com/211295/Workshop/releases/tag/Toolbox_bioinform%C3%A1tica))
 
-&emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho:
-
  -----------------------Baixar os SRR e GENCODE
+
+&emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho:
 
 ```bash
 zcat gencode.v50.transcripts.fa.gz | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode.v50.transcripts.fa
