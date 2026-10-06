@@ -53,14 +53,13 @@ conda activate curso_toolbox
 ```bash
 wget -O NC_045512.2.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NC_045512.2&rettype=fasta&retmode=text"
 ```
+&emsp; Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
 
-&emsp; Em seguida, a referência para o transcriptoma:
-
-```bash
-wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/latest_release/gencode.v50.transcripts.fa.gz
-```
+&emsp; Junto, a referência para o transcriptoma estão previamente baixados aqio no GitHub. Para acessar vá em "< > Code" lá no top da página, depois, em Releases na parte lateral direita. Ou clique no link [Relese]([url](https://github.com/211295/Workshop/releases/tag/Toolbox_bioinform%C3%A1tica))
 
 &emsp; O arquivo do GENCODE vem comprimido e com cabeçalhos muito longos, cheios de campos separados por `|`. O comando abaixo descomprime e simplifica o cabeçalho:
+
+ -----------------------Baixar os SRR e GENCODE
 
 ```bash
 zcat gencode.v50.transcripts.fa.gz | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6; next}{print}' > gencode.v50.transcripts.fa
@@ -78,9 +77,6 @@ zcat gencode.v50.transcripts.fa.gz | awk -F'|' '/^>/{print ">"substr($1,2)"_"$6;
 > * **`next`**: pula para a próxima linha sem aplicar as demais regras;
 > * **`{print}`**: imprime todas as outras linhas (as sequências) sem alteração.
 
-&emsp; Os arquivos SRR são razoavelmente pesados. Para agilizar, deixamos previamente baixados.
-
- -----------------------SRR***
 
 > [!NOTE]
 > Estes arquivos são sub-amostras do sequenciamento completo. Optamos por fazer isso para reduzir o tamanho do SRR e também o tempo de processamento.
