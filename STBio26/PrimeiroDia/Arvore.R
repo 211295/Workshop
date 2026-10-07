@@ -7,9 +7,9 @@ if(!require(evolqg)){install.packages("evolqg"); library(evolqg)}
 ### Pode carregar seu pacote direto do computador
 ### Defina o "Diretório de trabalho" (SET Work Directory) caso queira baixar a arvore diretamente no seu computador
 setwd("C:/Users/Documents/Workshop/")
-tree <- data("[sua_arvore].tree")
-print(tree)
-summary(tree)
+tree_teste <- data("[sua_arvore].newik")
+print(tree_teste)
+summary(tree_teste)
 
 # Se preferir, copie e cole a arvore no objeto "tree_teste"
 tree_teste <- read.tree(text = "('INSIRA SUA ARVORE AQUI';)")
