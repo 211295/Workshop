@@ -172,8 +172,6 @@ Found 85 IDs out of 85 in the ID list
 $ ll -h sequencies_of_hemoglobin[AB].fasta; grep -c '>' sequencies_of_hemoglobin[AB].fasta; grep -c '^M' sequencies_of_hemoglobin[AB].fasta; wc -l sequencies_of_hemoglobin[AB].fasta; head sequencies_of_hemoglobin[AB].fasta
 ```
 
-$ mafft --maxiterate 1000 --globalpair --reorder sequencies_of_[protein].fasta > output/sequencies_of_[protein].aligned.fasta
-
 ***
 ## 3. Alinhamento Global ([MAFFT](https://pmc.ncbi.nlm.nih.gov/articles/PMC3603318/))
 #### Nesta etapa iremos alinhar as sequências obtidas pelo BLASTP. Utilizaremos o programa [MAFFT](https://mafft.cbrc.jp/alignment/software/windows.html), podendo ser baixado seguindo o [tutorial do programa](https://mafft.cbrc.jp/alignment/software/linuxportable.html)
@@ -306,4 +304,4 @@ Date and Time: Thu Sep 24 21:18:09 2026
 >[!TIP]
 > Pode-se verificar que o site aceita carregar arquivos direto pelo computador. Mas devo lembrar que será apenas nos formatos _Newick_, _Nexus_ ou _PhyloXML_
 
-- Outra opção é utilizar o código em [R](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/Arvore.R) disponibilizado no tutorial. Para isto deve .
+- Outra opção é utilizar o código em [R](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/Arvore.R) disponibilizado no tutorial. Para isto deve abrir o RStudio e rodar o script.
