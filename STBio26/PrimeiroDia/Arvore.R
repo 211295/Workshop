@@ -2,22 +2,16 @@
 packageVersion('phytools')
 if(!require(phytools)){install.packages("phytools");library(phytools)}
 if(!require(ape)){install.packages("ape");library(ape)}
-if(!require(phytools)){install.packages("phytools");library(phytools)}
+if(!require(evolqg)){install.packages("evolqg"); library(evolqg)}
 
 ### Pode carregar seu pacote direto do computador
-### Defina o "Diretório de trabalho" (SET Work Directory)
+### Defina o "Diretório de trabalho" (SET Work Directory) caso queira baixar a arvore diretamente no seu computador
 setwd("C:/Users/Documents/Workshop/")
 tree <- data("[sua_arvore].tree")
 print(tree)
 summary(tree)
 
-plotTree(tree, ftype="i",fsize=0.7)
-phenogram(tree, eel_log_ln_TL,fsize=0.5)
+# Se preferir, copie e cole a arvore no objeto "tree_teste"
+tree_teste <- read.tree(text = "('INSIRA SUA ARVORE AQUI';)")
 
-par(mac=c(5.1,5.1,5,2.1,1.1))
-
-### complete
-phenogram(eel.tree, eel_log_ln_TL,fsize=0.5,
-          ylab="log(maximum total length)", las=1, spread.cost=c(1,0),ftype="i")
-eel_cMap = contMap(eel.tree,eel_log_ln_TL, plot=FALSE)
-print(eel_cMap)
+plotTree(tree_teste, ftype="i",fsize=0.7)
