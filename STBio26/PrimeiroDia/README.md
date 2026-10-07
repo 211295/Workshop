@@ -197,10 +197,12 @@ $ ./programas/mafft-linux64/mafft.bat --thread 4 --reorder --localpair sequencie
 $ ./programas/mafft-linux64/mafft.bat --thread 4 --reorder --localpair sequencies_of_hemoglobinB.fasta > alignment_of_hemoglobinB.fasta
 ```
 > [!TIP]
-> É possível verificar os comandos do `mafft` tentando aciona-lo sem os devidos parâmetros `./programas/mafft-linux64/mafft.bat`
+> É possível verificar os comandos do `mafft` tentando acioná-lo sem os devidos parâmetros `./programas/mafft-linux64/mafft.bat`
 
 - Inspecione o arquivo final, e procure entender se faz sentido o resultado.
 > Observe as proteínas que iniciam `M` (Metionina) e as que não iniciam.
+
+> Se quiserem podem inspecionar um outro alinhamento de outra proteína ([muc1 - mucina 1 de tetrapode](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/Muc1_tree.fasta))
 
 ***
 ## 4. Construção Filogenética ([IQTree](https://iqtree.github.io/doc/Home#why-iq-tree)) :iraq::tr::estonia:
