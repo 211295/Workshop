@@ -8,7 +8,7 @@ O gerenciador de ambientes mais conhecidos é o [ANACONDA](https://www.anaconda.
 
 Para criar um ambiente com os programas do curso, use o comando: 
 ```bash
-$ mamba create --name curso_toolbok -c conda-forge -c bioconda -y python=3.11 fastp seqtk salmon bwa samtools fastqc multiqc SRA-tools seqkit igv wget csvtk
+$ mamba create --name curso_toolbok -c conda-forge -c bioconda -y python=3.11 firefox wget fastp salmon bwa samtools seqkit 
 ```
 Para ativar o ambiente, use
 ```bash
