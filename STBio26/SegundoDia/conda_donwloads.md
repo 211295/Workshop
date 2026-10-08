@@ -33,3 +33,33 @@ Caso queira desativar
 ```bash
 Conda deactivate
 ```
+
+
+Ai se não der, vamo sem CONDA
+````bash
+mkdir programas ;
+cd programas ;
+wget https://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.17.0+-x64-linux.tar.gz ;
+tar zxvpf ncbi-blast-2.17.0+-x64-linux.tar.gz ;
+wget https://mafft.cbrc.jp/alignment/software/mafft-7.526-linux.tgz ;
+tar xfzv mafft-7.526-linux.tgz ;  
+wget https://github.com/iqtree/iqtree3/releases/download/v3.1.4/iqtree-3.1.4-Linux.tar.gz ;
+tar zxvpf iqtree-3.1.4-Linux.tar.gz ;
+wget http://opengene.org/fastp/fastp ;
+chmod a+x ./fastp ;
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/COMBINE-lab/salmon/releases/latest/download/salmon-cli-installer.sh | sh ;
+mv /home/lbrito/.cargo/bin/salmon . ;
+https://github.com/shenwei356/seqkit/releases/download/v2.14.0/seqkit_linux_amd64.tar.gz ;
+tar zxvpf seqkit_linux_amd64.tar.gz ;
+git clone https://github.com/lh3/bwa.git ;
+cd bwa; make ;
+cd .. ;
+wget https://github.com/samtools/samtools/releases/download/1.24/samtools-1.24.tar.bz2 ;
+tar -xjf samtools-1.24.tar.bz2 ;
+cd samtools-1.24/ ;
+./configure --prefix=$PWD/ ;
+make ;
+make install ;
+cd .. ;
+ls
+```
