@@ -77,4 +77,4 @@ Site de alinhadores e [toolkit.tuebingen.mpg.de](https://toolkit.tuebingen.mpg.d
 ## Lição de casa
 Tutorial disponibilizado no [Canva.com](canva.com) para recriar as análises feitas durante a aula em uma plataforma online
 
-https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1
+<!-- https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#alt-h1 -->
