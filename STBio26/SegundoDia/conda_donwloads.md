@@ -32,4 +32,4 @@ Conda activate curso_toolbox
 Caso queira desativar
 ```bash
 Conda deactivate
-```bash
+```
