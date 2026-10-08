@@ -145,8 +145,8 @@ $ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | head -n 50
 $ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | grep "HBA" > list_hemoglobinA.txt
 $ cut -f 2 BLAST-hemoglobina.output.tsv | sort -u | grep "HBB" > list_hemoglobinB.txt
 ```
-- Crie um novo arquivo copiando e colando o conteúdo do script presente em [Workshop/STBio26/PrimeiroDia/catch_genes.sh](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/catch_genes.sh). Edite o nome de dentro do arquivo `catch_genes.sh` para os arquivos presente no **Diretório**
-  1. **list_of_sequences.txt** = **list_hemoglobinA.out** ou **list_hemoglobinA.out**
+- Crie um novo arquivo copiando e colando o conteúdo do script presente em [Workshop/STBio26/PrimeiroDia/catch_genes.sh](https://github.com/211295/Workshop/blob/main/Curso%20do%20Departamento%20de%20Gen%C3%A9tica/catch_genes.sh). Edite o nome de dentro do arquivo `catch_genes.sh` para os arquivos presente no **Diretório**
+  1. **list_of_sequences.txt** = **list_hemoglobinA.out** ou **list_hemoglobinB.out**
   2. **all_proteins.fasta** = **uniprot_sprot.fa**
   3. **[output].fasta** = **sequencies_of_hemoglobinA.fasta** ou **sequencies_of_hemoglobinB.fasta**
 ```
@@ -154,12 +154,51 @@ $ nano catch_genes.sh ; chmod +x catch_genes.sh
 # há outras formas de utilizar o chmod
 $ chmod 755 catch_genes.sh
 ```
-- Edite o arquivo de proteínas do UniProt para o script `catch_genes.sh` funcionar sem problemas
+
+- Cole este script no editor (nano) 
+
+```
+#!/bin/bash
+perl -e '
+($id,$fasta)=@ARGV;
+open(ID,$id);
+while (<ID>) {
+    s/\r?\n//;
+    /^>?(\S+)/;
+    $ids{$1}++;
+}
+$num_ids = keys %ids;
+open(F, $fasta);
+$s_read = $s_wrote = $print_it = 0;
+while (<F>) {
+    if (/^>(\S+)/) {
+	$s_read++;
+	if ($ids{$1}) {
+	    $s_wrote++;
+	    $print_it = 1;
+	    delete $ids{$1}
+	}
+	else {
+	    $print_it = 0
+	}
+
+    };
+    if ($print_it) {
+	print $_
+    }
+};
+END {
+    warn "Searched $s_read FASTA records.\nFound $s_wrote IDs out of $num_ids in the ID list.\n"
+}
+' list_of_sequences.txt all_proteins.fasta > [output].fasta;
+```
+
+- Edite o arquivo de proteínas do UniProt para o script `catch_genes.sh` funcionar sem algum problema. Neste caso, o script a baixo limpa o cabeçalho do arquivo `fasta` das proteínas. 
 ```
 $ awk '{print $1}' uniprot_sprot.fasta > uniprot_sprot.fa ; rm uniprot_sprot.fasta
 ```
 - Execute o arquivo utilizando o `./` (significa, executar neste diretório, caso queira executar um script/código no diretório anterior deve-se utilizar `../`. 
-> Geralmente arquivos com `.sh` são referente a palavra `Shell` - o coração 
+> Geralmente arquivos com `.sh` são referente a palavra `Shell` - o coração do sistema operacional.
 ```
 $ ./catch_genes.sh
 Searched 575748 FASTA records.
