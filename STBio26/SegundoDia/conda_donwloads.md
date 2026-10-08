@@ -22,7 +22,7 @@ exec bash
 
 Para criar um ambiente com os programas do curso, use o comando: 
 ```bash
-$ mamba create --name curso_toolbok -c conda-forge -c bioconda -y python=3.11 firefox wget fastp salmon bwa samtools seqkit 
+$ conda create --name curso_toolbok -c conda-forge -c bioconda -y python=3.11 firefox wget fastp salmon bwa samtools seqkit 
 ```
 Para ativar o ambiente, use
 ```bash
