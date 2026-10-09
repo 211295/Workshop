@@ -72,7 +72,9 @@ Encontre para baixar o tipo de arquivo _FASTA_
 $ touch hemoglobina.fasta ; nano hemoglobina.fasta
 ```
 Copie e cole o arquivo [hemoglobin.fasta](https://github.com/211295/Workshop/blob/main/STBio26/PrimeiroDia/hemoglobin.fasta) no **terminal**
-Para sair do arquivo editor: `CRTL` + `X`, digite `Y` (_yes_), para salvar o arquivo.
+
+> [!NOTE]
+> Para sair do arquivo editor: `CRTL` + `X`, digite `Y` (_yes_), para salvar o arquivo.
 
 - Verifique os programas baixados
 ```
