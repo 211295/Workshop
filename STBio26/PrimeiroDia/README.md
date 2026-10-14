@@ -195,7 +195,8 @@ END {
 ' list_of_sequences.txt all_proteins.fasta > [output].fasta;
 ```
 
-- Edite o arquivo de proteínas do UniProt para o script `catch_genes.sh` funcionar sem algum problema. Neste caso, o script a baixo limpa o cabeçalho do arquivo `fasta` das proteínas. 
+> [!NOTE]
+> Edite o arquivo de proteínas do UniProt para o script `catch_genes.sh` funcionar sem algum problema. Neste caso, o script a baixo limpa o cabeçalho do arquivo `fasta` das proteínas. 
 ```
 $ awk '{print $1}' uniprot_sprot.fasta > uniprot_sprot.fa ; rm uniprot_sprot.fasta
 ```
